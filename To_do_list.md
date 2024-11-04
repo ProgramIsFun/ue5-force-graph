@@ -239,4 +239,11 @@ We use components instead of an actor for each link.
 
 
 
+### 6
+I believe the default PAWN is hard to customize, 
+create a custom characters. 
 
+
+
+### 7
+Get the location of the characters and update the TEXT render component rotation. 
