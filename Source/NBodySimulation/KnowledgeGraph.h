@@ -175,6 +175,9 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	// Turn on logging or not. 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	bool use_logging = false;
 	
 
 	// Every node will be Initialize with position 0. 

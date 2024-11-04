@@ -169,7 +169,7 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 	}
 
 
-	bool log = true;
+	bool log = use_logging;
 
 
 	iterations += 1;
