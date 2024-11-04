@@ -749,16 +749,12 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 
 		if (GPUOutputPositions.Num() != SimParameters.Bodies.Num())
 		{
-			UE_LOG(LogTemp, Warning,
-			       TEXT(
-				       "Size differ for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (%d) Output(%d)"
-			       ), SimParameters.Bodies.Num(), GPUOutputPositions.Num());
-			// qq();
+			ll("Size differ for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" + FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) + ")",true,2);
 			return;
 		}else
 		{
-			ll("Size is same for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" + FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) + ")",true,2);
-			ll("First element position is: " + GPUOutputPositions[0].ToString(),true,2);
+			ll("Size is same for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" + FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) + ")",use_logging,2);
+			ll("First element position is: " + GPUOutputPositions[0].ToString(),use_logging,2);
 		}
 	
 		// QUICK_SCOPE_CYCLE_COUNTER(STAT_SimulationEngine_UpdateBodiesPosition);
