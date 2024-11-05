@@ -263,3 +263,12 @@ Perhaps we could download some first person characters Example to see how it wor
 Deal with import graph function
 
 Accept JSON formats
+
+
+### 9
+
+Add a spawn graph or delete graph function
+
+Perhaps there are some buttons in the left or upper right corner
+
+Also add some buttons that might change the size of the node in the graph
