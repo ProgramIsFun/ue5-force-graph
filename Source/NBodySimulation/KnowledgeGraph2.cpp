@@ -5,8 +5,9 @@
 
 #include "utillllllssss.h"
 #include <map>
-// #include "Misc/FileHelper.h"
-// #include "Serialization/JsonSerializer.h"
+#include "GameFramework/Character.h"
+
+
 
 #define print(text) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 10, FColor::White,text)
 
@@ -771,7 +772,32 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 
 			if (use_text_render_components_fornode)
 			{
+
+				// FVector PlayerLocation = PlayerActor->GetActorLocation();
+				// ll("PlayerLocation111111111: " + PlayerLocation.ToString(), true, 2);
+				// for (UTextRenderComponent* TextComponent : TextComponentList)
+				// {
+				// 	if (TextComponent)
+				// 	{
+				// 		// Compute the direction from the text component to the player.
+				// 		FVector ToPlayer = PlayerLocation - TextComponent->GetComponentLocation();
+				// 		ToPlayer.Normalize();
+    //         
+				// 		// Create a look-at rotation. The second parameter is the up-vector, adjust if needed.
+				// 		FRotator NewRotation = FRotationMatrix::MakeFromX(ToPlayer).Rotator();
+				// 		TextComponent->SetWorldRotation(NewRotation);
+				// 	}
+				// }
 				TextComponents11111111111111111111[i]->SetWorldLocation(FVector(GPUOutputPositions[i]));
+
+
+				if(rotate_to_face_player)
+				{
+					
+				}
+
+
+
 			}
 		}
 

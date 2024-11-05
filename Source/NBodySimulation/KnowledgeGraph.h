@@ -224,6 +224,11 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	TArray<UTextRenderComponent*> TextComponents11111111111111111111;
 
+	// rotation to face the player
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	bool rotate_to_face_player = true;
+	
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -296,6 +301,7 @@ public:
 	
 
 
+	// ACharacter* PlayerActor;
 
 	
 	virtual void BeginPlay() override;

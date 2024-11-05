@@ -7,6 +7,7 @@
 
 // #define ENABLE_LOGGING 1
 #include "utillllllssss.h"
+#include "Kismet/GameplayStatics.h"
 
 #define print(text) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 10, FColor::White,text)
 
@@ -59,6 +60,9 @@ void AKnowledgeGraph::BeginPlay()
 	Super::BeginPlay();
 
 	ClearLogFile();
+
+	// PlayerActor = UGameplayStatics::GetPlayerCharacter(this, 0);
+
 
 
 	if (0)
@@ -236,6 +240,8 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 	}
 	update_Node_world_position_according_to_position_array();
 
+	
+	
 	if (!use_shaders)
 	{
 		ll("update link position", log);
