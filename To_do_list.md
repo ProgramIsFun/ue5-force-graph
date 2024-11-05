@@ -256,6 +256,7 @@ Perhaps we could download some first person characters Example to see how it wor
   - C:\Users\whouse\Desktop\unreal\ue521fpscale37bp
     - https://github.com/everythingallaccount/ue521fpscale37bp 
 
+- https://www.youtube.com/watch?v=SovEiHzHlqU&ab_channel=HarrisonMcGuire
 
 ### 8
 
