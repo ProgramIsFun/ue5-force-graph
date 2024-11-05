@@ -337,6 +337,11 @@ public:
 
 		
 	}
+
+	void s()
+	{
+		FNBodySimModule::Get().EndRendering();
+	}
 	
 	
 };

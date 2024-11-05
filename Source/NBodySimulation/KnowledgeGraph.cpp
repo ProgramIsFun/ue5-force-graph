@@ -95,7 +95,14 @@ void AKnowledgeGraph::BeginPlay()
 	}
 	if (use_instance_static_mesh_fornode)
 	{
-		check(InstancedStaticMeshComponent);
+
+		if(!InstancedStaticMeshComponent)
+		{
+			prechecksucceeded = false;
+			qq();
+			return;
+		}
+		
 	}
 
 
@@ -169,6 +176,7 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 	if (!prechecksucceeded)
 	{
 		ll("prechecksucceeded is false", true, 2);
+		FNBodySimModule::Get().EndRendering();
 		qq();
 		return;
 	}
@@ -188,7 +196,7 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 	if (iterations > maxiterations)
 	{
 		ll("iterations is greater than maxiterations", log);
-		// qq();
+		FNBodySimModule::Get().EndRendering();
 		return;
 	}
 
@@ -198,14 +206,14 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 	if (alpha < alphaMin)
 	{
 		ll("alpha is less than alphaMin", log);
-		// UE_LOG(LogTemp, Warning, TEXT("alpha is less than alphaMin"));
-		// qq();
+		FNBodySimModule::Get().EndRendering();
 		return;
 	}
 
 	alpha += (alphaTarget - alpha) * alphaDecay; //need to restart this if want to keep moving
 	ll("alpha: " + FString::SanitizeFloat(alpha), log);
 
+	
 
 	// GEngine->AddOnScreenDebugMessage(-1, 10, FColor::White, "TICK");
 	if (use_shaders)
