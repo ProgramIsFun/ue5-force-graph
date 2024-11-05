@@ -252,6 +252,6 @@ Perhaps we could download some first person characters Example to see how it wor
 
 - Try the official sample project
   - C:\Users\whouse\Desktop\unreal\ue521fpscale37
-   - https://github.com/everythingallaccount/ue521fpscale37
-  - 
-- 
+    - https://github.com/everythingallaccount/ue521fpscale37
+  - C:\Users\whouse\Desktop\unreal\ue521fpscale37bp
+    - https://github.com/everythingallaccount/ue521fpscale37bp 
