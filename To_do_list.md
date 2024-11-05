@@ -247,3 +247,8 @@ create a custom characters.
 
 ### 7
 Get the location of the characters and update the TEXT render component rotation. 
+
+Perhaps we could download some first person characters Example to see how it works. 
+
+- Try the official sample project
+- 
