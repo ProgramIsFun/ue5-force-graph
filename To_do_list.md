@@ -251,4 +251,7 @@ Get the location of the characters and update the TEXT render component rotation
 Perhaps we could download some first person characters Example to see how it works. 
 
 - Try the official sample project
+  - C:\Users\whouse\Desktop\unreal\ue521fpscale37
+   - https://github.com/everythingallaccount/ue521fpscale37
+  - 
 - 
