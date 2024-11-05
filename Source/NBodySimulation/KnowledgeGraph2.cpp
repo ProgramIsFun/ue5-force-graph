@@ -521,8 +521,6 @@ void AKnowledgeGraph::update_position_array_according_to_velocity_array()
 
 void AKnowledgeGraph::update_link_position()
 {
-	UWorld* World = GetWorld();
-	if (!World) return;
 
 	for (auto& link : all_links2)
 	{
@@ -542,6 +540,9 @@ void AKnowledgeGraph::update_link_position()
 
 		if (usedebuglinetrace)
 		{
+			UWorld* World = GetWorld();
+			if (!World) return;
+
 			DrawDebugLine(
 				World,
 				Location1,
@@ -748,7 +749,7 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 		}
 		// Retrieve GPU computed bodies position.
 		TArray<FVector3f> GPUOutputPositions = FNBodySimModule::Get().GetComputedPositions();
-
+		
 		if (GPUOutputPositions.Num() != SimParameters.Bodies.Num())
 		{
 			ll("Size differ for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" + FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) + ")",true,2);
@@ -764,9 +765,11 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 		// Update bodies visual with new positions.
 		for (int i = 0; i < SimParameters.Bodies.Num(); i++)
 		{
+			FVector NewPosition = FVector(GPUOutputPositions[i]);
+			nodePositions[i] = NewPosition;
 			if (use_instance_static_mesh_fornode)
 			{
-				BodyTransforms[i].SetTranslation(FVector(GPUOutputPositions[i]));
+				BodyTransforms[i].SetTranslation(NewPosition);
 			}
 
 
@@ -774,28 +777,13 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 			{
 				
 				FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
-
-				// FVector PlayerLocation = PlayerActor->GetActorLocation();
-				// ll("PlayerLocation111111111: " + PlayerLocation.ToString(), true, 2);
-				// for (UTextRenderComponent* TextComponent : TextComponentList)
-				// {
-				// 	if (TextComponent)
-				// 	{
-				// 		// Compute the direction from the text component to the player.
-				// 		FVector ToPlayer = PlayerLocation - TextComponent->GetComponentLocation();
-				// 		ToPlayer.Normalize();
-    //         
-				// 		// Create a look-at rotation. The second parameter is the up-vector, adjust if needed.
-				// 		FRotator NewRotation = FRotationMatrix::MakeFromX(ToPlayer).Rotator();
-				// 		TextComponent->SetWorldRotation(NewRotation);
-				// 	}
-				// }
+				
 				TextComponents11111111111111111111[i]->SetWorldLocation(FVector(GPUOutputPositions[i]));
 				
 				if(rotate_to_face_player)
 				{
 					// Compute the direction from the text component to the player.
-					FVector ToPlayer = PlayerLocation - FVector(GPUOutputPositions[i]);
+					FVector ToPlayer = PlayerLocation - NewPosition;
 					ToPlayer.Normalize();
 					        
 					// Create a look-at rotation. The second parameter is the up-vector, adjust if needed.
@@ -870,8 +858,7 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 			
 		Nodeconnection[link.source] += 1;
 		Nodeconnection[link.target] += 1;
-
-
+		
 		if (use_shaders)
 		{
 			connectout[link.source].push_back(link.target);

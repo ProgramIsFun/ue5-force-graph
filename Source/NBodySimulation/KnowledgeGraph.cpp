@@ -251,7 +251,7 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 
 	
 	
-	if (!use_shaders)
+	if (1)
 	{
 		ll("update link position", log);
 		update_link_position();
