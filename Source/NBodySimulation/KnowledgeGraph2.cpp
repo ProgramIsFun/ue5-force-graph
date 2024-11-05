@@ -772,6 +772,8 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 
 			if (use_text_render_components_fornode)
 			{
+				
+				FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
 
 				// FVector PlayerLocation = PlayerActor->GetActorLocation();
 				// ll("PlayerLocation111111111: " + PlayerLocation.ToString(), true, 2);
@@ -789,11 +791,17 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 				// 	}
 				// }
 				TextComponents11111111111111111111[i]->SetWorldLocation(FVector(GPUOutputPositions[i]));
-
-
+				
 				if(rotate_to_face_player)
 				{
-					
+					// Compute the direction from the text component to the player.
+					FVector ToPlayer = PlayerLocation - FVector(GPUOutputPositions[i]);
+					ToPlayer.Normalize();
+					        
+					// Create a look-at rotation. The second parameter is the up-vector, adjust if needed.
+					FRotator NewRotation = FRotationMatrix::MakeFromX(ToPlayer).Rotator();
+					TextComponents11111111111111111111[i]->SetWorldRotation(NewRotation);
+						
 				}
 
 

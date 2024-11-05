@@ -165,6 +165,7 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 	// qq();
 	// return;
 
+	
 	if (!prechecksucceeded)
 	{
 		ll("prechecksucceeded is false", true, 2);
