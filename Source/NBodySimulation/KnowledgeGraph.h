@@ -100,6 +100,8 @@ public:
 	GENERATED_BODY()
 
 
+	
+
 	AKnowledgeGraph();
 	virtual ~AKnowledgeGraph() override;
 	bool prechecksucceeded=true;
@@ -129,6 +131,8 @@ public:
 	TObjectPtr<UInstancedStaticMeshComponent> InstancedStaticMeshComponent;
 
 
+
+	void prepare();
 	void UpdateBodiesPosition();
 	
 	
@@ -302,7 +306,7 @@ public:
 
 
 	// ACharacter* PlayerActor;
-
+	
 	
 	virtual void BeginPlay() override;
 	virtual void BeginDestroy() override;
