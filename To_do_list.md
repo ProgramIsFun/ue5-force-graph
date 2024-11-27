@@ -272,3 +272,59 @@ Add a spawn graph or delete graph function
 Perhaps there are some buttons in the left or upper right corner
 
 Also add some buttons that might change the size of the node in the graph
+
+### 10
+
+Add an import graph function, which the file following, following format. 
+
+```
+{
+    "nodes": [
+        {
+            "id": "c2832bf9-e2b4-4b6c-8654-be2c9a8a145a",
+            "name": "node_0",
+            "__indexColor": "#ec0001",
+            "__bckgDimensions": [
+                13.336030754936925,
+                4.535715779621544
+            ],
+            "index": 0
+        },
+        {
+            "id": "a316c7c1-8048-4d87-8d12-656377de6cfe",
+            "name": "node_1",
+            "__indexColor": "#d80002",
+            "index": 1,
+            "__bckgDimensions": [
+                13.336030754936925,
+                4.535715779621544
+            ]
+        }
+    ],
+    "links": [
+        {
+            "id": "9133370a-05c3-4dee-a192-d2b3eb22368f",
+            "name": "link_9133370a-05c3-4dee-a192-d2b3eb22368f",
+            "__indexColor": "#c40003",
+            "__photons": [
+                {
+                    "__progressRatio": 0.3320000000000009
+                },
+                {
+                    "__progressRatio": 0.5820000000000011
+                },
+                {
+                    "__progressRatio": 0.8320000000000011
+                },
+                {
+                    "__progressRatio": 0.08200000000000095
+                }
+            ],
+            "__controlPoints": null,
+            "index": 0,
+            "source": "c2832bf9-e2b4-4b6c-8654-be2c9a8a145a",
+            "target": "a316c7c1-8048-4d87-8d12-656377de6cfe"
+        }
+    ]
+}
+```
