@@ -133,6 +133,9 @@ public:
 
 
 	void prepare();
+	void Maintick(float DeltaTime);
+
+	
 	void UpdateBodiesPosition();
 	
 	
