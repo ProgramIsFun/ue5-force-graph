@@ -1,8 +1,6 @@
 ## Important change log 
 
-e5756ca4c8fed9f99b2006351ee6edd6c2f8daaf Is the last commit that supports Not using the shader. 
-
-
+- e5756ca4c8fed9f99b2006351ee6edd6c2f8daaf Is the last commit that supports Not using the shader. 
 
 
 ## What is this project?
@@ -45,72 +43,3 @@ It is worse in the following ways
 
 
 
-
-## A introduction to unreal engine 5
-
-1.Characters. Pawns, and Actors: What's the Difference?
-
-They are all CPP classes, which have a very detailed implementation by the epic games in the source code.
-
-When working with Unreal Engine, you'll often encounter the terms Character, Pawn, and Actor. These classes are fundamental building blocks for creating interactive elements within your game world. Here's a brief overview of each class and how they differ:
-
-In Unreal Engine, choosing between Characters, Pawns, and Actors is an important decision that depends on the needs of your game or project. Each has its own unique use case and capabilities:
-
-Characters: Use the Character class when you need an entity that can walk, jump, or have built-in complex movement capabilities. It's useful for player-controlled avatars or NPCs that require dynamic interaction with the game world.
-
-Pawns: Pawns are ideal when you need a controllable entity but do not require the full suite of movement capabilities provided by the Character class. Pawns offer a more lightweight and flexible option for entities that need user input but have custom or unconventional forms of movement.
-
-Actors: Actors are the most general class and should be used for non-controlled objects in your game world. This could range from dynamic objects like moving platforms, to static scenery elements such as trees and buildings. Actors are highly versatile and form the base object for most elements within the game world.
-
-Choosing the right class depends on the functionality you need and how you plan to interact with the object in your game.
-
-2.Where to put the source code?
-
-The source code should be put in the source folder of the project. In a lot of complicated projects, they want to separate the header files and the source files Into two different directories in the source folder.
-
-But in this project, there is no such separations. All the header files and CPP are put in the same folder.
-
-3.How is this project implementing force directed graph work in unreal engine 5?
-
-Basically, it is a cpp class  and it inherits from the Pawns class.
-
-Source/ue544_blankkkkkkkkkk/KnowledgeGraph.cpp
-
-Source/ue544_blankkkkkkkkkk/KnowledgeGraph.h
-
-Usually every actor and all its child's class have a constructor and a destructor, begin play, and tick function.
-
-In the beginplay function, we will initialize everything that we need.
-
-In the tick function, we will update the position of the nodes and the links.
-
-So how to put this in the map that we want to play? We can drag the KnowledgeGraph From the content browser to the map in the middle. And then you see the actor is in the map, because you can look at the right hand side. There is a level editor. And you can see the actor in the world outliner.
-
-![image](https://github.com/user-attachments/assets/2042450f-0d52-4c6f-97e2-a8dc2973de14)
-
-
-4.How to open different maps?
-
-You can open different maps by clicking the file in the content browser.
-
-Content/CreatePlanetsSSS/NewMapPPPPPPP.umap   is the map that looks like in the universe.
-
-5.Usual workflow
-
-Every time we modify the source code, we need to recompile the project.
-
-Because sometimes we want to change the default values of some member variables of some class,
-In order to speed up the workflow, we can add a UPROPERTY() macro in front of the member variable.
-
-https://benui.ca/unreal/uproperty/
-
-
-## Notice
-
-This project is Mainly in git@gitee.com:nameeeee/aaaaaaaaa.git
-
-The project in Other git platform is just a mirror of the project in gitee.
-
-git push -u origin main521:main521github
-
-git push -u origin3gitee main521:main521
