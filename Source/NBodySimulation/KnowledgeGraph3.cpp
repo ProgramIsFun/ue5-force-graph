@@ -4,15 +4,7 @@
 void AKnowledgeGraph::prepare()
 {
 	
-	if (
-		!use_shaders && !use_actor_fornode
-	)
-	{
-		ll("If CPU we must use actor for node for right now. ", 1, 2);
-		prechecksucceeded = false;
-		qq();
-		return;
-	}
+	
 	if (use_instance_static_mesh_fornode)
 	{
 
@@ -39,14 +31,13 @@ void AKnowledgeGraph::prepare()
 		&AKnowledgeGraph::generateGraph
 	);
 
-	if (use_shaders)
-	{
+	
 		SimParameters.Bodies.SetNumUninitialized(
 			jnodes1
 		);
 		BodyTransforms.SetNumUninitialized(
 			jnodes1);
-	}
+	
 
 	timeThisMemberFunction(
 		"AKnowledgeGraph::initializeNodePosition",
@@ -57,21 +48,14 @@ void AKnowledgeGraph::prepare()
 		InstancedStaticMeshComponent->AddInstances(BodyTransforms, false);
 	}
 	
-	if (!use_shaders)
-	{
-		if (0)
-		{
-			update_Node_world_position_according_to_position_array();
-		}
-	}
+	
 
 	timeThisMemberFunction(
 		"AKnowledgeGraph::CalculateBiasstrengthOflinks",
 		&AKnowledgeGraph::CalculateBiasstrengthOflinks);
 
 
-	if (use_shaders)
-	{
+	
 		SimParameters.ViewportWidth = 8000.0;
 		SimParameters.CameraAspectRatio = 1.777778;
 		SimParameters.GravityConstant = 1000.0;
@@ -79,7 +63,7 @@ void AKnowledgeGraph::prepare()
 		FNBodySimModule::Get().BeginRendering();
 		FNBodySimModule::Get().InitWithParameters(SimParameters);
 		
-	}
+	
 
 }
 

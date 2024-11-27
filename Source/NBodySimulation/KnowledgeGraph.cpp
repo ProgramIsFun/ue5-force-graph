@@ -116,9 +116,7 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 
 	
 
-	// GEngine->AddOnScreenDebugMessage(-1, 10, FColor::White, "TICK");
-	if (use_shaders)
-	{
+	
 		if (use_constant_delta_time < 0)
 		{
 			SimParameters.DeltaTime = DeltaTime;
@@ -132,22 +130,8 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 			FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, 1);
 		}
 		
-	}
+	
 
-	if (!use_shaders)
-	{
-
-
-		ll("apply forces", log);
-		ApplyForces();
-
-		ll("update actor location based on velocity", log);
-		update_position_array_according_to_velocity_array();
-
-
-		ll("Logging out The position of the first node: " + nodePositions[0].ToString(), log);
-		
-	}
 	update_Node_world_position_according_to_position_array();
 
 	

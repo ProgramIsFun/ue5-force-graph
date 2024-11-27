@@ -1,5 +1,11 @@
-## What is this project?
+## Important change log 
 
+e5756ca4c8fed9f99b2006351ee6edd6c2f8daaf Is the last commit that supports Not using the shader. 
+
+
+
+
+## What is this project?
 
 A Force-Directed Graph, or Force-Based Graph, is a type of layout commonly used in a variety of application areas: network visualization, large graph visualization, knowledge representation, system management, or mesh visualization.
 

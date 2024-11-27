@@ -95,7 +95,7 @@ class NBODYSIMULATION_API AKnowledgeGraph : public AActor
 {
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool use_shaders = false;
+	bool use_shaders = true;
 
 	GENERATED_BODY()
 
@@ -204,9 +204,6 @@ public:
 	
 	// 2////////////////////
 	
-	// Use a lot of actor Or not
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool use_actor_fornode = true;
 	
 	// The size of Static mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
