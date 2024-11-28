@@ -78,13 +78,17 @@ void AKnowledgeGraph::GenerateFromJSON()
 {
 	const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
 	FString JsonString; //Json converted to FString
-			
+
 	FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
-			
+
 	TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
 	TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
-			
-	if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
+
+	if (
+
+		FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
+
+		JsonObject.IsValid())
 	{
 		//Retrieving an array property and printing each field
 		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
@@ -93,11 +97,11 @@ void AKnowledgeGraph::GenerateFromJSON()
 			auto jobj = jnodes[i]->AsObject();
 			int jid = jobj->GetIntegerField("id");
 			AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
-			
-			
+
+
 			// AddNode(jid, kn, FVector(0, 0, 0));
 		}
-			
+
 		TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("edges");
 		for (int32 i = 0; i < jedges.Num(); i++)
 		{
@@ -105,7 +109,7 @@ void AKnowledgeGraph::GenerateFromJSON()
 			int jid = jobj->GetIntegerField("id");
 			int jsource = jobj->GetIntegerField("source");
 			int jtarget = jobj->GetIntegerField("target");
-			
+
 			AddEdge(jid, jsource, jtarget);
 		}
 	}
@@ -122,8 +126,6 @@ void AKnowledgeGraph::generateGraph()
 	case 0:
 		{
 			GenerateFromJSON();
-
-
 		}
 		break;
 	case 2:
@@ -552,41 +554,39 @@ void AKnowledgeGraph::initializeNodePosition()
 
 void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 {
-	
-		float RandomMass = FMath::FRandRange(
-			20.0
-			,
-			50.0);
+	float RandomMass = FMath::FRandRange(
+		20.0
+		,
+		50.0);
 
-		FVector3f RandomPosition;
-		if (!initialize_with_zero_position)
-		{
-			RandomPosition = FVector3f(RandPointInCircle(
-				1000.0
-			));
-		}
-		else
-		{
-			RandomPosition = FVector3f(0, 0, 0);
-		}
+	FVector3f RandomPosition;
+	if (!initialize_with_zero_position)
+	{
+		RandomPosition = FVector3f(RandPointInCircle(
+			1000.0
+		));
+	}
+	else
+	{
+		RandomPosition = FVector3f(0, 0, 0);
+	}
 
 
-		FVector3f RandomVelocity
-		{
-			0, 0, 0
-		};
+	FVector3f RandomVelocity
+	{
+		0, 0, 0
+	};
 
-		float MeshScale = instance_static_mesh_size;
+	float MeshScale = instance_static_mesh_size;
 
-		FTransform MeshTransform(
-			FRotator(),
-			FVector(RandomPosition),
-			FVector(MeshScale, MeshScale, MeshScale)
-		);
+	FTransform MeshTransform(
+		FRotator(),
+		FVector(RandomPosition),
+		FVector(MeshScale, MeshScale, MeshScale)
+	);
 
-		BodyTransforms[index] = MeshTransform;
-		SimParameters.Bodies[index] = FBodyData(RandomMass, RandomPosition, RandomVelocity);
-	
+	BodyTransforms[index] = MeshTransform;
+	SimParameters.Bodies[index] = FBodyData(RandomMass, RandomPosition, RandomVelocity);
 
 
 	// Calculate index-based radius
@@ -646,63 +646,61 @@ void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 
 void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 {
-	
-		if (iterations == 1)
-		{
-			return;
-		}
-		// Retrieve GPU computed bodies position.
-		TArray<FVector3f> GPUOutputPositions = FNBodySimModule::Get().GetComputedPositions();
+	if (iterations == 1)
+	{
+		return;
+	}
+	// Retrieve GPU computed bodies position.
+	TArray<FVector3f> GPUOutputPositions = FNBodySimModule::Get().GetComputedPositions();
 
-		if (GPUOutputPositions.Num() != SimParameters.Bodies.Num())
-		{
-			ll("Size differ for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" +
-			   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
-			   ")", true, 2);
-			return;
-		}
-		ll("Size is same for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" +
+	if (GPUOutputPositions.Num() != SimParameters.Bodies.Num())
+	{
+		ll("Size differ for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" +
 		   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
-		   ")", use_logging, 2);
-		ll("First element position is: " + GPUOutputPositions[0].ToString(), use_logging, 2);
+		   ")", true, 2);
+		return;
+	}
+	ll("Size is same for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" +
+	   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
+	   ")", use_logging, 2);
+	ll("First element position is: " + GPUOutputPositions[0].ToString(), use_logging, 2);
 
-		// QUICK_SCOPE_CYCLE_COUNTER(STAT_SimulationEngine_UpdateBodiesPosition);
+	// QUICK_SCOPE_CYCLE_COUNTER(STAT_SimulationEngine_UpdateBodiesPosition);
 
-		// Update bodies visual with new positions.
-		for (int i = 0; i < SimParameters.Bodies.Num(); i++)
-		{
-			FVector NewPosition = FVector(GPUOutputPositions[i]);
-			nodePositions[i] = NewPosition;
-			if (use_instance_static_mesh_fornode)
-			{
-				BodyTransforms[i].SetTranslation(NewPosition);
-			}
-
-
-			if (use_text_render_components_fornode)
-			{
-				FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
-
-				TextComponents11111111111111111111[i]->SetWorldLocation(FVector(GPUOutputPositions[i]));
-
-				if (rotate_to_face_player)
-				{
-					// Compute the direction from the text component to the player.
-					FVector ToPlayer = PlayerLocation - NewPosition;
-					ToPlayer.Normalize();
-
-					// Create a look-at rotation. The second parameter is the up-vector, adjust if needed.
-					FRotator NewRotation = FRotationMatrix::MakeFromX(ToPlayer).Rotator();
-					TextComponents11111111111111111111[i]->SetWorldRotation(NewRotation);
-				}
-			}
-		}
-
+	// Update bodies visual with new positions.
+	for (int i = 0; i < SimParameters.Bodies.Num(); i++)
+	{
+		FVector NewPosition = FVector(GPUOutputPositions[i]);
+		nodePositions[i] = NewPosition;
 		if (use_instance_static_mesh_fornode)
 		{
-			InstancedStaticMeshComponent->BatchUpdateInstancesTransforms(0, BodyTransforms, false, true);
+			BodyTransforms[i].SetTranslation(NewPosition);
 		}
-	
+
+
+		if (use_text_render_components_fornode)
+		{
+			FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
+
+			TextComponents11111111111111111111[i]->SetWorldLocation(FVector(GPUOutputPositions[i]));
+
+			if (rotate_to_face_player)
+			{
+				// Compute the direction from the text component to the player.
+				FVector ToPlayer = PlayerLocation - NewPosition;
+				ToPlayer.Normalize();
+
+				// Create a look-at rotation. The second parameter is the up-vector, adjust if needed.
+				FRotator NewRotation = FRotationMatrix::MakeFromX(ToPlayer).Rotator();
+				TextComponents11111111111111111111[i]->SetWorldRotation(NewRotation);
+			}
+		}
+	}
+
+	if (use_instance_static_mesh_fornode)
+	{
+		InstancedStaticMeshComponent->BatchUpdateInstancesTransforms(0, BodyTransforms, false, true);
+	}
 }
 
 void AKnowledgeGraph::CalculateBiasstrengthOflinks()
@@ -719,18 +717,18 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 
 	std::map<int, std::vector<int>> connectout;
 	std::map<int, std::vector<int>> connectin;
-	
-		int m2 = m * 2;
-		SimParameters.NumLinks = m2;
+
+	int m2 = m * 2;
+	SimParameters.NumLinks = m2;
 
 
-		LinkOffsets.SetNumUninitialized(n);
-		LinkCounts.SetNumUninitialized(n);
-		LinkIndices.SetNumUninitialized(m2);
-		LinkStrengths.SetNumUninitialized(m2); // Holds the strength of each link
-		LinkBiases.SetNumUninitialized(m2); // Holds the bias of each link
-		Linkinout.SetNumUninitialized(m2);
-	
+	LinkOffsets.SetNumUninitialized(n);
+	LinkCounts.SetNumUninitialized(n);
+	LinkIndices.SetNumUninitialized(m2);
+	LinkStrengths.SetNumUninitialized(m2); // Holds the strength of each link
+	LinkBiases.SetNumUninitialized(m2); // Holds the bias of each link
+	Linkinout.SetNumUninitialized(m2);
+
 
 	for (auto& link : all_links2)
 	{
@@ -742,92 +740,88 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 		Nodeconnection[link.source] += 1;
 		Nodeconnection[link.target] += 1;
 
-		
-			connectout[link.source].push_back(link.target);
-			connectin[link.target].push_back(link.source);
-		
+
+		connectout[link.source].push_back(link.target);
+		connectin[link.target].push_back(link.source);
 	}
 
 
-	
+	int32 Index = 0;
+	for (int i = 0; i < n; i++)
+	{
+		ll("i: " + FString::FromInt(i), log);
+		int outcount = connectout[i].size();
+		int incount = connectin[i].size();
 
-		int32 Index = 0;
-		for (int i = 0; i < n; i++)
+		ll("outcount: " + FString::FromInt(outcount), log);
+		ll("incount: " + FString::FromInt(incount), log);
+
+		int totalcount = Nodeconnection[i];
+
+		if (totalcount != outcount + incount)
 		{
-			ll("i: " + FString::FromInt(i), log);
-			int outcount = connectout[i].size();
-			int incount = connectin[i].size();
-
-			ll("outcount: " + FString::FromInt(outcount), log);
-			ll("incount: " + FString::FromInt(incount), log);
-
-			int totalcount = Nodeconnection[i];
-
-			if (totalcount != outcount + incount)
-			{
-				ll("totalcount!=outcount+incount", true, 2);
-				qq();
-			}
-
-
-			LinkOffsets[i] = Index;
-
-			ll("LinkOffsets[i]: " + FString::FromInt(LinkOffsets[i]), log);
-
-			LinkCounts[i] = Nodeconnection[i];
-			ll("LinkCounts[i]: " + FString::FromInt(LinkCounts[i]), log);
-
-			for (int j = 0; j < outcount; j++)
-			{
-				int counterpart = connectout[i][j];
-
-				int indexnow = Index + j;
-
-				LinkIndices[
-					indexnow
-				] = counterpart;
-				Linkinout[
-					indexnow
-				] = 1;
-
-				int s1 = Nodeconnection[i];
-				int s2 = Nodeconnection[connectout[i][j]];
-
-				float ttttttttttt = s1 + s2;
-				float bias = s1 / ttttttttttt;
-				LinkBiases[indexnow] = bias;
-				LinkStrengths[indexnow] = 1.0 / fmin(s1,
-				                                     s2);
-			}
-			for (int j = 0; j < incount; j++)
-			{
-				int counterpart = connectin[i][j];
-				int indexnow = Index + outcount + j;
-
-				LinkIndices[indexnow] = counterpart;
-
-				Linkinout[indexnow] = 0;
-
-				int s2 = Nodeconnection[i];
-				int s1 = Nodeconnection[counterpart];
-
-				float ttttttttttt = s1 + s2;
-				float bias = s1 / ttttttttttt;
-				LinkBiases[indexnow] = bias;
-				LinkStrengths[indexnow] = 1.0 / fmin(s1,
-				                                     s2);
-			}
-			Index += Nodeconnection[i];
+			ll("totalcount!=outcount+incount", true, 2);
+			qq();
 		}
 
 
-		SimParameters.LinkOffsets = LinkOffsets;
-		SimParameters.LinkCounts = LinkCounts;
-		SimParameters.LinkIndices = LinkIndices;
-		SimParameters.LinkStrengths = LinkStrengths;
-		SimParameters.LinkBiases = LinkBiases;
-		SimParameters.Linkinout = Linkinout;
-	
+		LinkOffsets[i] = Index;
+
+		ll("LinkOffsets[i]: " + FString::FromInt(LinkOffsets[i]), log);
+
+		LinkCounts[i] = Nodeconnection[i];
+		ll("LinkCounts[i]: " + FString::FromInt(LinkCounts[i]), log);
+
+		for (int j = 0; j < outcount; j++)
+		{
+			int counterpart = connectout[i][j];
+
+			int indexnow = Index + j;
+
+			LinkIndices[
+				indexnow
+			] = counterpart;
+			Linkinout[
+				indexnow
+			] = 1;
+
+			int s1 = Nodeconnection[i];
+			int s2 = Nodeconnection[connectout[i][j]];
+
+			float ttttttttttt = s1 + s2;
+			float bias = s1 / ttttttttttt;
+			LinkBiases[indexnow] = bias;
+			LinkStrengths[indexnow] = 1.0 / fmin(s1,
+			                                     s2);
+		}
+		for (int j = 0; j < incount; j++)
+		{
+			int counterpart = connectin[i][j];
+			int indexnow = Index + outcount + j;
+
+			LinkIndices[indexnow] = counterpart;
+
+			Linkinout[indexnow] = 0;
+
+			int s2 = Nodeconnection[i];
+			int s1 = Nodeconnection[counterpart];
+
+			float ttttttttttt = s1 + s2;
+			float bias = s1 / ttttttttttt;
+			LinkBiases[indexnow] = bias;
+			LinkStrengths[indexnow] = 1.0 / fmin(s1,
+			                                     s2);
+		}
+		Index += Nodeconnection[i];
+	}
+
+
+	SimParameters.LinkOffsets = LinkOffsets;
+	SimParameters.LinkCounts = LinkCounts;
+	SimParameters.LinkIndices = LinkIndices;
+	SimParameters.LinkStrengths = LinkStrengths;
+	SimParameters.LinkBiases = LinkBiases;
+	SimParameters.Linkinout = Linkinout;
 }
 
 
