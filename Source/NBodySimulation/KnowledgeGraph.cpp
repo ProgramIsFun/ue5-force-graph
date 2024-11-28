@@ -2,12 +2,7 @@
 
 
 #include "KnowledgeGraph.h"
-
-#include <random>
-
-// #define ENABLE_LOGGING 1
 #include "utillllllssss.h"
-#include "Kismet/GameplayStatics.h"
 
 #define print(text) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 10, FColor::White,text)
 
