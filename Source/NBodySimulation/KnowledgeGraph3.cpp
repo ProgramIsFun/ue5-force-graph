@@ -3,18 +3,14 @@
 
 void AKnowledgeGraph::prepare()
 {
-	
-	
 	if (use_instance_static_mesh_fornode)
 	{
-
-		if(!InstancedStaticMeshComponent)
+		if (!InstancedStaticMeshComponent)
 		{
 			prechecksucceeded = false;
 			qq();
 			return;
 		}
-		
 	}
 
 
@@ -31,13 +27,13 @@ void AKnowledgeGraph::prepare()
 		&AKnowledgeGraph::generateGraph
 	);
 
-	
-		SimParameters.Bodies.SetNumUninitialized(
-			jnodes1
-		);
-		BodyTransforms.SetNumUninitialized(
-			jnodes1);
-	
+
+	SimParameters.Bodies.SetNumUninitialized(
+		jnodes1
+	);
+	BodyTransforms.SetNumUninitialized(
+		jnodes1);
+
 
 	timeThisMemberFunction(
 		"AKnowledgeGraph::initializeNodePosition",
@@ -47,29 +43,23 @@ void AKnowledgeGraph::prepare()
 	{
 		InstancedStaticMeshComponent->AddInstances(BodyTransforms, false);
 	}
-	
-	
+
 
 	timeThisMemberFunction(
 		"AKnowledgeGraph::CalculateBiasstrengthOflinks",
 		&AKnowledgeGraph::CalculateBiasstrengthOflinks);
 
 
-	
-		SimParameters.ViewportWidth = 8000.0;
-		SimParameters.CameraAspectRatio = 1.777778;
-		SimParameters.GravityConstant = 1000.0;
-		SimParameters.NumBodies = jnodes1;
-		FNBodySimModule::Get().BeginRendering();
-		FNBodySimModule::Get().InitWithParameters(SimParameters);
-		
-	
-
+	SimParameters.ViewportWidth = 8000.0;
+	SimParameters.CameraAspectRatio = 1.777778;
+	SimParameters.GravityConstant = 1000.0;
+	SimParameters.NumBodies = jnodes1;
+	FNBodySimModule::Get().BeginRendering();
+	FNBodySimModule::Get().InitWithParameters(SimParameters);
 }
 
 void AKnowledgeGraph::Maintick(float DeltaTime)
 {
-
 	if (!prechecksucceeded)
 	{
 		ll("prechecksucceeded is false", true, 2);
@@ -110,14 +100,11 @@ void AKnowledgeGraph::Maintick(float DeltaTime)
 	alpha += (alphaTarget - alpha) * alphaDecay; //need to restart this if want to keep moving
 	ll("alpha: " + FString::SanitizeFloat(alpha), log);
 
-	
 
-	
 	if (use_constant_delta_time < 0)
 	{
 		SimParameters.DeltaTime = DeltaTime;
 		FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, 1);
-			
 	}
 	else
 	{
@@ -125,23 +112,18 @@ void AKnowledgeGraph::Maintick(float DeltaTime)
 		SimParameters.DeltaTime = DeltaTime;
 		FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, 1);
 	}
-		
-	
+
 
 	update_Node_world_position_according_to_position_array();
 
-	
-	
-	if (1)
+
+	if (true)
 	{
 		ll("update link position", log);
 		update_link_position();
 	}
-
-	
 }
 
 void AKnowledgeGraph::UpdateBodiesPosition()
 {
-	
 }

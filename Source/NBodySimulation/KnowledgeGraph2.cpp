@@ -1,12 +1,7 @@
 #include "KnowledgeGraph.h"
-
 #include <random>
-
-
 #include "utillllllssss.h"
 #include <map>
-#include "GameFramework/Character.h"
-
 
 #define print(text) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 10, FColor::White,text)
 
@@ -85,43 +80,45 @@ void AKnowledgeGraph::generateGraph()
 	{
 	case 0:
 		{
-			// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
-			// FString JsonString; //Json converted to FString
-			//
-			// FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
-			//
-			// TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
-			// TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
-			//
-			// if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-			// {
-			// 	//Retrieving an array property and printing each field
-			// 	TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
-			// 	for (int32 i = 0; i < jnodes.Num(); i++)
-			// 	{
-			// 		auto jobj = jnodes[i]->AsObject();
-			// 		int jid = jobj->GetIntegerField("id");
-			// 		AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
-			//
-			//
-			// 		// AddNode(jid, kn, FVector(0, 0, 0));
-			// 	}
-			//
-			// 	TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("edges");
-			// 	for (int32 i = 0; i < jedges.Num(); i++)
-			// 	{
-			// 		auto jobj = jedges[i]->AsObject();
-			// 		int jid = jobj->GetIntegerField("id");
-			// 		int jsource = jobj->GetIntegerField("source");
-			// 		int jtarget = jobj->GetIntegerField("target");
-			//
-			// 		AddEdge(jid, jsource, jtarget);
-			// 	}
-			// }
-			// else
-			// {
-			// 	UE_LOG(LogTemp, Warning, TEXT("JSON PARSING FAILED"));
-			// }
+			const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
+			FString JsonString; //Json converted to FString
+			
+			FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
+			
+			TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
+			TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
+			
+			if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
+			{
+				//Retrieving an array property and printing each field
+				TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+				for (int32 i = 0; i < jnodes.Num(); i++)
+				{
+					auto jobj = jnodes[i]->AsObject();
+					int jid = jobj->GetIntegerField("id");
+					AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
+			
+			
+					// AddNode(jid, kn, FVector(0, 0, 0));
+				}
+			
+				TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("edges");
+				for (int32 i = 0; i < jedges.Num(); i++)
+				{
+					auto jobj = jedges[i]->AsObject();
+					int jid = jobj->GetIntegerField("id");
+					int jsource = jobj->GetIntegerField("source");
+					int jtarget = jobj->GetIntegerField("target");
+			
+					AddEdge(jid, jsource, jtarget);
+				}
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("JSON PARSING FAILED"));
+			}
+
+
 		}
 		break;
 	case 2:

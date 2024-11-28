@@ -19,9 +19,22 @@ public class NBodySimulation : ModuleRules
 			}
 		);
 		
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[]
+		{
+			"Core", 
+			"CoreUObject", 
+			"Engine", 
+			"InputCore",
+			
+			// The following are for JSON 
+			"Json", "JsonUtilities"
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "NBodySim", "RHI" });
+		});
+
+		PrivateDependencyModuleNames.AddRange(
+			new string[] { "NBodySim", 
+				"RHI" }
+			);
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
