@@ -6,138 +6,125 @@
 #define print(text) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 10, FColor::White,text)
 
 
-void AKnowledgeGraph::defaultGenerateGraphMethod()
+void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 {
-	bool log = true;
-
-
-	nodePositions.SetNumUninitialized(jnodes1);
-	nodeVelocities.SetNumUninitialized(jnodes1);
-	all_nodes2.SetNumUninitialized(jnodes1);
-	for (FVector& velocity : nodeVelocities)
+	if (mode==2)
 	{
-		velocity.X = 0.0f;
-		velocity.Y = 0.0f;
-		velocity.Z = 0.0f;
-	}
+		bool log = true;
 
-	//Retrieving an array property and printing each field
-	int jnodes11 = jnodes1;
-	for (int32 i = 0; i < jnodes11; i++)
-	{
-		if (use_text_render_components_fornode)
+
+		nodePositions.SetNumUninitialized(jnodes1);
+		nodeVelocities.SetNumUninitialized(jnodes1);
+		all_nodes2.SetNumUninitialized(jnodes1);
+		for (FVector& velocity : nodeVelocities)
 		{
-			UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
-				this, FName("TextComponent" + FString::FromInt(i))
-			);
-			if (TextComponent)
-			{
-				TextComponent->SetText(FText::FromString("Sample Text : " + FString::FromInt(i)));
-				TextComponent->SetupAttachment(RootComponent);
-				TextComponent->SetWorldSize(text_size);
-				TextComponent->RegisterComponent(); // This is important to initialize the component
+			velocity.X = 0.0f;
+			velocity.Y = 0.0f;
+			velocity.Z = 0.0f;
+		}
 
-				TextComponents11111111111111111111.Add(TextComponent);
-				// Assuming TextComponents is a valid TArray<UTextRenderComponent*>
+		int jnodes11 = jnodes1;
+		for (int32 i = 0; i < jnodes11; i++)
+		{
+			if (use_text_render_components_fornode)
+			{
+				UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
+					this, FName("TextComponent" + FString::FromInt(i))
+				);
+				if (TextComponent)
+				{
+					TextComponent->SetText(FText::FromString("Sample Text : " + FString::FromInt(i)));
+					TextComponent->SetupAttachment(RootComponent);
+					TextComponent->SetWorldSize(text_size);
+					TextComponent->RegisterComponent(); // This is important to initialize the component
+
+					TextComponents11111111111111111111.Add(TextComponent);
+					// Assuming TextComponents is a valid TArray<UTextRenderComponent*>
+				}
+			}
+		}
+
+
+		// Edge creation loop
+		int jedges11 = jnodes11; // Adjust the number of edges as needed to ensure coverage
+		if (!connect_to_previous)
+		{
+			for (int32 i = 1; i < jedges11; i++)
+			{
+				int jid = i - 1;
+				int jsource = i; // Ensures jsource is always valid within the index range
+
+				// Connected to random node 
+				int jtarget = FMath::RandRange(0, i - 1);
+				AddEdge(jid, jsource, jtarget);
+			}
+		}
+		else
+		{
+			ll("Randomly connected is disabled    will always connect to the previous node. ", log);
+			for (int32 i = 1; i < jedges11; i++)
+			{
+				int jid = i - 1;
+				int jsource = i; // Ensures jsource is always valid within the index range
+
+				// Connected to random node 
+				int jtarget = i - 1;
+				AddEdge(jid, jsource, jtarget);
 			}
 		}
 	}
-
-
-	// Edge creation loop
-	int jedges11 = jnodes11; // Adjust the number of edges as needed to ensure coverage
-	if (!connect_to_previous)
-	{
-		for (int32 i = 1; i < jedges11; i++)
-		{
-			int jid = i - 1;
-			int jsource = i; // Ensures jsource is always valid within the index range
-
-			// Connected to random node 
-			int jtarget = FMath::RandRange(0, i - 1);
-			AddEdge(jid, jsource, jtarget);
-		}
-	}
 	else
 	{
-		ll("Randomly connected is disabled    will always connect to the previous node. ", log);
-		for (int32 i = 1; i < jedges11; i++)
-		{
-			int jid = i - 1;
-			int jsource = i; // Ensures jsource is always valid within the index range
+		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
+		FString JsonString; //Json converted to FString
 
-			// Connected to random node 
-			int jtarget = i - 1;
-			AddEdge(jid, jsource, jtarget);
+		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
+
+		TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
+		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
+
+		if (
+
+			FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
+
+			JsonObject.IsValid())
+		{
+			//Retrieving an array property and printing each field
+			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+			for (int32 i = 0; i < jnodes.Num(); i++)
+			{
+				auto jobj = jnodes[i]->AsObject();
+				int jid = jobj->GetIntegerField("id");
+				AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
+
+
+				// AddNode(jid, kn, FVector(0, 0, 0));
+			}
+
+			TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("edges");
+			for (int32 i = 0; i < jedges.Num(); i++)
+			{
+				auto jobj = jedges[i]->AsObject();
+				int jid = jobj->GetIntegerField("id");
+				int jsource = jobj->GetIntegerField("source");
+				int jtarget = jobj->GetIntegerField("target");
+
+				AddEdge(jid, jsource, jtarget);
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("JSON PARSING FAILED"));
 		}
 	}
 }
 
-
-void AKnowledgeGraph::GenerateFromJSON()
-{
-	const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
-	FString JsonString; //Json converted to FString
-
-	FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
-
-	TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
-	TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
-
-	if (
-
-		FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
-
-		JsonObject.IsValid())
-	{
-		//Retrieving an array property and printing each field
-		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
-		for (int32 i = 0; i < jnodes.Num(); i++)
-		{
-			auto jobj = jnodes[i]->AsObject();
-			int jid = jobj->GetIntegerField("id");
-			AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
-
-
-			// AddNode(jid, kn, FVector(0, 0, 0));
-		}
-
-		TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("edges");
-		for (int32 i = 0; i < jedges.Num(); i++)
-		{
-			auto jobj = jedges[i]->AsObject();
-			int jid = jobj->GetIntegerField("id");
-			int jsource = jobj->GetIntegerField("source");
-			int jtarget = jobj->GetIntegerField("target");
-
-			AddEdge(jid, jsource, jtarget);
-		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("JSON PARSING FAILED"));
-	}
-}
 
 void AKnowledgeGraph::generateGraph()
 {
-	switch (wayofinitnodeslinks)
-	{
-	case 0:
-		{
-			GenerateFromJSON();
-		}
-		break;
-	case 2:
-		{
-			defaultGenerateGraphMethod();
-		}
-		break;
-	default:
-		{
-			defaultGenerateGraphMethod();
-		}
-	}
+	
+	defaultGenerateGraphMethod(wayofinitnodeslinks);
+	
 }
 
 

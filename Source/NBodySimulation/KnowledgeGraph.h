@@ -138,12 +138,9 @@ public:
 	
 	void UpdateBodiesPosition();
 	
-	
-	void GenerateConnectedGraph(int32 NumClusters, int32 NodesPerCluster);
-
 
 	void generateGraph();
-	void defaultGenerateGraphMethod();
+	void defaultGenerateGraphMethod(int mode);
 	void GenerateFromJSON();
 
 
