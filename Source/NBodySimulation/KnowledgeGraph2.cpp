@@ -91,25 +91,63 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 		{
 			//Retrieving an array property and printing each field
 			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+
+			int32 index = 0;
 			for (int32 i = 0; i < jnodes.Num(); i++)
 			{
 				auto jobj = jnodes[i]->AsObject();
-				int jid = jobj->GetIntegerField("id");
-				AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
 
+				FString jid;
+				if (0)
+				{
+					// int jid = jobj->GetIntegerField("id");
+				}
+				else
+				{
+					jid =jobj->GetStringField("id");
 
-				// AddNode(jid, kn, FVector(0, 0, 0));
+					string_to_id.Emplace(jid, index);
+					id_to_string.Emplace(index, jid);
+				}
+
+				
+				index=index+1;
 			}
 
-			TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("edges");
+			
+			// TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("edges");
+			TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("links");
+
+
 			for (int32 i = 0; i < jedges.Num(); i++)
 			{
 				auto jobj = jedges[i]->AsObject();
-				int jid = jobj->GetIntegerField("id");
-				int jsource = jobj->GetIntegerField("source");
-				int jtarget = jobj->GetIntegerField("target");
 
-				AddEdge(jid, jsource, jtarget);
+				FString jid;
+				if (0)
+				{
+					// int jid = jobj->GetIntegerField("id");
+				}
+				else
+				{
+					jid =jobj->GetStringField("id");
+				}
+
+				int jsource;
+				int jtarget;
+				if (0)
+				{
+					jsource = jobj->GetIntegerField("source");
+					jtarget = jobj->GetIntegerField("target");
+				}
+				else
+				{
+					FString jsourceS=jobj->GetStringField("source");
+					FString jtargetS=jobj->GetStringField("target");
+					jsource=string_to_id[jsourceS];
+					jtarget=string_to_id[jtargetS];
+				}
+				AddEdge(0, jsource, jtarget);
 			}
 		}
 		else

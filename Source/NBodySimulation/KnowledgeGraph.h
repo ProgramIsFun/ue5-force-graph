@@ -107,10 +107,24 @@ public:
 	bool prechecksucceeded=true;
 
 
+	// Integer ID to original string ID. 
+	TMap<int32, FString> id_to_string;
+
+
+	// Original string ID to integer ID.
+	TMap<FString, int32> string_to_id;
+
+
+	// TMap<int32, FString> id_to_string2;
+	//
+	// TMap<FString, int32> string_to_id2;
+
+
+
+	
 	// TMap<int32, AKnowledgeNode*> all_nodes1;
 
 	TArray<Node> all_nodes2;
-
 	
 	TArray<FVector> nodePositions;
 	TArray<FVector> nodeVelocities;
@@ -118,8 +132,7 @@ public:
 	TArray<Link> all_links2;
 
 	OctreeNode* OctreeData2;
-
-
+	
 	TArray<double> ElapsedTimes;
 
 	FNBodySimParameters SimParameters;
