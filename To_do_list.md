@@ -89,16 +89,6 @@ other threads on the ID that have very less connected nodes.
 
 For the center force, This could be ignored for now.
 
-
-
-
-
-### 3
-
-Try to run the shaders when there are only two elements to see whether they compute the value correctly.
-
-Perhaps need to add additional debugger of the shader, because sometimes it returns NAN.
-
 ### 4
 
 add the link force
@@ -230,15 +220,6 @@ Perhaps need to find an example which use a buffer of a custom struct.
 
 
 
-
-
-
-### 5
-It take too much time for generating too much actor for each link.
-We use components instead of an actor for each link.
-
-
-
 ### 6
 I believe the default PAWN is hard to customize, 
 create a custom characters. 
@@ -257,13 +238,6 @@ Perhaps we could download some first person characters Example to see how it wor
     - https://github.com/everythingallaccount/ue521fpscale37bp 
 
 - https://www.youtube.com/watch?v=SovEiHzHlqU&ab_channel=HarrisonMcGuire
-
-### 8
-
-Deal with import graph function
-
-Accept JSON formats
-
 
 ### 9
 
