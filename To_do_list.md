@@ -368,6 +368,13 @@ And check. graph could render correctly.
 It is checked that using cpu could render the graph correctly
 C:\Users\whouse\Desktop\unreal\UE5_NBodySimulationBUGtest
 
+
+Checking the output when using shaders. 
+It seems that the first few iteration is good, but however, 
+the location of the 1st element become exponentially large in the iteration after. 
+
+
+
 ### 11
 
 Every time I finish compelling, I change the program will crash.
