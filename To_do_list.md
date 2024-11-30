@@ -357,6 +357,13 @@ continue to use the old code from the old project
 Check the original source code of the UE44 square to see how it read a Json object.
 
 
+
+
+### 8
+
+The result is render incorrectly if the Jason file is large, perhaps switch back to CPU
+And check. graph could render correctly. 
+
 ### 11
 
 Every time I finish compelling, I change the program will crash.

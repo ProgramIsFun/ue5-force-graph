@@ -146,6 +146,7 @@ public:
 
 
 	void prepare();
+	void update_Node(float DeltaTime);
 	void Maintick(float DeltaTime);
 
 	

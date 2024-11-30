@@ -58,6 +58,24 @@ void AKnowledgeGraph::prepare()
 	FNBodySimModule::Get().InitWithParameters(SimParameters);
 }
 
+void AKnowledgeGraph::update_Node(float DeltaTime)
+{
+	if (use_constant_delta_time < 0)
+	{
+		SimParameters.DeltaTime = DeltaTime;
+		FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, 1);
+	}
+	else
+	{
+		float DeltaTime = use_constant_delta_time;
+		SimParameters.DeltaTime = DeltaTime;
+		FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, 1);
+	}
+
+
+	update_Node_world_position_according_to_position_array();
+}
+
 void AKnowledgeGraph::Maintick(float DeltaTime)
 {
 	if (!prechecksucceeded)
@@ -94,6 +112,10 @@ void AKnowledgeGraph::Maintick(float DeltaTime)
 	{
 		ll("alpha is less than alphaMin", log);
 		FNBodySimModule::Get().EndRendering();
+		if (usedebuglinetrace)
+		{
+			update_link_position();
+		}
 		return;
 	}
 
@@ -101,27 +123,11 @@ void AKnowledgeGraph::Maintick(float DeltaTime)
 	ll("alpha: " + FString::SanitizeFloat(alpha), log);
 
 
-	if (use_constant_delta_time < 0)
-	{
-		SimParameters.DeltaTime = DeltaTime;
-		FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, 1);
-	}
-	else
-	{
-		float DeltaTime = use_constant_delta_time;
-		SimParameters.DeltaTime = DeltaTime;
-		FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, 1);
-	}
+	update_Node(DeltaTime);
 
 
-	update_Node_world_position_according_to_position_array();
-
-
-	if (true)
-	{
-		ll("update link position", log);
-		update_link_position();
-	}
+	ll("update link position", log);
+	update_link_position();
 }
 
 void AKnowledgeGraph::UpdateBodiesPosition()

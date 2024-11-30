@@ -163,7 +163,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 			
 			// TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("edges");
 			TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("links");
-
+			ll("jedges.Num(): " + FString::FromInt(jedges.Num()), log);
 
 			for (int32 i = 0; i < jedges.Num(); i++)
 			{
@@ -193,6 +193,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 					jsource=string_to_id[jsourceS];
 					jtarget=string_to_id[jtargetS];
 				}
+				ll("jsource: " + FString::FromInt(jsource)+", jtarget: " + FString::FromInt(jtarget), log);
 				AddEdge(0, jsource, jtarget);
 			}
 		}
