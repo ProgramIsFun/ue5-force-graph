@@ -198,6 +198,8 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 		else
 		{
 			UE_LOG(LogTemp, Warning, TEXT("JSON PARSING FAILED"));
+			qq();
+			return;
 		}
 	}
 
