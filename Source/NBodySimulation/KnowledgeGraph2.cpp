@@ -9,11 +9,11 @@
 void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 {
 
+	bool log = true;
 
 	
 	if (mode==2)
 	{
-		bool log = true;
 
 		jnodessss=jnodes1;
 		
@@ -69,7 +69,10 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 	}
 	else
 	{
-		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
+		// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
+
+		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state.json";
+
 		FString JsonString; //Json converted to FString
 
 		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
@@ -89,7 +92,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 			int32 index = 0;
 			int32 jnodesNum = jnodes.Num();
 			jnodessss=jnodesNum;
-
+			ll("jnodesNum111111111111111111: " + FString::FromInt(jnodesNum), log);
 			
 			for (int32 i = 0; i < jnodesNum; i++)
 			{
@@ -103,7 +106,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 				else
 				{
 					jid =jobj->GetStringField("id");
-
+					ll("jid: " + jid, log);
 					string_to_id.Emplace(jid, index);
 					id_to_string.Emplace(index, jid);
 				}
