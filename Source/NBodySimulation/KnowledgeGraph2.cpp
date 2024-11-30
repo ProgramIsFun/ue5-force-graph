@@ -8,23 +8,20 @@
 
 void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 {
+	// Number of node to initialize. 
+	int32 jnodessss;
+
+
+	
 	if (mode==2)
 	{
 		bool log = true;
 
+		jnodessss=jnodes1;
+		
 
-		nodePositions.SetNumUninitialized(jnodes1);
-		nodeVelocities.SetNumUninitialized(jnodes1);
-		all_nodes2.SetNumUninitialized(jnodes1);
-		for (FVector& velocity : nodeVelocities)
-		{
-			velocity.X = 0.0f;
-			velocity.Y = 0.0f;
-			velocity.Z = 0.0f;
-		}
-
-		int jnodes11 = jnodes1;
-		for (int32 i = 0; i < jnodes11; i++)
+		
+		for (int32 i = 0; i < jnodessss; i++)
 		{
 			if (use_text_render_components_fornode)
 			{
@@ -46,10 +43,9 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 
 
 		// Edge creation loop
-		int jedges11 = jnodes11; // Adjust the number of edges as needed to ensure coverage
 		if (!connect_to_previous)
 		{
-			for (int32 i = 1; i < jedges11; i++)
+			for (int32 i = 1; i < jnodessss; i++)
 			{
 				int jid = i - 1;
 				int jsource = i; // Ensures jsource is always valid within the index range
@@ -62,7 +58,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 		else
 		{
 			ll("Randomly connected is disabled    will always connect to the previous node. ", log);
-			for (int32 i = 1; i < jedges11; i++)
+			for (int32 i = 1; i < jnodessss; i++)
 			{
 				int jid = i - 1;
 				int jsource = i; // Ensures jsource is always valid within the index range
@@ -93,7 +89,11 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 
 			int32 index = 0;
-			for (int32 i = 0; i < jnodes.Num(); i++)
+			int32 jnodesNum = jnodes.Num();
+			jnodessss=jnodesNum;
+
+			
+			for (int32 i = 0; i < jnodesNum; i++)
 			{
 				auto jobj = jnodes[i]->AsObject();
 
@@ -110,6 +110,51 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 					id_to_string.Emplace(index, jid);
 				}
 
+
+				
+
+				if (use_text_render_components_fornode)
+				{
+					UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
+						this, FName("T1111111111111extComponent" + FString::FromInt(i))
+					);
+					if (TextComponent)
+					{
+						try
+						{
+							FString name= jobj->GetStringField("name");
+							TextComponent->SetText(
+							FText::FromString(name)
+							);
+						}
+						catch (...)
+						{
+							TextComponent->SetText(
+							FText::FromString("Sample Text : " + FString::FromInt(i))
+							);
+						}
+						
+						TextComponent->SetupAttachment(RootComponent);
+						TextComponent->SetWorldSize(text_size);
+						TextComponent->RegisterComponent(); // This is important to initialize the component
+
+						TextComponents11111111111111111111.Add(TextComponent);
+					}
+				}
+
+
+
+
+
+
+
+
+
+
+
+
+
+				
 				
 				index=index+1;
 			}
@@ -154,6 +199,17 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("JSON PARSING FAILED"));
 		}
+	}
+
+	
+	nodePositions.SetNumUninitialized(jnodessss);
+	nodeVelocities.SetNumUninitialized(jnodessss);
+	all_nodes2.SetNumUninitialized(jnodessss);
+	for (FVector& velocity : nodeVelocities)
+	{
+		velocity.X = 0.0f;
+		velocity.Y = 0.0f;
+		velocity.Z = 0.0f;
 	}
 }
 
