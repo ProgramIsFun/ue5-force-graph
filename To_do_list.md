@@ -361,5 +361,9 @@ Check the original source code of the UE44 square to see how it read a Json obje
 
 Every time I finish compelling, I change the program will crash.
 
+Either enabled the symbol of debugging to track what happened.
+
+Or. 
+
 Try to start a new project and migrate to that new project. 
   
