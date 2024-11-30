@@ -102,6 +102,10 @@ void AKnowledgeGraph::Maintick(float DeltaTime)
 	{
 		ll("iterations is greater than maxiterations", log);
 		FNBodySimModule::Get().EndRendering();
+		if (usedebuglinetrace)
+		{
+			update_link_position();
+		}
 		return;
 	}
 
