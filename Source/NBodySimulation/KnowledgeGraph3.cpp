@@ -29,10 +29,10 @@ void AKnowledgeGraph::prepare()
 
 
 	SimParameters.Bodies.SetNumUninitialized(
-		jnodes1
+		jnodessss
 	);
 	BodyTransforms.SetNumUninitialized(
-		jnodes1);
+		jnodessss);
 
 
 	timeThisMemberFunction(
@@ -53,7 +53,7 @@ void AKnowledgeGraph::prepare()
 	SimParameters.ViewportWidth = 8000.0;
 	SimParameters.CameraAspectRatio = 1.777778;
 	SimParameters.GravityConstant = 1000.0;
-	SimParameters.NumBodies = jnodes1;
+	SimParameters.NumBodies = jnodessss;
 	FNBodySimModule::Get().BeginRendering();
 	FNBodySimModule::Get().InitWithParameters(SimParameters);
 }

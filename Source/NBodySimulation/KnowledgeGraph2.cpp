@@ -8,8 +8,6 @@
 
 void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 {
-	// Number of node to initialize. 
-	int32 jnodessss;
 
 
 	
@@ -607,7 +605,7 @@ void AKnowledgeGraph::initializeNodePosition()
 		// 		index);
 		// }
 		for (
-			int32 index = 0; index < jnodes1; index++
+			int32 index = 0; index < jnodessss; index++
 		)
 		{
 			initializeNodePosition_Individual(
@@ -626,7 +624,7 @@ void AKnowledgeGraph::initializeNodePosition()
 		// );
 
 		ParallelFor(
-			jnodes1, [&](int32 index)
+			jnodessss, [&](int32 index)
 			{
 				initializeNodePosition_Individual(
 					index);

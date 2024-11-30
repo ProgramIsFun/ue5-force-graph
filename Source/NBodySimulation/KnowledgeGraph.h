@@ -177,7 +177,10 @@ public:
 	void update_link_position();
 
 
+	int32 jnodessss;
 
+
+	
 	/////////////////////////////////////////////////////////////////////////////////
 
 	TArray<int> LinkOffsets;  // Holds the offset for each body
@@ -186,13 +189,8 @@ public:
 	TArray<float> LinkStrengths;  // Holds the strength of each link
 	TArray<float> LinkBiases;     // Holds the bias of each link
 	TArray<int> Linkinout;  
-
-
-
-
-
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Turn on logging or not. 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_logging = false;
@@ -204,6 +202,7 @@ public:
 
 
 
+	
 	
 	// Every node will be Initialize with position 0. 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
