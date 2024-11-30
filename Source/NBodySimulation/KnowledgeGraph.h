@@ -197,7 +197,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_logging = false;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	int32 wayofinitnodeslinks = 2;
 
+
+
+
+
+	
 	// Every node will be Initialize with position 0. 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool initialize_with_zero_position = false;
@@ -266,7 +273,7 @@ public:
 
 
 
-
+	
 
 
 	// If want to use constant delta time
@@ -303,7 +310,6 @@ public:
 	float iterations = 0;
 	float alphaMin = 0.001;
 	float alphaDecay = 1 - FMath::Pow(alphaMin, 1.0 / 300);
-	int32 wayofinitnodeslinks = 2;
 	float edgeDistance = 30;
 	float nodeStrength = -60;
 	float distancemin = 1;
