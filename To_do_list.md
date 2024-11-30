@@ -361,8 +361,12 @@ Check the original source code of the UE44 square to see how it read a Json obje
 
 ### 8
 
-The result is render incorrectly if the Jason file is large, perhaps switch back to CPU
+The result is render incorrectly if the Jason file is large, 
+perhaps switch back to CPU
 And check. graph could render correctly. 
+
+It is checked that using cpu could render the graph correctly
+C:\Users\whouse\Desktop\unreal\UE5_NBodySimulationBUGtest
 
 ### 11
 
