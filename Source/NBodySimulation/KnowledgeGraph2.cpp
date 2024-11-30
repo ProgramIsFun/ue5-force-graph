@@ -142,21 +142,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 						TextComponents11111111111111111111.Add(TextComponent);
 					}
 				}
-
-
-
-
-
-
-
-
-
-
-
-
-
-				
-				
 				index=index+1;
 			}
 
@@ -176,7 +161,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod(int mode)
 				}
 				else
 				{
-					jid =jobj->GetStringField("id");
+					// jid =jobj->GetStringField("id");
 				}
 
 				int jsource;
