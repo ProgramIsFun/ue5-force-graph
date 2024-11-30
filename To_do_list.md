@@ -355,4 +355,11 @@ Below is the format that the current cold can handled
 continue to use the old code from the old project
 
 Check the original source code of the UE44 square to see how it read a Json object.
+
+
+### 11
+
+Every time I finish compelling, I change the program will crash.
+
+Try to start a new project and migrate to that new project. 
   
