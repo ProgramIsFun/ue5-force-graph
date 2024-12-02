@@ -376,6 +376,7 @@ C:\Users\whouse\Desktop\unreal\UE5_NBodySimulationBUGtest
 We could first check whether the BIAS
 and the information of the link is calculated correctly and compared between the CPU and the shader version.
 
+We could also use a python to generate a large JSON to see whether it could render correctly. 
 
 
 ### 
