@@ -359,29 +359,15 @@ Check the original source code of the UE44 square to see how it read a Json obje
 
 
 
-### 8
-
-The result is render incorrectly if the Jason file is large, 
-perhaps switch back to CPU
-And check. graph could render correctly. 
-
-It is checked that using cpu could render the graph correctly
-C:\Users\whouse\Desktop\unreal\UE5_NBodySimulationBUGtest
-
-
-Checking the output when using shaders. 
-It seems that the first few iteration is good, but however, 
-the location of the 1st element become exponentially large in the iteration after. 
-
-
-
+### 8  the rendering of the graph is incorrect when using shader, when importing the structure from JSON.
+https://github.com/ProgramIsFun/ue5-force-graph/issues/1
 ### 11
 
 Every time I finish compelling, I change the program will crash.
 
 Either enabled the symbol of debugging to track what happened.
 
-Or. 
+Or
 
 Try to start a new project and migrate to that new project. 
   
