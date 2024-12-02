@@ -106,6 +106,12 @@ public:
 	virtual ~AKnowledgeGraph() override;
 	bool prechecksucceeded=true;
 
+	// Integer ID to original string ID. 
+	TMap<int32, FString> id_to_string;
+
+
+	// Original string ID to integer ID.
+	TMap<FString, int32> string_to_id;
 
 	// TMap<int32, AKnowledgeNode*> all_nodes1;
 
@@ -162,6 +168,7 @@ public:
 	void update_position_array_according_to_velocity_array();
 	void update_link_position();
 
+	int32 jnodessss;
 
 
 	/////////////////////////////////////////////////////////////////////////////////

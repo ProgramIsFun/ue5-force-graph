@@ -14,128 +14,259 @@
 
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
+
+
 	bool log = true;
 
 	
-
-	nodePositions.SetNumUninitialized(jnodes1);
-	nodeVelocities.SetNumUninitialized(jnodes1);
-	all_nodes2.SetNumUninitialized(jnodes1);
-	for (FVector& velocity : nodeVelocities)
+	if (0)
 	{
-		velocity.X = 0.0f;
-		velocity.Y = 0.0f;
-		velocity.Z = 0.0f;
-	}
 
-	//Retrieving an array property and printing each field
-	int jnodes11 = jnodes1;
-	for (int32 i = 0; i < jnodes11; i++)
-	{
-		int jid = i;
+		jnodessss=jnodes1;
+		
 
-		if (use_actor_fornode)
+		
+		for (int32 i = 0; i < jnodessss; i++)
 		{
-			AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
-
-			if (kn)
+			if (use_text_render_components_fornode)
 			{
-				UStaticMeshComponent* MeshComp = NewObject<UStaticMeshComponent>(kn);
-				MeshComp->AttachToComponent(
-					kn->GetRootComponent(),
-					FAttachmentTransformRules::SnapToTargetIncludingScale
+				UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
+					this, FName("TextComponent" + FString::FromInt(i))
 				);
-				MeshComp->RegisterComponent(); // Don't forget to register the component
-
-
-				float sss = static_mesh_size;
-				FVector NewScale = FVector(sss, sss, sss);
-				MeshComp->SetWorldScale3D(NewScale);
-
-
-				UStaticMesh* CubeMesh;
-				// SelectedMesh1111111111111
-				if (0)
+				if (TextComponent)
 				{
-					CubeMesh = LoadObject<UStaticMesh>(
-						nullptr,
-						TEXT(
-							"/Engine/BasicShapes/Cube.Cube"
-						)
-					);
-				}
-				else
-				{
-					CubeMesh = SelectedMesh1111111111111;
-				}
-				if (CubeMesh)
-				{
-					MeshComp->SetStaticMesh(CubeMesh);
-				}
-				else
-				{
-					ll("CubeMesh failed", log, 2);
-					qq();
-					return;
+					TextComponent->SetText(FText::FromString("Sample Text : " + FString::FromInt(i)));
+					TextComponent->SetupAttachment(RootComponent);
+					TextComponent->SetWorldSize(text_size);
+					TextComponent->RegisterComponent(); // This is important to initialize the component
+
+					TextComponents11111111111111111111.Add(TextComponent);
+					// Assuming TextComponents is a valid TArray<UTextRenderComponent*>
 				}
 			}
-		
-			int id = jid;
-			
-			nodeVelocities[id] = FVector(0, 0, 0);
-
-	
-			// all_nodes1.Emplace(id, kn);
-			all_nodes2[id]=Node(id, kn);
-		
 		}
 
-		if (use_text_render_components_fornode)
+
+		// Edge creation loop
+		if (!connect_to_previous)
 		{
-			UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
-				this, FName("TextComponent" + FString::FromInt(i))
-			);
-			if (TextComponent)
+			for (int32 i = 1; i < jnodessss; i++)
 			{
-				TextComponent->SetText(FText::FromString("Sample Text : " + FString::FromInt(i)));
-				TextComponent->SetupAttachment(RootComponent);
-				TextComponent->SetWorldSize(text_size);
-				TextComponent->RegisterComponent(); // This is important to initialize the component
+				int jid = i - 1;
+				int jsource = i; // Ensures jsource is always valid within the index range
 
-				TextComponents11111111111111111111.Add(TextComponent);
-				// Assuming TextComponents is a valid TArray<UTextRenderComponent*>
+				// Connected to random node 
+				int jtarget = FMath::RandRange(0, i - 1);
+				AddEdge(jid, jsource, jtarget);
 			}
 		}
-	}
-
-
-	// Edge creation loop
-	int jedges11 = jnodes11; // Adjust the number of edges as needed to ensure coverage
-	if (!connect_to_previous)
-	{
-		for (int32 i = 1; i < jedges11; i++)
+		else
 		{
-			int jid = i - 1;
-			int jsource = i; // Ensures jsource is always valid within the index range
+			ll("Randomly connected is disabled    will always connect to the previous node. ", log);
+			for (int32 i = 1; i < jnodessss; i++)
+			{
+				int jid = i - 1;
+				int jsource = i; // Ensures jsource is always valid within the index range
 
-			// Connected to random node 
-			int jtarget = FMath::RandRange(0, i - 1);
-			AddEdge(jid, jsource, jtarget);
+				// Connected to random node 
+				int jtarget = i - 1;
+				AddEdge(jid, jsource, jtarget);
+			}
 		}
 	}
 	else
 	{
-		ll("Randomly connected is disabled    will always connect to the previous node. ", log);
-		for (int32 i = 1; i < jedges11; i++)
-		{
-			int jid = i - 1;
-			int jsource = i; // Ensures jsource is always valid within the index range
+		// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
 
-			// Connected to random node 
-			int jtarget = i - 1;
-			AddEdge(jid, jsource, jtarget);
+		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state.json";
+
+		FString JsonString; //Json converted to FString
+
+		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
+
+		TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
+		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
+
+		if (
+
+			FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
+
+			JsonObject.IsValid())
+		{
+			//Retrieving an array property and printing each field
+			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+
+			int32 index = 0;
+			int32 jnodesNum = jnodes.Num();
+			jnodessss=jnodesNum;
+
+			nodePositions.SetNumUninitialized(jnodessss);
+			nodeVelocities.SetNumUninitialized(jnodessss);
+			all_nodes2.SetNumUninitialized(jnodessss);
+			for (FVector& velocity : nodeVelocities)
+			{
+				velocity.X = 0.0f;
+				velocity.Y = 0.0f;
+				velocity.Z = 0.0f;
+			}
+
+
+
+			ll("jnodesNum111111111111111111: " + FString::FromInt(jnodesNum), log);
+			
+			for (int32 i = 0; i < jnodesNum; i++)
+			{
+				auto jobj = jnodes[i]->AsObject();
+
+				FString jid;
+				if (0)
+				{
+					// int jid = jobj->GetIntegerField("id");
+				}
+				else
+				{
+					jid =jobj->GetStringField("id");
+					ll("jid: " + jid, log);
+					string_to_id.Emplace(jid, index);
+					id_to_string.Emplace(index, jid);
+				}
+
+
+				
+				if (use_actor_fornode)
+				{
+					AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
+
+					if (kn)
+					{
+						UStaticMeshComponent* MeshComp = NewObject<UStaticMeshComponent>(kn);
+						MeshComp->AttachToComponent(
+							kn->GetRootComponent(),
+							FAttachmentTransformRules::SnapToTargetIncludingScale
+						);
+						MeshComp->RegisterComponent(); // Don't forget to register the component
+
+
+						float sss = static_mesh_size;
+						FVector NewScale = FVector(sss, sss, sss);
+						MeshComp->SetWorldScale3D(NewScale);
+
+
+						UStaticMesh* CubeMesh;
+						// SelectedMesh1111111111111
+						if (0)
+						{
+							CubeMesh = LoadObject<UStaticMesh>(
+								nullptr,
+								TEXT(
+									"/Engine/BasicShapes/Cube.Cube"
+								)
+							);
+						}
+						else
+						{
+							CubeMesh = SelectedMesh1111111111111;
+						}
+						if (CubeMesh)
+						{
+							MeshComp->SetStaticMesh(CubeMesh);
+						}
+						else
+						{
+							ll("CubeMesh failed", log, 2);
+							qq();
+							return;
+						}
+					}
+		
+					int id111 = index;
+			
+					nodeVelocities[id111] = FVector(0, 0, 0);
+
+	
+					// all_nodes1.Emplace(id, kn);
+					all_nodes2[id111]=Node(id111, kn);
+		
+				}
+
+				if (use_text_render_components_fornode)
+				{
+					UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
+						this, FName("T1111111111111extComponent" + FString::FromInt(i))
+					);
+					if (TextComponent)
+					{
+						try
+						{
+							FString name= jobj->GetStringField("name");
+							TextComponent->SetText(
+							FText::FromString(name)
+							);
+						}
+						catch (...)
+						{
+							TextComponent->SetText(
+							FText::FromString("Sample Text : " + FString::FromInt(i))
+							);
+						}
+						
+						TextComponent->SetupAttachment(RootComponent);
+						TextComponent->SetWorldSize(text_size);
+						TextComponent->RegisterComponent(); // This is important to initialize the component
+
+						TextComponents11111111111111111111.Add(TextComponent);
+					}
+				}
+				index=index+1;
+			}
+
+			
+			// TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("edges");
+			TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("links");
+			ll("jedges.Num(): " + FString::FromInt(jedges.Num()), log);
+
+			for (int32 i = 0; i < jedges.Num(); i++)
+			{
+				auto jobj = jedges[i]->AsObject();
+
+				FString jid;
+				if (0)
+				{
+					// int jid = jobj->GetIntegerField("id");
+				}
+				else
+				{
+					// jid =jobj->GetStringField("id");
+				}
+
+				int jsource;
+				int jtarget;
+				if (0)
+				{
+					jsource = jobj->GetIntegerField("source");
+					jtarget = jobj->GetIntegerField("target");
+				}
+				else
+				{
+					FString jsourceS=jobj->GetStringField("source");
+					FString jtargetS=jobj->GetStringField("target");
+					jsource=string_to_id[jsourceS];
+					jtarget=string_to_id[jtargetS];
+				}
+				ll("jsource: " + FString::FromInt(jsource)+", jtarget: " + FString::FromInt(jtarget), log);
+				AddEdge(0, jsource, jtarget);
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("JSON PARSING FAILED"));
+			qq();
+			return;
 		}
 	}
+
+	
+	
 }
 
 
@@ -614,7 +745,7 @@ void AKnowledgeGraph::initializeNodePosition()
 		// 		index);
 		// }
 		for (
-			int32 index = 0; index < jnodes1; index++
+			int32 index = 0; index < jnodessss; index++
 		)
 		{
 			
@@ -634,7 +765,7 @@ void AKnowledgeGraph::initializeNodePosition()
 		// );
 
 		ParallelFor(
-			jnodes1, [&](int32 index)
+			jnodessss, [&](int32 index)
 					{
 						initializeNodePosition_Individual(
 							index);
