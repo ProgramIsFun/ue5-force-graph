@@ -60,7 +60,6 @@ void AKnowledgeGraph::BeginPlay()
 	Super::BeginPlay();
 
 	ClearLogFile();
-	ll("wayofinitnodeslinks" + FString::FromInt(wayofinitnodeslinks), true, 2);
 
 	prepare();
 	

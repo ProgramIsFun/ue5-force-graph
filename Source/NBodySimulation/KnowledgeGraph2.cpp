@@ -19,7 +19,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	bool log = true;
 
 	
-	if (wayofinitnodeslinks==2)
+	if (!use_Jason)
 	{
 		ll("Not using Jason. ", log);
 		jnodessss=jnodes1;
@@ -343,14 +343,10 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 void AKnowledgeGraph::generateGraph()
 {
-	switch (wayofinitnodeslinks)
-	{
 
-	default:
-		{
-			defaultGenerateGraphMethod();
-		}
-	}
+
+	defaultGenerateGraphMethod();
+
 }
 
 void AKnowledgeGraph::GenerateConnectedGraph(int32 NumClusters, int32 NodesPerCluster)
