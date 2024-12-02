@@ -1,7 +1,7 @@
 ﻿
 ## To do list
 
-### 1
+### 
 
 #### Problem description
 
@@ -45,7 +45,7 @@ Number 5 is chosen.
 5. Use compute shader
 
 
-### 2
+### 
 
 Applying an example in Github.
 Which is a shader to calculate Many body force in two dimensional.
@@ -89,7 +89,7 @@ other threads on the ID that have very less connected nodes.
 
 For the center force, This could be ignored for now.
 
-### 4
+### 
 
 add the link force
 
@@ -220,13 +220,13 @@ Perhaps need to find an example which use a buffer of a custom struct.
 
 
 
-### 6
+### 
 I believe the default PAWN is hard to customize, 
 create a custom characters. 
 
 
 
-### 7
+### 
 Get the location of the characters and update the TEXT render component rotation. 
 
 Perhaps we could download some first person characters Example to see how it works. 
@@ -239,7 +239,7 @@ Perhaps we could download some first person characters Example to see how it wor
 
 - https://www.youtube.com/watch?v=SovEiHzHlqU&ab_channel=HarrisonMcGuire
 
-### 9
+### 
 
 Add a spawn graph or delete graph function
 
@@ -247,7 +247,7 @@ Perhaps there are some buttons in the left or upper right corner
 
 Also add some buttons that might change the size of the node in the graph
 
-### 10
+### 
 
 Add an import graph function, which the file following, following format. 
 
@@ -359,9 +359,11 @@ Check the original source code of the UE44 square to see how it read a Json obje
 
 
 
-### 8  the rendering of the graph is incorrect when using shader, when importing the structure from JSON.
+### the rendering of the graph is incorrect when using shader, when importing the structure from JSON.
+
 https://github.com/ProgramIsFun/ue5-force-graph/issues/1
-### 11
+
+### 
 
 Every time I finish compelling, I change the program will crash.
 
