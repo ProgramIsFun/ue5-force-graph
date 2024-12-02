@@ -19,15 +19,82 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	bool log = true;
 
 	
-	if (0)
+	if (wayofinitnodeslinks==2)
 	{
-
+		ll("Not using Jason. ", log);
 		jnodessss=jnodes1;
 		
+		nodePositions.SetNumUninitialized(jnodessss);
+		nodeVelocities.SetNumUninitialized(jnodessss);
+		all_nodes2.SetNumUninitialized(jnodessss);
+		for (FVector& velocity : nodeVelocities)
+		{
+			velocity.X = 0.0f;
+			velocity.Y = 0.0f;
+			velocity.Z = 0.0f;
+		}
+
 
 		
 		for (int32 i = 0; i < jnodessss; i++)
 		{
+
+			if (use_actor_fornode)
+			{
+				AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
+
+				if (kn)
+				{
+					UStaticMeshComponent* MeshComp = NewObject<UStaticMeshComponent>(kn);
+					MeshComp->AttachToComponent(
+						kn->GetRootComponent(),
+						FAttachmentTransformRules::SnapToTargetIncludingScale
+					);
+					MeshComp->RegisterComponent(); // Don't forget to register the component
+
+
+					float sss = static_mesh_size;
+					FVector NewScale = FVector(sss, sss, sss);
+					MeshComp->SetWorldScale3D(NewScale);
+
+
+					UStaticMesh* CubeMesh;
+					// SelectedMesh1111111111111
+					if (0)
+					{
+						CubeMesh = LoadObject<UStaticMesh>(
+							nullptr,
+							TEXT(
+								"/Engine/BasicShapes/Cube.Cube"
+							)
+						);
+					}
+					else
+					{
+						CubeMesh = SelectedMesh1111111111111;
+					}
+					if (CubeMesh)
+					{
+						MeshComp->SetStaticMesh(CubeMesh);
+					}
+					else
+					{
+						ll("CubeMesh failed", log, 2);
+						qq();
+						return;
+					}
+				}
+		
+				int id111 = i;
+			
+				nodeVelocities[id111] = FVector(0, 0, 0);
+
+	
+				// all_nodes1.Emplace(id, kn);
+				all_nodes2[id111]=Node(id111, kn);
+		
+			}
+
 			if (use_text_render_components_fornode)
 			{
 				UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
@@ -76,6 +143,8 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	}
 	else
 	{
+
+		ll("using Jason. ", log);
 		// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
 
 		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state.json";
@@ -100,7 +169,9 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			int32 jnodesNum = jnodes.Num();
 			jnodessss=jnodesNum;
 
+			
 			nodePositions.SetNumUninitialized(jnodessss);
+			ll("nodePositions.Num(): " + FString::FromInt(nodePositions.Num()), log);
 			nodeVelocities.SetNumUninitialized(jnodessss);
 			all_nodes2.SetNumUninitialized(jnodessss);
 			for (FVector& velocity : nodeVelocities)
@@ -274,62 +345,6 @@ void AKnowledgeGraph::generateGraph()
 {
 	switch (wayofinitnodeslinks)
 	{
-	case 0:
-		{
-			// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
-			// FString JsonString; //Json converted to FString
-			//
-			// FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
-			//
-			// TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
-			// TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
-			//
-			// if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-			// {
-			// 	//Retrieving an array property and printing each field
-			// 	TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
-			// 	for (int32 i = 0; i < jnodes.Num(); i++)
-			// 	{
-			// 		auto jobj = jnodes[i]->AsObject();
-			// 		int jid = jobj->GetIntegerField("id");
-			// 		AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
-			//
-			//
-			// 		// AddNode(jid, kn, FVector(0, 0, 0));
-			// 	}
-			//
-			// 	TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("edges");
-			// 	for (int32 i = 0; i < jedges.Num(); i++)
-			// 	{
-			// 		auto jobj = jedges[i]->AsObject();
-			// 		int jid = jobj->GetIntegerField("id");
-			// 		int jsource = jobj->GetIntegerField("source");
-			// 		int jtarget = jobj->GetIntegerField("target");
-			//
-			// 		AddEdge(jid, jsource, jtarget);
-			// 	}
-			// }
-			// else
-			// {
-			// 	UE_LOG(LogTemp, Warning, TEXT("JSON PARSING FAILED"));
-			// }
-		}
-		break;
-
-	case 1:
-		{
-		}
-		break;
-
-	case 2:
-		{
-			defaultGenerateGraphMethod();
-		}
-		break;
-	case 3:
-
-		GenerateConnectedGraph(3, 10);
-		break;
 
 	default:
 		{

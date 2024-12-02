@@ -96,7 +96,12 @@ class NBODYSIMULATION_API AKnowledgeGraph : public AActor
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_shaders = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	int32 wayofinitnodeslinks = 2;
 
+
+
+	
 	GENERATED_BODY()
 
 
@@ -299,7 +304,6 @@ public:
 	float iterations = 0;
 	float alphaMin = 0.001;
 	float alphaDecay = 1 - FMath::Pow(alphaMin, 1.0 / 300);
-	int32 wayofinitnodeslinks = 2;
 	float edgeDistance = 30;
 	float nodeStrength = -60;
 	float distancemin = 1;

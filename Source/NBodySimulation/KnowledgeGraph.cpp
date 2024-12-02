@@ -60,8 +60,10 @@ void AKnowledgeGraph::BeginPlay()
 	Super::BeginPlay();
 
 	ClearLogFile();
+	ll("wayofinitnodeslinks" + FString::FromInt(wayofinitnodeslinks), true, 2);
+
+	prepare();
 	
-	prepare();	
 }
 
 
@@ -72,7 +74,7 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 	// ll("sizeof(int) is: " + FString::FromInt(sizeof(int)), true, 2);
 	// qq();
 	// return;
-
+	
 	
 	if (!prechecksucceeded)
 	{
