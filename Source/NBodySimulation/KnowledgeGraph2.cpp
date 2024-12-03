@@ -8,22 +8,19 @@
 #include "GameFramework/Character.h"
 
 
-
 #define print(text) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 10, FColor::White,text)
 
 
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
-
-
 	bool log = true;
 
-	
+
 	if (!use_Jason)
 	{
 		ll("Not using Jason. ", log);
-		jnodessss=jnodes1;
-		
+		jnodessss = jnodes1;
+
 		nodePositions.SetNumUninitialized(jnodessss);
 		nodeVelocities.SetNumUninitialized(jnodessss);
 		all_nodes2.SetNumUninitialized(jnodessss);
@@ -35,10 +32,8 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		}
 
 
-		
 		for (int32 i = 0; i < jnodessss; i++)
 		{
-
 			if (use_actor_fornode)
 			{
 				AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
@@ -60,7 +55,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 					UStaticMesh* CubeMesh;
 					// SelectedMesh1111111111111
-					if (0)
+					if (false)
 					{
 						CubeMesh = LoadObject<UStaticMesh>(
 							nullptr,
@@ -69,10 +64,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 							)
 						);
 					}
-					else
-					{
-						CubeMesh = SelectedMesh1111111111111;
-					}
+					CubeMesh = SelectedMesh1111111111111;
 					if (CubeMesh)
 					{
 						MeshComp->SetStaticMesh(CubeMesh);
@@ -84,15 +76,14 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 						return;
 					}
 				}
-		
+
 				int id111 = i;
-			
+
 				nodeVelocities[id111] = FVector(0, 0, 0);
 
-	
+
 				// all_nodes1.Emplace(id, kn);
-				all_nodes2[id111]=Node(id111, kn);
-		
+				all_nodes2[id111] = Node(id111, kn);
 			}
 
 			if (use_text_render_components_fornode)
@@ -143,7 +134,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	}
 	else
 	{
-
 		ll("using Jason. ", log);
 		// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
 
@@ -167,9 +157,9 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 			int32 index = 0;
 			int32 jnodesNum = jnodes.Num();
-			jnodessss=jnodesNum;
+			jnodessss = jnodesNum;
 
-			
+
 			nodePositions.SetNumUninitialized(jnodessss);
 			ll("nodePositions.Num(): " + FString::FromInt(nodePositions.Num()), log);
 			nodeVelocities.SetNumUninitialized(jnodessss);
@@ -182,28 +172,23 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			}
 
 
-
 			ll("jnodesNum111111111111111111: " + FString::FromInt(jnodesNum), log);
-			
+
 			for (int32 i = 0; i < jnodesNum; i++)
 			{
 				auto jobj = jnodes[i]->AsObject();
 
 				FString jid;
-				if (0)
+				if (false)
 				{
 					// int jid = jobj->GetIntegerField("id");
 				}
-				else
-				{
-					jid =jobj->GetStringField("id");
-					ll("jid: " + jid, log);
-					string_to_id.Emplace(jid, index);
-					id_to_string.Emplace(index, jid);
-				}
+				jid = jobj->GetStringField("id");
+				ll("jid: " + jid, log);
+				string_to_id.Emplace(jid, index);
+				id_to_string.Emplace(index, jid);
 
 
-				
 				if (use_actor_fornode)
 				{
 					AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
@@ -225,7 +210,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 						UStaticMesh* CubeMesh;
 						// SelectedMesh1111111111111
-						if (0)
+						if (false)
 						{
 							CubeMesh = LoadObject<UStaticMesh>(
 								nullptr,
@@ -234,10 +219,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 								)
 							);
 						}
-						else
-						{
-							CubeMesh = SelectedMesh1111111111111;
-						}
+						CubeMesh = SelectedMesh1111111111111;
 						if (CubeMesh)
 						{
 							MeshComp->SetStaticMesh(CubeMesh);
@@ -249,15 +231,14 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 							return;
 						}
 					}
-		
+
 					int id111 = index;
-			
+
 					nodeVelocities[id111] = FVector(0, 0, 0);
 
-	
+
 					// all_nodes1.Emplace(id, kn);
-					all_nodes2[id111]=Node(id111, kn);
-		
+					all_nodes2[id111] = Node(id111, kn);
 				}
 
 				if (use_text_render_components_fornode)
@@ -269,18 +250,18 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 					{
 						try
 						{
-							FString name= jobj->GetStringField("name");
+							FString name = jobj->GetStringField("name");
 							TextComponent->SetText(
-							FText::FromString(name)
+								FText::FromString(name)
 							);
 						}
 						catch (...)
 						{
 							TextComponent->SetText(
-							FText::FromString("Sample Text : " + FString::FromInt(i))
+								FText::FromString("Sample Text : " + FString::FromInt(i))
 							);
 						}
-						
+
 						TextComponent->SetupAttachment(RootComponent);
 						TextComponent->SetWorldSize(text_size);
 						TextComponent->RegisterComponent(); // This is important to initialize the component
@@ -288,10 +269,10 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 						TextComponents11111111111111111111.Add(TextComponent);
 					}
 				}
-				index=index+1;
+				index = index + 1;
 			}
 
-			
+
 			// TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("edges");
 			TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("links");
 			ll("jedges.Num(): " + FString::FromInt(jedges.Num()), log);
@@ -301,30 +282,23 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				auto jobj = jedges[i]->AsObject();
 
 				FString jid;
-				if (0)
+				if (false)
 				{
 					// int jid = jobj->GetIntegerField("id");
-				}
-				else
-				{
-					// jid =jobj->GetStringField("id");
-				}
+				} // jid =jobj->GetStringField("id");
 
 				int jsource;
 				int jtarget;
-				if (0)
+				if (false)
 				{
 					jsource = jobj->GetIntegerField("source");
 					jtarget = jobj->GetIntegerField("target");
 				}
-				else
-				{
-					FString jsourceS=jobj->GetStringField("source");
-					FString jtargetS=jobj->GetStringField("target");
-					jsource=string_to_id[jsourceS];
-					jtarget=string_to_id[jtargetS];
-				}
-				ll("jsource: " + FString::FromInt(jsource)+", jtarget: " + FString::FromInt(jtarget), log);
+				FString jsourceS = jobj->GetStringField("source");
+				FString jtargetS = jobj->GetStringField("target");
+				jsource = string_to_id[jsourceS];
+				jtarget = string_to_id[jtargetS];
+				ll("jsource: " + FString::FromInt(jsource) + ", jtarget: " + FString::FromInt(jtarget), log);
 				AddEdge(0, jsource, jtarget);
 			}
 		}
@@ -332,21 +306,14 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		{
 			UE_LOG(LogTemp, Warning, TEXT("JSON PARSING FAILED"));
 			qq();
-			return;
 		}
 	}
-
-	
-	
 }
 
 
 void AKnowledgeGraph::generateGraph()
 {
-
-
 	defaultGenerateGraphMethod();
-
 }
 
 void AKnowledgeGraph::GenerateConnectedGraph(int32 NumClusters, int32 NodesPerCluster)
@@ -358,7 +325,7 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 {
 	bool log = true;
 
-	
+
 	// link forces
 	// After loop, the velocity of all notes have been altered a little bit because of the link force already. 
 	for (auto& link : all_links2)
@@ -396,20 +363,16 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 		new_v *= l;
 
 
-		if (0)
+		if (false)
 		{
 		}
-		else
-		{
-			// ll("new_v: " + new_v.ToString(), log);
-			// ll("link.Value->bias: " + FString::SanitizeFloat(link.Value->bias), log);
-			// target_node->velocity -= new_v * (link.Value->bias);
-			nodeVelocities[link.target] -= new_v * (link.bias);
-		}
+		// ll("new_v: " + new_v.ToString(), log);
+		// ll("link.Value->bias: " + FString::SanitizeFloat(link.Value->bias), log);
+		// target_node->velocity -= new_v * (link.Value->bias);
+		nodeVelocities[link.target] -= new_v * (link.bias);
 
 		// source_node->velocity += new_v * (1 - link.Value->bias);
 		nodeVelocities[link.source] += new_v * (1 - link.bias);
-
 	}
 }
 
@@ -439,7 +402,6 @@ void AKnowledgeGraph::calculate_charge_force_and_update_velocity()
 
 		if (!use_parallel)
 		{
-
 			int32 Index = 0;
 			for (auto& node : all_nodes2)
 			{
@@ -448,18 +410,18 @@ void AKnowledgeGraph::calculate_charge_force_and_update_velocity()
 					"Traverse the tree And calculate velocity on this Actor Kn, nodekey: -"
 					+
 					FString::FromInt(
-					Index
+						Index
 					), log);
 
-				
+
 				TraverseBFS(OctreeData2,
-					SampleCallback,
-					alpha,
-					Index
-					,
-					nodePositions,
-					nodeVelocities
-					);
+				            SampleCallback,
+				            alpha,
+				            Index
+				            ,
+				            nodePositions,
+				            nodeVelocities
+				);
 				ll("Finished traversing the tree based on this Actor Kn. ", log);
 				Index++;
 			}
@@ -469,7 +431,7 @@ void AKnowledgeGraph::calculate_charge_force_and_update_velocity()
 			ParallelFor(all_nodes2.Num(), [&](int32 Index)
 			{
 				TraverseBFS(OctreeData2,
-					SampleCallback, alpha, Index, nodePositions, nodeVelocities);
+				            SampleCallback, alpha, Index, nodePositions, nodeVelocities);
 			});
 		}
 
@@ -511,7 +473,6 @@ void AKnowledgeGraph::calculate_charge_force_and_update_velocity()
 				}
 
 
-				
 				Index++;
 			}
 		}
@@ -522,11 +483,9 @@ void AKnowledgeGraph::calculate_charge_force_and_update_velocity()
 				auto node = all_nodes2[Index];
 
 
-
 				int32 Index2 = 0;
 				for (auto& node2 : all_nodes2)
 				{
-					
 					auto kn2 = node2.node;
 					if (node.node != kn2)
 					{
@@ -595,8 +554,8 @@ void AKnowledgeGraph::calculate_centre_force_and_update_position()
 	for (auto& node : all_nodes2)
 	{
 		nodePositions[
-			Index
-		] =
+				Index
+			] =
 			nodePositions[
 				Index
 			] - (
@@ -606,7 +565,6 @@ void AKnowledgeGraph::calculate_centre_force_and_update_position()
 		// 	node.Value->GetActorLocation() - (aggregation / all_nodes.Num() - center) * 1
 		// );
 		Index++;
-
 	}
 
 
@@ -618,8 +576,6 @@ void AKnowledgeGraph::update_position_array_according_to_velocity_array()
 {
 	if (!use_parallel)
 	{
-
-
 		int32 Index = 0;
 		for (auto& node : all_nodes2)
 		{
@@ -639,12 +595,12 @@ void AKnowledgeGraph::update_position_array_according_to_velocity_array()
 			nodePositions[
 				Index
 			] = nodePositions[
-			Index
-				
-			] + nodeVelocities[
-			Index
+				Index
 
-				];
+			] + nodeVelocities[
+				Index
+
+			];
 
 			Index++;
 		}
@@ -663,13 +619,11 @@ void AKnowledgeGraph::update_position_array_according_to_velocity_array()
 
 void AKnowledgeGraph::update_link_position()
 {
-
 	for (auto& link : all_links2)
 	{
-
 		FVector Location1 = nodePositions[link.source];
 		FVector Location2 = nodePositions[link.target];
-			
+
 		if (useactorforlink)
 		{
 			auto l = link.edge;
@@ -677,13 +631,15 @@ void AKnowledgeGraph::update_link_position()
 				Location1,
 				Location2
 			);
-			
 		}
 
 		if (usedebuglinetrace)
 		{
 			UWorld* World = GetWorld();
-			if (!World) return;
+			if (!World)
+			{
+				return;
+			}
 
 			DrawDebugLine(
 				World,
@@ -697,8 +653,6 @@ void AKnowledgeGraph::update_link_position()
 			);
 		}
 	}
-
-
 }
 
 void AKnowledgeGraph::ApplyForces()
@@ -711,8 +665,6 @@ void AKnowledgeGraph::ApplyForces()
 
 	ll("11111111111111111Warning printing out all things. ", log, 1);
 
-	
-
 
 	ll("Ready to calculate link.--------------------------------------", log);
 
@@ -722,7 +674,6 @@ void AKnowledgeGraph::ApplyForces()
 
 
 	ll("Finish calculating link.--------------------------------------", log);
-
 
 
 	if (manybody)
@@ -740,11 +691,8 @@ void AKnowledgeGraph::ApplyForces()
 }
 
 
-
 void AKnowledgeGraph::initializeNodePosition()
 {
-	
-	
 	if (!use_parallel)
 	{
 		// for (
@@ -759,7 +707,6 @@ void AKnowledgeGraph::initializeNodePosition()
 			int32 index = 0; index < jnodessss; index++
 		)
 		{
-			
 			initializeNodePosition_Individual(
 				index);
 		}
@@ -777,33 +724,33 @@ void AKnowledgeGraph::initializeNodePosition()
 
 		ParallelFor(
 			jnodessss, [&](int32 index)
-					{
-						initializeNodePosition_Individual(
-							index);
-					}
+			{
+				initializeNodePosition_Individual(
+					index);
+			}
 		);
 	}
 }
 
-void AKnowledgeGraph::initializeNodePosition_Individual( int index)
+void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 {
 	if (use_shaders)
 	{
 		float RandomMass = FMath::FRandRange(
-		20.0
+			20.0
 			,
 			50.0);
 
 		FVector3f RandomPosition;
 		if (!initialize_with_zero_position)
 		{
-			RandomPosition= FVector3f(RandPointInCircle(
-			1000.0
-				));
+			RandomPosition = FVector3f(RandPointInCircle(
+				1000.0
+			));
 		}
 		else
 		{
-			RandomPosition = FVector3f(0,0,0);
+			RandomPosition = FVector3f(0, 0, 0);
 		}
 
 
@@ -813,7 +760,7 @@ void AKnowledgeGraph::initializeNodePosition_Individual( int index)
 		};
 
 		float MeshScale = instance_static_mesh_size;
-		
+
 		FTransform MeshTransform(
 			FRotator(),
 			FVector(RandomPosition),
@@ -823,9 +770,8 @@ void AKnowledgeGraph::initializeNodePosition_Individual( int index)
 		BodyTransforms[index] = MeshTransform;
 		SimParameters.Bodies[index] = FBodyData(RandomMass, RandomPosition, RandomVelocity);
 	}
-	
 
-	
+
 	// Calculate index-based radius
 	float radius;
 	int nDim = 3;
@@ -870,7 +816,7 @@ void AKnowledgeGraph::initializeNodePosition_Individual( int index)
 		                   radius * sin(rollAngle) * sin(yawAngle));
 	}
 
-	
+
 	// Check if pointer is valid
 	// node->SetActorLocation(init_pos, false);
 
@@ -879,29 +825,31 @@ void AKnowledgeGraph::initializeNodePosition_Individual( int index)
 
 
 	ll("index: " + FString::FromInt(index) + " init_pos: " + init_pos.ToString());
-
 }
 
 void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 {
 	if (use_shaders)
 	{
-		if (iterations==1)
-		{return;
+		if (iterations == 1)
+		{
+			return;
 		}
 		// Retrieve GPU computed bodies position.
 		TArray<FVector3f> GPUOutputPositions = FNBodySimModule::Get().GetComputedPositions();
-		
+
 		if (GPUOutputPositions.Num() != SimParameters.Bodies.Num())
 		{
-			ll("Size differ for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" + FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) + ")",true,2);
+			ll("Size differ for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" +
+			   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
+			   ")", true, 2);
 			return;
-		}else
-		{
-			ll("Size is same for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" + FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) + ")",use_logging,2);
-			ll("First element position is: " + GPUOutputPositions[0].ToString(),use_logging,2);
 		}
-	
+		ll("Size is same for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" +
+		   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
+		   ")", use_logging, 2);
+		ll("First element position is: " + GPUOutputPositions[0].ToString(), use_logging, 2);
+
 		// QUICK_SCOPE_CYCLE_COUNTER(STAT_SimulationEngine_UpdateBodiesPosition);
 
 		// Update bodies visual with new positions.
@@ -917,25 +865,20 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 
 			if (use_text_render_components_fornode)
 			{
-				
 				FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
-				
+
 				TextComponents11111111111111111111[i]->SetWorldLocation(FVector(GPUOutputPositions[i]));
-				
-				if(rotate_to_face_player)
+
+				if (rotate_to_face_player)
 				{
 					// Compute the direction from the text component to the player.
 					FVector ToPlayer = PlayerLocation - NewPosition;
 					ToPlayer.Normalize();
-					        
+
 					// Create a look-at rotation. The second parameter is the up-vector, adjust if needed.
 					FRotator NewRotation = FRotationMatrix::MakeFromX(ToPlayer).Rotator();
 					TextComponents11111111111111111111[i]->SetWorldRotation(NewRotation);
-						
 				}
-
-
-
 			}
 		}
 
@@ -949,7 +892,6 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 		int32 Index = 0;
 		for (auto& node : all_nodes2)
 		{
-		
 			node.node->SetActorLocation(nodePositions[
 				Index
 			]);
@@ -970,43 +912,37 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 	std::map<int32, int32> Nodeconnection;
 
 
-
-
-	
-	
-
 	std::map<int, std::vector<int>> connectout;
 	std::map<int, std::vector<int>> connectin;
 	if (use_shaders)
 	{
-		int m2=m*2;
+		int m2 = m * 2;
 		SimParameters.NumLinks = m2;
 
-		
+
 		LinkOffsets.SetNumUninitialized(n);
 		LinkCounts.SetNumUninitialized(n);
 		LinkIndices.SetNumUninitialized(m2);
-		LinkStrengths.SetNumUninitialized(m2);  // Holds the strength of each link
-		LinkBiases.SetNumUninitialized(m2);     // Holds the bias of each link
+		LinkStrengths.SetNumUninitialized(m2); // Holds the strength of each link
+		LinkBiases.SetNumUninitialized(m2); // Holds the bias of each link
 		Linkinout.SetNumUninitialized(m2);
 	}
 
 	for (auto& link : all_links2)
 	{
 		ll("link.source: " +
-				FString::FromInt(link.source)+
-				" link.target: " + FString::FromInt(link.target),
-				log,2);
-			
+		   FString::FromInt(link.source) +
+		   " link.target: " + FString::FromInt(link.target),
+		   log, 2);
+
 		Nodeconnection[link.source] += 1;
 		Nodeconnection[link.target] += 1;
-		
+
 		if (use_shaders)
 		{
 			connectout[link.source].push_back(link.target);
 			connectin[link.target].push_back(link.source);
 		}
-
 	}
 
 
@@ -1014,24 +950,19 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 	{
 		for (auto& link : all_links2)
 		{
+			int s1 = Nodeconnection[link.source];
+			int s2 = Nodeconnection[link.target];
 
-			
-			int s1=Nodeconnection[link.source];
-			int s2=Nodeconnection[link.target];
-		
 			float ttttttttttt = s1 + s2;
 			float bias = s1 / ttttttttttt;
-		
+
 			link.bias = bias;
 
 			// Better have a check because strength is set to 1 when it is initialized. 
 			link.strength = 1.0 / fmin(s1,
 			                           s2);
 		}
-	}
-	
-	if (use_shaders)
-	{
+	}else{
 		int32 Index = 0;
 		for (int i = 0; i < n; i++)
 		{
@@ -1041,29 +972,28 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 
 			ll("outcount: " + FString::FromInt(outcount), log);
 			ll("incount: " + FString::FromInt(incount), log);
-			
+
 			int totalcount = Nodeconnection[i];
 
-			if (totalcount!=outcount+incount)
+			if (totalcount != outcount + incount)
 			{
-				ll("totalcount!=outcount+incount", true,2);
+				ll("totalcount!=outcount+incount", true, 2);
 				qq();
 			}
 
-			
+
 			LinkOffsets[i] = Index;
 
 			ll("LinkOffsets[i]: " + FString::FromInt(LinkOffsets[i]), log);
-			
+
 			LinkCounts[i] = Nodeconnection[i];
 			ll("LinkCounts[i]: " + FString::FromInt(LinkCounts[i]), log);
-			
+
 			for (int j = 0; j < outcount; j++)
 			{
-				
 				int counterpart = connectout[i][j];
 
-				int indexnow=Index + j;
+				int indexnow = Index + j;
 
 				LinkIndices[
 					indexnow
@@ -1071,40 +1001,36 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 				Linkinout[
 					indexnow
 				] = 1;
-				
-				int s1=Nodeconnection[i];
-				int s2=Nodeconnection[connectout[i][j]];
-		
+
+				int s1 = Nodeconnection[i];
+				int s2 = Nodeconnection[connectout[i][j]];
+
 				float ttttttttttt = s1 + s2;
 				float bias = s1 / ttttttttttt;
 				LinkBiases[indexnow] = bias;
 				LinkStrengths[indexnow] = 1.0 / fmin(s1,
-				                                              s2);
-				
+				                                     s2);
 			}
 			for (int j = 0; j < incount; j++)
 			{
 				int counterpart = connectin[i][j];
-				int indexnow=Index + outcount + j;
+				int indexnow = Index + outcount + j;
 
 				LinkIndices[indexnow] = counterpart;
 
 				Linkinout[indexnow] = 0;
-				
-				int s2=Nodeconnection[i];
-				int s1=Nodeconnection[counterpart];
+
+				int s2 = Nodeconnection[i];
+				int s1 = Nodeconnection[counterpart];
 
 				float ttttttttttt = s1 + s2;
 				float bias = s1 / ttttttttttt;
 				LinkBiases[indexnow] = bias;
 				LinkStrengths[indexnow] = 1.0 / fmin(s1,
-															  s2);
-				
+				                                     s2);
 			}
 			Index += Nodeconnection[i];
 		}
-
-
 
 
 		SimParameters.LinkOffsets = LinkOffsets;
@@ -1117,15 +1043,14 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 }
 
 
-
 void AKnowledgeGraph::AddEdge(int32 id, int32 source, int32 target)
 {
 	AKnowledgeEdge* e;
-	Link link=Link(source, target);
+	Link link = Link(source, target);
 	if (useactorforlink)
 	{
 		UClass* bpClass;
-		if (1)
+		if (true)
 		{
 			// This approach works in both play and editor and package game. 
 
@@ -1185,8 +1110,6 @@ void AKnowledgeGraph::AddEdge(int32 id, int32 source, int32 target)
 
 		// all_links1.Emplace(id, e);
 		link.edge = e;
-
-
 	}
 	else
 	{
@@ -1195,9 +1118,7 @@ void AKnowledgeGraph::AddEdge(int32 id, int32 source, int32 target)
 		// LineBatch->DrawLine(StartPosition, EndPosition, FLinearColor::Green, SDPG_World, 10.0f, 10.0f);
 
 
-
 		// all_links2.Add(ALLLink(source, target));
-
 	}
 	//
 	// e->strength = 1;
@@ -1210,7 +1131,4 @@ void AKnowledgeGraph::AddEdge(int32 id, int32 source, int32 target)
 
 
 	all_links2.Add(link);
-
-
-
 }
