@@ -14,6 +14,21 @@ replicate the result of the popular library https://github.com/vasturiano/3d-for
 ![image](https://github.com/user-attachments/assets/4e648745-8ee3-4fc7-9008-fd1d53785711)
 
 
+## Documentation
+
+### Some options to use
+
+connect_to_previous: bool
+    If true, the node will be connected to the previous node. Which make the graph a snake like structure.
+
+
+
+
+
+
+
+
+
 ## Main reference of this project
 
 Dependency link
