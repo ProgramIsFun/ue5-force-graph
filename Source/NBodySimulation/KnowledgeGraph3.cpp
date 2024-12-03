@@ -76,14 +76,11 @@ void AKnowledgeGraph::prepare()
 		SimParameters.CameraAspectRatio = 1.777778;
 		SimParameters.GravityConstant = 1000.0;
 		SimParameters.NumBodies = jnodessss;
+		SimParameters.alphaS = 1;
 		FNBodySimModule::Get().BeginRendering();
 		FNBodySimModule::Get().InitWithParameters(SimParameters);
-		
 	}
 
 }
 
-void AKnowledgeGraph::UpdateBodiesPosition()
-{
-	
-}
+

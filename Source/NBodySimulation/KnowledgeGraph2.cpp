@@ -841,7 +841,7 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 		}
 		// Retrieve GPU computed bodies position.
 		TArray<FVector3f> GPUOutputPositions = FNBodySimModule::Get().GetComputedPositions();
-
+		TArray<float> alphas = FNBodySimModule::Get().GetComputedAlphas();
 		if (GPUOutputPositions.Num() != SimParameters.Bodies.Num())
 		{
 			ll("Size differ for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" +
@@ -852,6 +852,10 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 		ll("Size is same for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" +
 		   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
 		   ")", use_logging, 2);
+
+		ll("alpha: " + FString::SanitizeFloat(alphas[0]), use_logging, 2);
+		ll("alpha1: " + FString::SanitizeFloat(alphas[1]), use_logging, 2);
+
 		ll("First element position is: " + GPUOutputPositions[0].ToString(), use_logging, 2);
 		ll("second element position is: " + GPUOutputPositions[1].ToString(), use_logging, 2);
 		ll("third element position is: " + GPUOutputPositions[2].ToString(), use_logging, 2);

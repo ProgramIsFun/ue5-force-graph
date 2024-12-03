@@ -115,20 +115,52 @@ void FNBodySimModule::ComputeSimulation_RenderThread(FNBodySimParameters& SimPar
 
 	RenderEveryFrameLock.Lock();
 	{
+		
 		// Get readback data into CPU readable struct.
-		void* RawBufferData = RHILockBuffer(CSBuffers.PositionsBuffer, 0, SimParameters.NumBodies * sizeof(FVector3f), RLM_ReadOnly);
+		void* RawBufferData = RHILockBuffer(
+			CSBuffers.PositionsBuffer,
+			0,
+			SimParameters.NumBodies * sizeof(FVector3f),
+			RLM_ReadOnly);
 
 		if (OutputPositions.Num() != SimParameters.NumBodies)
+		{
 			OutputPositions.SetNumUninitialized(SimParameters.NumBodies);
+		}
 		
-		FMemory::Memcpy(OutputPositions.GetData(), RawBufferData, SimParameters.NumBodies * sizeof(FVector3f));
-	
+		FMemory::Memcpy(OutputPositions.GetData(),
+			RawBufferData,
+			SimParameters.NumBodies * sizeof(FVector3f));
 		RHIUnlockBuffer(CSBuffers.PositionsBuffer);
-
-		
-
-
-		
 	}
 	RenderEveryFrameLock.Unlock();
+
+
+
+	RenderEveryFrameLock.Lock();
+	{		
+		// Get readback data into CPU readable struct.
+		void* RawBufferData2 = RHILockBuffer(
+			CSBuffers.AlphaBuffer,
+			0,
+			SimParameters.NumBodies * sizeof(float),
+			RLM_ReadOnly);
+
+		if (Alpha.Num() != SimParameters.NumBodies)
+		{
+			Alpha.SetNumUninitialized(SimParameters.NumBodies);
+		}
+
+		FMemory::Memcpy(Alpha.GetData(),
+			RawBufferData2,
+			SimParameters.NumBodies * sizeof(float));
+
+		RHIUnlockBuffer(CSBuffers.AlphaBuffer);
+	}
+	RenderEveryFrameLock.Unlock();
+
 }
+
+
+
+

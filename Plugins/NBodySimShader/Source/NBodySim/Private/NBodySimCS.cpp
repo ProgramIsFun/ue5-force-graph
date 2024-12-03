@@ -28,7 +28,7 @@ public:
 	BEGIN_SHADER_PARAMETER_STRUCT(FParameters, )
 		SHADER_PARAMETER_SRV(StructuredBuffer<float>, Masses)
 
-
+		SHADER_PARAMETER_UAV(RWStructuredBuffer<float>, alphaS)
 		SHADER_PARAMETER_UAV(RWStructuredBuffer<FVector3f>, Positions)
 		SHADER_PARAMETER_UAV(RWStructuredBuffer<FVector3f>, Velocities)
 
@@ -39,12 +39,10 @@ public:
 		SHADER_PARAMETER_SRV(StructuredBuffer<int>, Linkinout)
 		SHADER_PARAMETER_SRV(StructuredBuffer<float>, LinkStrengths)
 		SHADER_PARAMETER_SRV(StructuredBuffer<float>, LinkBiases)
+
+
+
 		SHADER_PARAMETER(uint32, NumLinks)
-
-
-
-
-	
 		SHADER_PARAMETER(uint32, NumBodies)
 		SHADER_PARAMETER(float, GravityConstant)
 		SHADER_PARAMETER(float, CameraAspectRatio)
@@ -100,6 +98,24 @@ void FNBodySimCSBuffers::Initialize(const FNBodySimParameters& SimParameters)
 		MassesBufferSRV = RHICreateShaderResourceView(MassesBuffer);
 	}
 
+	if (!AlphaBuffer || !AlphaBufferUAV)
+	{
+		TResourceArray<float> ResourceArray;
+		ResourceArray.Init(0.0f, SimParameters.Bodies.Num());
+
+		for (int i = 0; i < SimParameters.Bodies.Num(); i++)
+		{
+			ResourceArray[i] = SimParameters.alphaS;
+		}
+
+		FRHIResourceCreateInfo CreateInfo(TEXT("RHICreateInfo_AlphaBuffer"));
+		CreateInfo.ResourceArray = &ResourceArray;
+
+		AlphaBuffer = RHICreateStructuredBuffer(sizeof(float), SimParameters.Bodies.Num() * sizeof(float), BUF_UnorderedAccess | BUF_ShaderResource, CreateInfo);
+		AlphaBufferUAV = RHICreateUnorderedAccessView(AlphaBuffer, false, true);
+	}
+
+	
 	if (!PositionsBuffer || !PositionsBufferUAV)
 	{
 		TResourceArray<FVector3f> ResourceArray;
@@ -240,21 +256,17 @@ void FNBodySimCSBuffers::Initialize(const FNBodySimParameters& SimParameters)
 	
 
 	
-	//
-	// TArray<int> LinkOffsets;  // Holds the offset for each body
-	// TArray<int> LinkCounts;   // Holds the count of links for each body
-	// TArray<int> LinkIndices;  // Flat array containing all links
-	// TArray<float> LinkStrengths;  // Holds the strength of each link
-	// TArray<float> LinkBiases;     // Holds the bias of each link
-	// TArray<int> Linkinout;  
-
-	
 }
 
 void FNBodySimCSBuffers::Release()
 {
 	if (MassesBuffer)			MassesBuffer.SafeRelease();
 	if (MassesBufferSRV)		MassesBufferSRV.SafeRelease();
+
+
+	if (AlphaBuffer)			AlphaBuffer.SafeRelease();
+	if (AlphaBufferUAV)		AlphaBufferUAV.SafeRelease();
+
 	
 	if (PositionsBuffer)		PositionsBuffer.SafeRelease();
 	if (PositionsBufferUAV)	PositionsBufferUAV.SafeRelease();
@@ -305,6 +317,7 @@ void FNBodySimCSInterface::RunComputeBodyPositions_RenderThread(FRHICommandListI
 	// Shader Parameters setup.
 	FNBodySimCS::FParameters PassParameters;
 	PassParameters.Masses = Buffers.MassesBufferSRV;
+	PassParameters.alphaS = Buffers.AlphaBufferUAV;
 	PassParameters.Positions = Buffers.PositionsBufferUAV;
 	PassParameters.Velocities = Buffers.VelocitiesBufferUAV;
 
@@ -314,9 +327,9 @@ void FNBodySimCSInterface::RunComputeBodyPositions_RenderThread(FRHICommandListI
 	PassParameters.LinkStrengths = Buffers.LinkStrengthsBufferSRV;
 	PassParameters.LinkBiases = Buffers.LinkBiasesBufferSRV;
 	PassParameters.Linkinout = Buffers.LinkinoutBufferSRV;
+
+
 	PassParameters.NumLinks = SimParameters.NumLinks;
-	
-	
 	PassParameters.NumBodies = SimParameters.NumBodies;
 	PassParameters.GravityConstant = SimParameters.GravityConstant;
 	PassParameters.CameraAspectRatio = SimParameters.CameraAspectRatio;

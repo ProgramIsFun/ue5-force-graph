@@ -306,7 +306,10 @@ public:
 	float alpha = 1;
 	float iterations = 0;
 	float alphaMin = 0.001;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	float alphaDecay = 1 - FMath::Pow(alphaMin, 1.0 / 300);
+	
 	float edgeDistance = 30;
 	float nodeStrength = -60;
 	float distancemin = 1;

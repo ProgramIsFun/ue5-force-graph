@@ -9,9 +9,15 @@ struct FNBodySimParameters;
  */
 struct FNBodySimCSBuffers
 {
+	
+	
+	
 	// Buffers definition for the compute shader input/output.
 	FBufferRHIRef MassesBuffer;
 	FShaderResourceViewRHIRef MassesBufferSRV;
+
+	FBufferRHIRef AlphaBuffer;
+	FUnorderedAccessViewRHIRef AlphaBufferUAV;
 
 	FBufferRHIRef PositionsBuffer;
 	FUnorderedAccessViewRHIRef PositionsBufferUAV;

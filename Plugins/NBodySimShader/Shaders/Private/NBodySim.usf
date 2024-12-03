@@ -2,8 +2,10 @@
 
 // Buffers
 StructuredBuffer<float> Masses;
+RWStructuredBuffer<float> alphaS;
 RWStructuredBuffer<float3> Positions;
 RWStructuredBuffer<float3> Velocities;
+
 
 //
 StructuredBuffer<int> LinkOffsets;
@@ -22,7 +24,7 @@ const float ViewportWidth;
 const float DeltaTime;
 const float alpha;
 
-float3 CalculateGravitationalForce(uint TargetBodyID, uint AffectingBodyID)
+float3 CalculateGravitationalForce(uint TargetBodyID, uint AffectingBodyID, float alpha)
 {
 	
 	float3 dir = Positions[AffectingBodyID] - Positions[TargetBodyID];
@@ -46,12 +48,16 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 {
 	if (ID.x >= NumBodies) return;
 
-
-	if (1)
+	float alphaS1;
+	if (true)
 	{
+		alphaS[ID.x] += (0-alphaS[ID.x]) * 0.022763;
+		alphaS1 = alphaS[ID.x];
+		// alphaS1 = alpha;
+
+		
 		float3 Acceleration= float3(0, 0, 0);
-
-
+		
 		// Calculate link force
 		int offset = LinkOffsets[ID.x];
 		int count = LinkCounts[ID.x];
@@ -74,7 +80,7 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 			
 			float l = length(new_v);
 			l = (l - 30) /
-				l * alpha * LinkStrengths[i];
+				l * alphaS1 * LinkStrengths[i];
 			new_v *= l;
 			
 			if (Linkinout1 == 1)
@@ -93,7 +99,7 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		{
 			// Skip if self.
 			if (i == ID.x) continue;
-			float3 GravityForce = CalculateGravitationalForce(ID.x, i);
+			float3 GravityForce = CalculateGravitationalForce(ID.x, i,alphaS1);
 			Acceleration += GravityForce;
 			
 		}

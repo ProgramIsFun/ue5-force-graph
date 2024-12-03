@@ -33,6 +33,8 @@ public:
 	float ViewportWidth;
 	float DeltaTime;
 	float alpha;
+	float alphaS;
+	
 	
 	FNBodySimParameters():
 	NumLinks(0),
@@ -81,6 +83,8 @@ public:
 	void UpdateDeltaTime(float DeltaTime,float alpha=1);
 
 	TArray<FVector3f> GetComputedPositions() { return OutputPositions; }
+	TArray<float> GetComputedAlphas() { return Alpha; }
+
 
 private:
 	void PostResolveSceneColor_RenderThread(FRDGBuilder& Builder, const FSceneTextures& SceneTexture);
@@ -98,4 +102,6 @@ private:
 	FNBodySimCSBuffers CSBuffers;
 	
 	TArray<FVector3f> OutputPositions;
+	TArray<float> Alpha;
+
 };

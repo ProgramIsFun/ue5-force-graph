@@ -135,8 +135,6 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 
 	if (!use_shaders)
 	{
-
-
 		ll("apply forces", log);
 		ApplyForces();
 
