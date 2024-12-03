@@ -902,13 +902,15 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 
 void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 {
-	bool log = false;
+	bool log = true;
 	//link forces
 	float n = all_nodes2.Num();
 	float m = all_links2.Num();
 
-	ll("n: " + FString::SanitizeFloat(n), log);
-	ll("m: " + FString::SanitizeFloat(m), log);
+	// ll("n: " + FString::SanitizeFloat(n), log);
+	// ll("m: " + FString::SanitizeFloat(m), log);
+
+
 	std::map<int32, int32> Nodeconnection;
 
 
@@ -966,7 +968,9 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 		int32 Index = 0;
 		for (int i = 0; i < n; i++)
 		{
+
 			ll("i: " + FString::FromInt(i), log);
+
 			int outcount = connectout[i].size();
 			int incount = connectin[i].size();
 
@@ -1033,6 +1037,16 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 		}
 
 
+		ll("LinkOffsets Printing out all things. ", log);
+		FString ConcatenatedString;
+		for(int32 Number : LinkOffsets)
+		{
+			ConcatenatedString += FString::Printf(TEXT("%d "), Number);
+		}
+		ll("LinkOffsets: " + ConcatenatedString, log);
+
+		
+		
 		SimParameters.LinkOffsets = LinkOffsets;
 		SimParameters.LinkCounts = LinkCounts;
 		SimParameters.LinkIndices = LinkIndices;
