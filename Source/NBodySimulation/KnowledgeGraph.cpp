@@ -99,6 +99,8 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 	{
 		ll("iterations is greater than maxiterations", log);
 		FNBodySimModule::Get().EndRendering();
+		update_link_position();
+
 		return;
 	}
 
@@ -109,6 +111,8 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 	{
 		ll("alpha is less than alphaMin", log);
 		FNBodySimModule::Get().EndRendering();
+		update_link_position();
+
 		return;
 	}
 
@@ -123,14 +127,14 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 		if (use_constant_delta_time < 0)
 		{
 			SimParameters.DeltaTime = DeltaTime;
-			FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, 1);
+			FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, alpha);
 			
 		}
 		else
 		{
 			float DeltaTime = use_constant_delta_time;
 			SimParameters.DeltaTime = DeltaTime;
-			FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, 1);
+			FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, alpha );
 		}
 		
 	}

@@ -733,42 +733,7 @@ void AKnowledgeGraph::initializeNodePosition()
 
 void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 {
-	if (use_shaders)
-	{
-		float RandomMass = FMath::FRandRange(
-			20.0
-			,
-			50.0);
-
-		FVector3f RandomPosition;
-		if (!initialize_with_zero_position)
-		{
-			RandomPosition = FVector3f(RandPointInCircle(
-				1000.0
-			));
-		}
-		else
-		{
-			RandomPosition = FVector3f(0, 0, 0);
-		}
-
-
-		FVector3f RandomVelocity
-		{
-			0, 0, 0
-		};
-
-		float MeshScale = instance_static_mesh_size;
-
-		FTransform MeshTransform(
-			FRotator(),
-			FVector(RandomPosition),
-			FVector(MeshScale, MeshScale, MeshScale)
-		);
-
-		BodyTransforms[index] = MeshTransform;
-		SimParameters.Bodies[index] = FBodyData(RandomMass, RandomPosition, RandomVelocity);
-	}
+	
 
 
 	// Calculate index-based radius
@@ -824,6 +789,46 @@ void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 
 
 	ll("index: " + FString::FromInt(index) + " init_pos: " + init_pos.ToString());
+
+
+
+	if (use_shaders)
+	{
+		float RandomMass = FMath::FRandRange(
+			20.0
+			,
+			50.0);
+		
+		
+
+		float MeshScale = instance_static_mesh_size;
+
+		FTransform MeshTransform(
+			FRotator(),
+			init_pos,
+			FVector(MeshScale, MeshScale, MeshScale)
+		);
+
+		BodyTransforms[index] = MeshTransform;
+
+
+		FVector3f RandomVelocity
+				{
+					0, 0, 0
+				};
+		SimParameters.Bodies[index] = FBodyData(
+			RandomMass,
+			FVector3f(init_pos),
+			RandomVelocity);
+	}
+
+
+
+
+
+
+
+
 }
 
 void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
@@ -902,7 +907,7 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 
 void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 {
-	bool log = false;
+	bool log = true;
 	//link forces
 	float n = all_nodes2.Num();
 	float m = all_links2.Num();
