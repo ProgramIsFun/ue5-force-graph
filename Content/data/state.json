@@ -1,87 +1,21 @@
 {
   "nodes": [
-   
-  
-  
-   
-  
     {
-      "id": "Gavroche",
-      "group": 8,
-      "__indexColor": "#9803d2",
-      "__bckgDimensions": [
-        91.7993567434739,
-        24.2995279120152
-      ],
-      "index": 48
+      "id": "Gavroche"
     },
-    
     {
-      "id": "Courfeyrac",
-      "group": 8,
-      "__indexColor": "#8003e0",
-      "__bckgDimensions": [
-        103.03608159698952,
-        24.2995279120152
-      ],
-      "index": 62
+      "id": "Courfeyrac"
     },
-  
-   
     {
-      "id": "Mme.Hucheloup",
-      "group": 8,
-      "__indexColor": "#6803ee",
-      "__bckgDimensions": [
-        151.42232732452857,
-        24.2995279120152
-      ],
-      "index": 76
+      "id": "Mme.Hucheloup"
     }
   ],
   "links": [
-    
     {
-      "value": 1,
-      "__indexColor": "#b804ea",
-      "__photons": [
-        {
-          "__progressRatio": 0.1820000000000008
-        },
-        {
-          "__progressRatio": 0.432000000000001
-        },
-        {
-          "__progressRatio": 0.6820000000000009
-        },
-        {
-          "__progressRatio": 0.9320000000000009
-        }
-      ],
-      "__controlPoints": null,
-      "index": 251,
       "source": "Mme.Hucheloup",
       "target": "Courfeyrac"
     },
     {
-      "value": 1,
-      "__indexColor": "#a404eb",
-      "__photons": [
-        {
-          "__progressRatio": 0.1820000000000008
-        },
-        {
-          "__progressRatio": 0.432000000000001
-        },
-        {
-          "__progressRatio": 0.6820000000000009
-        },
-        {
-          "__progressRatio": 0.9320000000000009
-        }
-      ],
-      "__controlPoints": null,
-      "index": 252,
       "source": "Mme.Hucheloup",
       "target": "Gavroche"
     }
