@@ -137,6 +137,21 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		ll("using Jason. ", log);
 		// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
 
+
+		TMap<int32, FString> fileIndexToPath= {
+			{0, "/data/graph.json"},
+			{1, "/data/graph2.json"},
+			{2, "/data/graph3.json"},
+			{3, "/data/graph4.json"},
+			{4, "/data/graph5.json"},
+			{5, "/data/graph6.json"},
+			{6, "/data/graph7.json"},
+			{7, "/data/graph8.json"},
+			{8, "/data/graph9.json"},
+			{9, "/data/graph10.json"},
+		};
+
+		
 		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state.json";
 
 		FString JsonString; //Json converted to FString
