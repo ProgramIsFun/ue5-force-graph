@@ -103,6 +103,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_Jason = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	int32 JSONFileIndex = 0;
+	
 	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	int32 wayofinitnodeslinks = 2;
 
