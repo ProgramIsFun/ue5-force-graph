@@ -37,56 +37,7 @@
       "index": 62
     },
   
-    {
-      "id": "Montparnasse",
-      "group": 4,
-      "__indexColor": "#cc03e9",
-      "__bckgDimensions": [
-        132.30896978058325,
-        24.2995279120152
-      ],
-      "index": 71
-    },
-    {
-      "id": "Toussaint",
-      "group": 5,
-      "__indexColor": "#b803ea",
-      "__bckgDimensions": [
-        89.5559485403489,
-        24.2995279120152
-      ],
-      "index": 72
-    },
-    {
-      "id": "Child1",
-      "group": 10,
-      "__indexColor": "#a403eb",
-      "__bckgDimensions": [
-        61.429483696598886,
-        24.2995279120152
-      ],
-      "index": 73
-    },
-    {
-      "id": "Child2",
-      "group": 10,
-      "__indexColor": "#9003ec",
-      "__bckgDimensions": [
-        61.429483696598886,
-        24.2995279120152
-      ],
-      "index": 74
-    },
-    {
-      "id": "Brujon",
-      "group": 4,
-      "__indexColor": "#7c03ed",
-      "__bckgDimensions": [
-        62.556116387028574,
-        24.2995279120152
-      ],
-      "index": 75
-    },
+   
     {
       "id": "Mme.Hucheloup",
       "group": 8,
