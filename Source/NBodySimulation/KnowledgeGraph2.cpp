@@ -686,7 +686,6 @@ void AKnowledgeGraph::ApplyForces()
 	else
 	{
 	}
-
 	calculate_centre_force_and_update_position();
 }
 
@@ -849,7 +848,8 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 		   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
 		   ")", use_logging, 2);
 		ll("First element position is: " + GPUOutputPositions[0].ToString(), use_logging, 2);
-
+		ll("second element position is: " + GPUOutputPositions[1].ToString(), use_logging, 2);
+		ll("third element position is: " + GPUOutputPositions[2].ToString(), use_logging, 2);
 		// QUICK_SCOPE_CYCLE_COUNTER(STAT_SimulationEngine_UpdateBodiesPosition);
 
 		// Update bodies visual with new positions.
@@ -902,7 +902,7 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 
 void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 {
-	bool log = true;
+	bool log = false;
 	//link forces
 	float n = all_nodes2.Num();
 	float m = all_links2.Num();
@@ -1037,7 +1037,8 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 		}
 
 
-		ll("LinkOffsets Printing out all things. ", log);
+
+		
 		FString ConcatenatedString;
 		for(int32 Number : LinkOffsets)
 		{
@@ -1045,6 +1046,40 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 		}
 		ll("LinkOffsets: " + ConcatenatedString, log);
 
+		ConcatenatedString = "";
+		for(int32 Number : LinkCounts)
+		{
+			ConcatenatedString += FString::Printf(TEXT("%d "), Number);
+		}
+		ll("LinkCounts: " + ConcatenatedString, log);
+
+		ConcatenatedString = "";
+		for(int32 Number : LinkIndices)
+		{
+			ConcatenatedString += FString::Printf(TEXT("%d "), Number);
+		}
+		ll("LinkIndices: " + ConcatenatedString, log);
+
+		ConcatenatedString = "";
+		for(float Number : LinkStrengths)
+		{
+			ConcatenatedString += FString::Printf(TEXT("%f "), Number);
+		}
+		ll("LinkStrengths: " + ConcatenatedString, log);
+		
+		ConcatenatedString = "";
+		for(float Number : LinkBiases)
+		{
+			ConcatenatedString += FString::Printf(TEXT("%f "), Number);
+		}
+		ll("LinkBiases: " + ConcatenatedString, log);
+
+		ConcatenatedString = "";
+		for(int32 Number : Linkinout)
+		{
+			ConcatenatedString += FString::Printf(TEXT("%d "), Number);
+		}
+		ll("Linkinout: " + ConcatenatedString, log);
 		
 		
 		SimParameters.LinkOffsets = LinkOffsets;
