@@ -23,86 +23,7 @@
       ],
       "index": 38
     },
-    {
-      "id": "Pontmercy",
-      "group": 4,
-      "__indexColor": "#4c03c9",
-      "__bckgDimensions": [
-        100.78281621613014,
-        24.2995279120152
-      ],
-      "index": 39
-    },
-    {
-      "id": "Boulatruelle",
-      "group": 6,
-      "__indexColor": "#3803ca",
-      "__bckgDimensions": [
-        110.94231633820046,
-        24.2995279120152
-      ],
-      "index": 40
-    },
-    {
-      "id": "Eponine",
-      "group": 4,
-      "__indexColor": "#2403cb",
-      "__bckgDimensions": [
-        78.32908086456764,
-        24.2995279120152
-      ],
-      "index": 41
-    },
-    {
-      "id": "Anzelma",
-      "group": 4,
-      "__indexColor": "#1003cc",
-      "__bckgDimensions": [
-        82.79612188019264,
-        24.2995279120152
-      ],
-      "index": 42
-    },
-    {
-      "id": "Woman2",
-      "group": 5,
-      "__indexColor": "#fc03cd",
-      "__bckgDimensions": [
-        84.6738684622239,
-        24.2995279120152
-      ],
-      "index": 43
-    },
-    {
-      "id": "MotherInnocent",
-      "group": 0,
-      "__indexColor": "#e803ce",
-      "__bckgDimensions": [
-        144.69210271515357,
-        24.2995279120152
-      ],
-      "index": 44
-    },
-    {
-      "id": "Gribier",
-      "group": 0,
-      "__indexColor": "#d403cf",
-      "__bckgDimensions": [
-        64.77974919952858,
-        24.2995279120152
-      ],
-      "index": 45
-    },
-    {
-      "id": "Jondrette",
-      "group": 7,
-      "__indexColor": "#c003d0",
-      "__bckgDimensions": [
-        88.43917302765358,
-        24.2995279120152
-      ],
-      "index": 46
-    },
+  
     {
       "id": "Mme.Burgon",
       "group": 7,
@@ -123,36 +44,7 @@
       ],
       "index": 48
     },
-    {
-      "id": "Gillenormand",
-      "group": 5,
-      "__indexColor": "#8403d3",
-      "__bckgDimensions": [
-        124.42249517120827,
-        24.2995279120152
-      ],
-      "index": 49
-    },
-    {
-      "id": "Magnon",
-      "group": 5,
-      "__indexColor": "#7003d4",
-      "__bckgDimensions": [
-        77.19257573761452,
-        24.2995279120152
-      ],
-      "index": 50
-    },
-    {
-      "id": "Mlle.Gillenormand",
-      "group": 5,
-      "__indexColor": "#5c03d5",
-      "__bckgDimensions": [
-        167.15574102081763,
-        24.2995279120152
-      ],
-      "index": 51
-    },
+    
     {
       "id": "Mme.Pontmercy",
       "group": 5,
