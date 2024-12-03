@@ -66,21 +66,14 @@ void AKnowledgeGraph::BeginPlay()
 }
 
 
-void AKnowledgeGraph::Tick(float DeltaTime)
+bool AKnowledgeGraph::Maint(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-
-	// ll("sizeof(int) is: " + FString::FromInt(sizeof(int)), true, 2);
-	// qq();
-	// return;
-	
-	
 	if (!prechecksucceeded)
 	{
 		ll("prechecksucceeded is false", true, 2);
 		FNBodySimModule::Get().EndRendering();
 		qq();
-		return;
+		return true;
 	}
 
 
@@ -101,7 +94,7 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 		FNBodySimModule::Get().EndRendering();
 		update_link_position();
 
-		return;
+		return true;
 	}
 
 
@@ -113,9 +106,10 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 		FNBodySimModule::Get().EndRendering();
 		update_link_position();
 
-		return;
+		return true;
 	}
 
+	
 	alpha += (alphaTarget - alpha) * alphaDecay; //need to restart this if want to keep moving
 	ll("alpha: " + FString::SanitizeFloat(alpha), log);
 
@@ -162,5 +156,18 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 		ll("update link position", log);
 		update_link_position();
 	}
+	return false;
+}
+
+void AKnowledgeGraph::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	// ll("sizeof(int) is: " + FString::FromInt(sizeof(int)), true, 2);
+	// qq();
+	// return;
+	
+	
+	if (Maint(DeltaTime)) return;
 
 }

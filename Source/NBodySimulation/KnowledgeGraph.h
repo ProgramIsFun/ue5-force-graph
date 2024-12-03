@@ -323,6 +323,7 @@ public:
 	
 	
 	virtual void BeginPlay() override;
+	bool Maint(float DeltaTime);
 	virtual void BeginDestroy() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	virtual void Tick(float DeltaTime) override;
