@@ -77,6 +77,7 @@ void AKnowledgeGraph::prepare()
 		SimParameters.GravityConstant = 1000.0;
 		SimParameters.NumBodies = jnodessss;
 		SimParameters.alphaS = 1;
+		SimParameters.shaderdebug=static_cast<unsigned int>(shaderdebug);
 		FNBodySimModule::Get().BeginRendering();
 		FNBodySimModule::Get().InitWithParameters(SimParameters);
 	}

@@ -111,7 +111,11 @@ void FNBodySimModule::ComputeSimulation_RenderThread(FNBodySimParameters& SimPar
 
 	CSBuffers.Initialize(SimParameters);
 	
-	FNBodySimCSInterface::RunComputeBodyPositions_RenderThread(RHICmdList, SimParameters, CSBuffers);
+	FNBodySimCSInterface::RunComputeBodyPositions_RenderThread(
+		RHICmdList,
+		SimParameters,
+		CSBuffers
+		);
 
 	RenderEveryFrameLock.Lock();
 	{

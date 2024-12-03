@@ -14,7 +14,13 @@ StructuredBuffer<int> LinkIndices;
 StructuredBuffer<float> LinkStrengths;
 StructuredBuffer<float> LinkBiases;
 StructuredBuffer<float> Linkinout;
+
+
+
 const uint NumLinks;
+
+const uint shaderdebug;
+
 
 // Settings
 const uint NumBodies;
@@ -49,7 +55,7 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 	if (ID.x >= NumBodies) return;
 
 	float alphaS1;
-	if (true)
+	if (shaderdebug == 0)
 	{
 		alphaS[ID.x] += (0-alphaS[ID.x]) * 0.022763;
 		alphaS1 = alphaS[ID.x];
@@ -109,11 +115,11 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		Velocities[ID.x] *= velocityDecay;
 		Positions[ID.x] += Velocities[ID.x];
 	}
-	else
-	{
+	else {
 		float3 pos = Positions[ID.x];  // Read the current position
 		pos += float3(1.0, 1.0,1.0);  // Increment each component by 1
 		Positions[ID.x] = pos;  // Write it back to the buffer
+		alphaS[ID.x] = alpha;
 	}
 
 }

@@ -61,7 +61,7 @@ void AKnowledgeGraph::BeginPlay()
 
 	ClearLogFile();
 
-	prepare();
+	prepare(); 
 	
 }
 

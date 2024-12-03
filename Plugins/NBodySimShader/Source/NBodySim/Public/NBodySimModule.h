@@ -14,6 +14,8 @@ struct FNBodySimParameters
 {
 public:
 
+	uint32 shaderdebug;
+	
 	uint32 NumLinks;
 	TArray<int> LinkOffsets;  // Holds the offset for each body
 	TArray<int> LinkCounts;   // Holds the count of links for each body

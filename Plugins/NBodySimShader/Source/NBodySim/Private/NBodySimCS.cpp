@@ -41,8 +41,13 @@ public:
 		SHADER_PARAMETER_SRV(StructuredBuffer<float>, LinkBiases)
 
 
-
+		
 		SHADER_PARAMETER(uint32, NumLinks)
+
+
+		SHADER_PARAMETER(uint32, shaderdebug)
+
+
 		SHADER_PARAMETER(uint32, NumBodies)
 		SHADER_PARAMETER(float, GravityConstant)
 		SHADER_PARAMETER(float, CameraAspectRatio)
@@ -308,6 +313,9 @@ void FNBodySimCSInterface::RunComputeBodyPositions_RenderThread(FRHICommandListI
 	// Transition setup
 	ERHIAccess BarrierAccess = ERHIAccess::CopySrc | ERHIAccess::CopyDest | ERHIAccess::SRVCompute | ERHIAccess::SRVGraphics | ERHIAccess::UAVCompute | ERHIAccess::UAVGraphics;
 	
+	FRHITransitionInfo TransitionInfoAlpha(Buffers.AlphaBuffer, BarrierAccess);
+	RHICmdList.Transition(TransitionInfoAlpha);
+
 	FRHITransitionInfo TransitionInfoPositions(Buffers.PositionsBuffer, BarrierAccess);
 	RHICmdList.Transition(TransitionInfoPositions);
 		
@@ -330,6 +338,9 @@ void FNBodySimCSInterface::RunComputeBodyPositions_RenderThread(FRHICommandListI
 
 
 	PassParameters.NumLinks = SimParameters.NumLinks;
+
+	PassParameters.shaderdebug = SimParameters.shaderdebug;
+
 	PassParameters.NumBodies = SimParameters.NumBodies;
 	PassParameters.GravityConstant = SimParameters.GravityConstant;
 	PassParameters.CameraAspectRatio = SimParameters.CameraAspectRatio;
