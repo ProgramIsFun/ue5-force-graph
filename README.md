@@ -21,6 +21,10 @@ replicate the result of the popular library https://github.com/vasturiano/3d-for
 connect_to_previous: bool
     If true, the node will be connected to the previous node. Which make the graph a snake like structure.
 
+### How to Run the project
+
+By default in the dark world, 
+I have already dragged a blueprint object into the world.
 
 
 
