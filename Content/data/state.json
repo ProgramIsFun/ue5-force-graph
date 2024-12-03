@@ -3,26 +3,7 @@
    
   
   
-    {
-      "id": "Cosette",
-      "group": 5,
-      "__indexColor": "#5003bc",
-      "__bckgDimensions": [
-        73.80274419464577,
-        24.2995279120152
-      ],
-      "index": 26
-    },
-    {
-      "id": "Cochepaille",
-      "group": 2,
-      "__indexColor": "#6003c8",
-      "__bckgDimensions": [
-        109.81569890655983,
-        24.2995279120152
-      ],
-      "index": 38
-    },
+   
   
     {
       "id": "Mme.Burgon",
@@ -45,106 +26,6 @@
       "index": 48
     },
     
-    {
-      "id": "Mme.Pontmercy",
-      "group": 5,
-      "__indexColor": "#4803d6",
-      "__bckgDimensions": [
-        151.38279180206763,
-        24.2995279120152
-      ],
-      "index": 52
-    },
-    {
-      "id": "Mlle.Vaubois",
-      "group": 5,
-      "__indexColor": "#3403d7",
-      "__bckgDimensions": [
-        118.4236243215989,
-        24.2995279120152
-      ],
-      "index": 53
-    },
-    {
-      "id": "Lt.Gillenormand",
-      "group": 5,
-      "__indexColor": "#2003d8",
-      "__bckgDimensions": [
-        146.92562322296607,
-        24.2995279120152
-      ],
-      "index": 54
-    },
-    {
-      "id": "Marius",
-      "group": 8,
-      "__indexColor": "#0c03d9",
-      "__bckgDimensions": [
-        64.77976445831764,
-        24.2995279120152
-      ],
-      "index": 55
-    },
-    {
-      "id": "BaronessT",
-      "group": 5,
-      "__indexColor": "#f803da",
-      "__bckgDimensions": [
-        101.91933660187233,
-        24.2995279120152
-      ],
-      "index": 56
-    },
-    {
-      "id": "Mabeuf",
-      "group": 8,
-      "__indexColor": "#e403db",
-      "__bckgDimensions": [
-        71.5593665090989,
-        24.2995279120152
-      ],
-      "index": 57
-    },
-    {
-      "id": "Enjolras",
-      "group": 8,
-      "__indexColor": "#d003dc",
-      "__bckgDimensions": [
-        77.17278508820046,
-        24.2995279120152
-      ],
-      "index": 58
-    },
-    {
-      "id": "Combeferre",
-      "group": 8,
-      "__indexColor": "#bc03dd",
-      "__bckgDimensions": [
-        110.91268376984108,
-        24.2995279120152
-      ],
-      "index": 59
-    },
-    {
-      "id": "Prouvaire",
-      "group": 8,
-      "__indexColor": "#a803de",
-      "__bckgDimensions": [
-        90.67269353546608,
-        24.2995279120152
-      ],
-      "index": 60
-    },
-    {
-      "id": "Feuilly",
-      "group": 8,
-      "__indexColor": "#9403df",
-      "__bckgDimensions": [
-        62.536356255192636,
-        24.2995279120152
-      ],
-      "index": 61
-    },
     {
       "id": "Courfeyrac",
       "group": 8,
