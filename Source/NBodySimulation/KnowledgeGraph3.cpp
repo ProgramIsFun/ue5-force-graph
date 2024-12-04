@@ -118,20 +118,18 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	}
 
 
-	ll("alpha: " + FString::SanitizeFloat(alpha), log);
+	ll("alpha Before update: " + FString::SanitizeFloat(alpha), log);
 
 	if (alpha < alphaMin)
 	{
 		ll("alpha is less than alphaMin", log);
 		FNBodySimModule::Get().EndRendering();
 		update_link_position();
-
 		return true;
 	}
-
 	
 	alpha += (alphaTarget - alpha) * alphaDecay; //need to restart this if want to keep moving
-	ll("alpha: " + FString::SanitizeFloat(alpha), log);
+	ll("alpha After update, pass to the gpu later: " + FString::SanitizeFloat(alpha), log);
 
 	
 
@@ -142,7 +140,6 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 		{
 			SimParameters.DeltaTime = DeltaTime;
 			FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, alpha);
-			
 		}
 		else
 		{

@@ -69,13 +69,20 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 {
 	if (ID.x >= NumBodies) return;
 
-	float alphaS1;
 	if (shaderdebug == 0)
 	{
-		alphaS[ID.x] += (0-alphaS[ID.x]) * 0.022763;
-		alphaS1 = alphaS[ID.x];
-		// alphaS1 = alpha;
+		float alphaS1;
 
+		if (0)
+		{
+			alphaS[ID.x] += (0-alphaS[ID.x]) * 0.022763;
+			alphaS1 = alphaS[ID.x];
+		}
+		else
+		{
+			alphaS[ID.x] = alpha;
+			alphaS1 = alpha;
+		}
 		
 		float3 Acceleration= float3(0, 0, 0);
 		
