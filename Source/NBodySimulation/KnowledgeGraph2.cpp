@@ -139,20 +139,14 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 
 		TMap<int32, FString> fileIndexToPath= {
-			{0, "/data/graph.json"},
-			{1, "/data/graph2.json"},
-			{2, "/data/graph3.json"},
-			{3, "/data/graph4.json"},
-			{4, "/data/graph5.json"},
-			{5, "/data/graph6.json"},
-			{6, "/data/graph7.json"},
-			{7, "/data/graph8.json"},
-			{8, "/data/graph9.json"},
-			{9, "/data/graph10.json"},
+			{0, "statered.json"},
+			{1, "state - 2024-06-18T223257.374.json"},
+			{2, "state777777777.json"},
+
 		};
 
 		
-		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state.json";
+		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[JSONFileIndex];
 
 		FString JsonString; //Json converted to FString
 
