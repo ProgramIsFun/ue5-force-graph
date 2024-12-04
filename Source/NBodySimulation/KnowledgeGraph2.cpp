@@ -882,7 +882,7 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 
 		if (iterations == 1)
 		{
-			ll("First iteration gpu is useless. ", use_logging, 2);
+			ll("First iteration gpu is useless!!!!!!!!!!!!!!!!!!!!!!!!! ", use_logging, 2);
 			return;
 		}
 		
