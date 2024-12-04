@@ -70,10 +70,13 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// ll("sizeof(int) is: " + FString::FromInt(sizeof(int)), true, 2);
-	// qq();
-	// return;
-	
+	if(iterationsf<10)
+	{
+		ll("The reason of this section is because the first few frames seems "
+	 "to be of sink between the gpu and the cpu. ", true, 2); 
+		iterationsf+=1;
+		return;
+	}
 	
 	Maint(DeltaTime);
 

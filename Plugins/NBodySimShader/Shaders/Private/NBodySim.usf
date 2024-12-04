@@ -30,7 +30,7 @@ const float ViewportWidth;
 const float DeltaTime;
 const float alpha;
 
-float3 CalculateGravitationalForce(uint TargetBodyID, uint AffectingBodyID, float alpha)
+float3 CalculateGravitationalForce(uint TargetBodyID, uint AffectingBodyID, float alpha333)
 {
 	
 	float3 dir = Positions[AffectingBodyID] - Positions[TargetBodyID];
@@ -46,7 +46,7 @@ float3 CalculateGravitationalForce(uint TargetBodyID, uint AffectingBodyID, floa
 	
 	float ForceMagnitude= -60;
 	
-	return dir * ForceMagnitude * alpha /l;
+	return dir * ForceMagnitude * alpha333 /l;
 }
 
 float wasteTime() {
@@ -75,12 +75,12 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		
 
 		
-		float alphaS1;
+		float alphaUUU;
 
 		if (0)
 		{
 			alphaS[ID.x] += (0-alphaS[ID.x]) * 0.022763;
-			alphaS1 = alphaS[ID.x];
+			alphaUUU = alphaS[ID.x];
 		}
 		else
 		{
@@ -102,7 +102,7 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 			}
 
 			
-			alphaS1 = alpha;
+			alphaUUU = alpha;
 		}
 		
 		float3 Acceleration= float3(0, 0, 0);
@@ -129,7 +129,7 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 			
 			float l = length(new_v);
 			l = (l - 30) /
-				l * alphaS1 * LinkStrengths[i];
+				l * alphaUUU * LinkStrengths[i];
 			new_v *= l;
 			
 			if (Linkinout1 == 1)
@@ -147,7 +147,7 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		{
 			// Skip if self.
 			if (i == ID.x) continue;
-			float3 GravityForce = CalculateGravitationalForce(ID.x, i,alphaS1);
+			float3 GravityForce = CalculateGravitationalForce(ID.x, i,alphaUUU);
 			Acceleration += GravityForce;
 			
 		}

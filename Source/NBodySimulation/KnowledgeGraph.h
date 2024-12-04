@@ -307,6 +307,8 @@ public:
 	bool connect_to_previous = true;
 	
 	float alpha = 1;
+	int iterationsf = 0;
+
 	float iterations = 0;
 	float alphaMin = 0.001;
 
