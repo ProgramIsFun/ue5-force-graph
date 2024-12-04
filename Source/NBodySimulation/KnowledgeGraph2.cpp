@@ -856,6 +856,7 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 {
 	if (use_shaders)
 	{
+		
 		// Retrieve GPU computed bodies position.
 		TArray<FVector3f> GPUOutputPositions = FNBodySimModule::Get().GetComputedPositions();
 		TArray<float> alphas = FNBodySimModule::Get().GetComputedAlphas();
@@ -878,6 +879,13 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 		ll("third element position is: " + GPUOutputPositions[2].ToString(), use_logging, 2);
 		// QUICK_SCOPE_CYCLE_COUNTER(STAT_SimulationEngine_UpdateBodiesPosition);
 
+
+		if (iterations == 1)
+		{
+			ll("First iteration gpu is useless. ", use_logging, 2);
+			return;
+		}
+		
 		// Update bodies visual with new positions.
 		for (int i = 0; i < SimParameters.Bodies.Num(); i++)
 		{
