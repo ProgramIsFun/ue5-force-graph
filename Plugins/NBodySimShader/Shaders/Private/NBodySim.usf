@@ -119,7 +119,6 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 			{
 				Acceleration -= new_v * (LinkBiases[i]);
 			}
-
 		}
 		
 		// Calculate gravitational force

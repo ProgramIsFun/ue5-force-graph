@@ -52,18 +52,8 @@ void AKnowledgeGraph::prepare()
 		"AKnowledgeGraph::initializeNodePosition",
 		&AKnowledgeGraph::initializeNodePosition);
 
-	if (use_instance_static_mesh_fornode)
-	{
-		InstancedStaticMeshComponent->AddInstances(BodyTransforms, false);
-	}
 	
-	if (!use_shaders)
-	{
-		if (0)
-		{
-			update_Node_world_position_according_to_position_array();
-		}
-	}
+	
 
 	timeThisMemberFunction(
 		"AKnowledgeGraph::CalculateBiasstrengthOflinks",

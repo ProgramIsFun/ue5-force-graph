@@ -738,6 +738,12 @@ void AKnowledgeGraph::initializeNodePosition()
 			}
 		);
 	}
+
+
+	if (use_instance_static_mesh_fornode)
+	{
+		InstancedStaticMeshComponent->AddInstances(BodyTransforms, false);
+	}
 }
 
 void AKnowledgeGraph::initializeNodePosition_Individual(int index)
