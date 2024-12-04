@@ -75,6 +75,20 @@ void AKnowledgeGraph::prepare()
 }
 
 
+void AKnowledgeGraph::Updatmeterinshader(float DeltaTime)
+{
+	if (use_constant_delta_time < 0)
+	{
+		SimParameters.DeltaTime = DeltaTime;
+		FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, alpha);
+	}
+	else
+	{
+		float DeltaTime = use_constant_delta_time;
+		SimParameters.DeltaTime = DeltaTime;
+		FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, alpha );
+	}
+}
 
 bool AKnowledgeGraph::Maint(float DeltaTime)
 {
@@ -126,18 +140,7 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	// GEngine->AddOnScreenDebugMessage(-1, 10, FColor::White, "TICK");
 	if (use_shaders)
 	{
-		if (use_constant_delta_time < 0)
-		{
-			SimParameters.DeltaTime = DeltaTime;
-			FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, alpha);
-		}
-		else
-		{
-			float DeltaTime = use_constant_delta_time;
-			SimParameters.DeltaTime = DeltaTime;
-			FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, alpha );
-		}
-		
+		Updatmeterinshader(DeltaTime);
 	}
 
 	if (!use_shaders)

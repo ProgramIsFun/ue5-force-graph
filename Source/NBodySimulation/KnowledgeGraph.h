@@ -152,7 +152,8 @@ public:
 	TObjectPtr<UInstancedStaticMeshComponent> InstancedStaticMeshComponent;
 	
 	void prepare();
-	
+	void Updatmeterinshader(float DeltaTime);
+
 	void GenerateConnectedGraph(int32 NumClusters, int32 NodesPerCluster);
 
 
