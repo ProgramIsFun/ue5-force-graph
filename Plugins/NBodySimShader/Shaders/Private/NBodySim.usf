@@ -71,6 +71,10 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 
 	if (shaderdebug == 0)
 	{
+		
+		
+
+		
 		float alphaS1;
 
 		if (0)
@@ -80,7 +84,24 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		}
 		else
 		{
-			alphaS[ID.x] = alpha;
+			if (ID.x==0)
+			{
+				if (alpha==1)
+				{
+					alphaS[ID.x] = 1;
+				}
+				else
+				{
+					alphaS[ID.x] += 1;
+				}
+			}
+			else
+			{
+				alphaS[ID.x] = alpha;
+
+			}
+
+			
 			alphaS1 = alpha;
 		}
 		
