@@ -153,6 +153,7 @@ public:
 	
 	void prepare();
 	void Updatmeterinshader(float DeltaTime);
+	bool Earlyexit(bool log);
 
 	void GenerateConnectedGraph(int32 NumClusters, int32 NodesPerCluster);
 

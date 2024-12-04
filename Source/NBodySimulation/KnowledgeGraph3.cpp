@@ -90,6 +90,27 @@ void AKnowledgeGraph::Updatmeterinshader(float DeltaTime)
 	}
 }
 
+bool AKnowledgeGraph::Earlyexit(bool log)
+{
+	if (iterations > maxiterations)
+	{
+		ll("iterations is greater than maxiterations", log);
+		FNBodySimModule::Get().EndRendering();
+		update_link_position();
+		return true;
+	}
+	
+	ll("alpha Before update: " + FString::SanitizeFloat(alpha), log);
+	if (alpha < alphaMin)
+	{
+		ll("alpha is less than alphaMin", log);
+		FNBodySimModule::Get().EndRendering();
+		update_link_position();
+		return true;
+	}
+	return false;
+}
+
 bool AKnowledgeGraph::Maint(float DeltaTime)
 {
 	if (!prechecksucceeded)
@@ -112,32 +133,13 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	ll("iterations: " + FString::FromInt(iterations), log);
 
 
-	if (iterations > maxiterations)
-	{
-		ll("iterations is greater than maxiterations", log);
-		FNBodySimModule::Get().EndRendering();
-		update_link_position();
+	if (Earlyexit(log)) return true;
 
-		return true;
-	}
-
-
-	ll("alpha Before update: " + FString::SanitizeFloat(alpha), log);
-
-	if (alpha < alphaMin)
-	{
-		ll("alpha is less than alphaMin", log);
-		FNBodySimModule::Get().EndRendering();
-		update_link_position();
-		return true;
-	}
 	
 	alpha += (alphaTarget - alpha) * alphaDecay; //need to restart this if want to keep moving
 	ll("alpha After update, pass to the gpu later: " + FString::SanitizeFloat(alpha), log);
 
 	
-
-	// GEngine->AddOnScreenDebugMessage(-1, 10, FColor::White, "TICK");
 	if (use_shaders)
 	{
 		Updatmeterinshader(DeltaTime);
