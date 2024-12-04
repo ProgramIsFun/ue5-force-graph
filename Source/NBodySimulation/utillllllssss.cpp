@@ -24,11 +24,12 @@
 
 
 
-// std::string FilePath = R"(V:\UNREALLLLPROJECTSSSSSS\ue544_blankkkkkkkkkk1\ue544_blankkkkkkkkkk\Saved\Logs\MyLogFile.txt)";
+// FString FilePath1 = FPaths::ProjectDir() + TEXT("Saved/Logs/MyLogFile.txt");
+
+FString FilePath1 = FPaths::ProjectDir() + TEXT("Source/NBodySimulation/KnowledgeEdge11111111111111.txt");
 
 
-// std::string FilePath = FPaths::ProjectDir() + TEXT("Saved/Logs/MyLogFile.txt");
-FString FilePath1 = FPaths::ProjectDir() + TEXT("Saved/Logs/MyLogFile.txt");
+
 std::string const FilePath = TCHAR_TO_UTF8(*FilePath1);
 void ClearLogFile() {
 

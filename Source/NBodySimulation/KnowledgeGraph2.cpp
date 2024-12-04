@@ -666,7 +666,7 @@ void AKnowledgeGraph::update_link_position()
 
 void AKnowledgeGraph::ApplyForces()
 {
-	bool log = true;
+	bool log = false;
 
 	// In here velocity of all notes are zeroed
 	// In the following for loop, In the first few loop, the velocity is 0. 
@@ -692,10 +692,16 @@ void AKnowledgeGraph::ApplyForces()
 		calculate_charge_force_and_update_velocity();
 		ll("Finish calculating charge.--------------------------------------", log);
 	}
+
+
+	if (1)
+	{
+		ll("centre force is disabled for debugging. ", log);
+	}
 	else
 	{
+		calculate_centre_force_and_update_position();
 	}
-	calculate_centre_force_and_update_position();
 }
 
 
