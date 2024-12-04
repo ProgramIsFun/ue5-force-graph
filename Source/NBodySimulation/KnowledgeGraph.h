@@ -150,12 +150,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Instanced)
 	TObjectPtr<UInstancedStaticMeshComponent> InstancedStaticMeshComponent;
-
-
-
-	void prepare();
-	void UpdateBodiesPosition();
 	
+	void prepare();
 	
 	void GenerateConnectedGraph(int32 NumClusters, int32 NodesPerCluster);
 
@@ -328,9 +324,6 @@ public:
 	float initialRadius = 10;
 	
 
-
-	// ACharacter* PlayerActor;
-	
 	
 	virtual void BeginPlay() override;
 	bool Maint(float DeltaTime);
