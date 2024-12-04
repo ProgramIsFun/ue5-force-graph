@@ -1,0 +1,468 @@
+using Jason. 
+nodePositions.Num(): 3
+jnodesNum111111111111111111: 3
+jid: Gavroche
+jid: Courfeyrac
+jid: Mme.Hucheloup
+jedges.Num(): 2
+jsource: 2, jtarget: 1
+jsource: 2, jtarget: 0
+Elapsed time For AKnowledgeGraph::generateGraph: 0.002281 seconds
+Elapsed time For AKnowledgeGraph::initializeNodePosition: 0.000009 seconds
+link.source: 2 link.target: 1
+link.source: 2 link.target: 0
+Elapsed time For AKnowledgeGraph::CalculateBiasstrengthOflinks: 0.000333 seconds
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 1
+alpha Before update: 1.0
+alpha After update, pass to the gpu later: 0.977237
+apply forces
+update actor location based on velocity
+first node: X=4.015 Y=11.421 Z=-6.745
+second node: X=-7.202 Y=-17.789 Z=-1.930
+third node: X=-9.471 Y=4.708 Z=19.504
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 2
+alpha Before update: 0.977237
+alpha After update, pass to the gpu later: 0.954993
+apply forces
+update actor location based on velocity
+first node: X=5.105 Y=13.487 Z=-7.769
+second node: X=-8.417 Y=-19.789 Z=-0.571
+third node: X=-10.054 Y=5.301 Z=21.275
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 3
+alpha Before update: 0.954993
+alpha After update, pass to the gpu later: 0.933254
+apply forces
+update actor location based on velocity
+first node: X=5.396 Y=15.049 Z=-7.316
+second node: X=-9.493 Y=-20.972 Z=1.058
+third node: X=-10.297 Y=5.746 Z=22.156
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 4
+alpha Before update: 0.933254
+alpha After update, pass to the gpu later: 0.912011
+apply forces
+update actor location based on velocity
+first node: X=5.428 Y=16.354 Z=-6.449
+second node: X=-10.422 Y=-21.732 Z=2.652
+third node: X=-10.456 Y=6.105 Z=22.780
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 5
+alpha Before update: 0.912011
+alpha After update, pass to the gpu later: 0.891251
+apply forces
+update actor location based on velocity
+first node: X=5.367 Y=17.490 Z=-5.490
+second node: X=-11.228 Y=-22.224 Z=4.155
+third node: X=-10.597 Y=6.406 Z=23.322
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 6
+alpha Before update: 0.891251
+alpha After update, pass to the gpu later: 0.870964
+apply forces
+update actor location based on velocity
+first node: X=5.268 Y=18.496 Z=-4.538
+second node: X=-11.935 Y=-22.546 Z=5.553
+third node: X=-10.738 Y=6.671 Z=23.839
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 7
+alpha Before update: 0.870964
+alpha After update, pass to the gpu later: 0.851138
+apply forces
+update actor location based on velocity
+first node: X=5.152 Y=19.395 Z=-3.623
+second node: X=-12.564 Y=-22.757 Z=6.851
+third node: X=-10.881 Y=6.917 Z=24.344
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 8
+alpha Before update: 0.851138
+alpha After update, pass to the gpu later: 0.831764
+apply forces
+update actor location based on velocity
+first node: X=5.027 Y=20.205 Z=-2.751
+second node: X=-13.131 Y=-22.892 Z=8.059
+third node: X=-11.024 Y=7.151 Z=24.842
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 9
+alpha Before update: 0.831764
+alpha After update, pass to the gpu later: 0.812831
+apply forces
+update actor location based on velocity
+first node: X=4.898 Y=20.941 Z=-1.922
+second node: X=-13.646 Y=-22.973 Z=9.189
+third node: X=-11.166 Y=7.375 Z=25.331
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 10
+alpha Before update: 0.812831
+alpha After update, pass to the gpu later: 0.794328
+apply forces
+update actor location based on velocity
+first node: X=4.766 Y=21.614 Z=-1.133
+second node: X=-14.119 Y=-23.014 Z=10.249
+third node: X=-11.306 Y=7.592 Z=25.811
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 11
+alpha Before update: 0.794328
+alpha After update, pass to the gpu later: 0.776247
+apply forces
+update actor location based on velocity
+first node: X=4.633 Y=22.232 Z=-0.381
+second node: X=-14.555 Y=-23.024 Z=11.248
+third node: X=-11.445 Y=7.801 Z=26.281
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 12
+alpha Before update: 0.776247
+alpha After update, pass to the gpu later: 0.758578
+apply forces
+update actor location based on velocity
+first node: X=4.500 Y=22.805 Z=0.336
+second node: X=-14.961 Y=-23.011 Z=12.192
+third node: X=-11.580 Y=8.005 Z=26.739
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 13
+alpha Before update: 0.758578
+alpha After update, pass to the gpu later: 0.74131
+apply forces
+update actor location based on velocity
+first node: X=4.369 Y=23.338 Z=1.022
+second node: X=-15.340 Y=-22.980 Z=13.088
+third node: X=-11.712 Y=8.201 Z=27.185
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 14
+alpha Before update: 0.74131
+alpha After update, pass to the gpu later: 0.724436
+apply forces
+update actor location based on velocity
+first node: X=4.240 Y=23.837 Z=1.679
+second node: X=-15.695 Y=-22.935 Z=13.939
+third node: X=-11.841 Y=8.392 Z=27.620
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 15
+alpha Before update: 0.724436
+alpha After update, pass to the gpu later: 0.707946
+apply forces
+update actor location based on velocity
+first node: X=4.113 Y=24.304 Z=2.309
+second node: X=-16.029 Y=-22.880 Z=14.749
+third node: X=-11.967 Y=8.577 Z=28.043
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 16
+alpha Before update: 0.707946
+alpha After update, pass to the gpu later: 0.691831
+apply forces
+update actor location based on velocity
+first node: X=3.989 Y=24.745 Z=2.913
+second node: X=-16.345 Y=-22.815 Z=15.522
+third node: X=-12.089 Y=8.756 Z=28.454
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 17
+alpha Before update: 0.691831
+alpha After update, pass to the gpu later: 0.676083
+apply forces
+update actor location based on velocity
+first node: X=3.867 Y=25.161 Z=3.494
+second node: X=-16.643 Y=-22.744 Z=16.261
+third node: X=-12.209 Y=8.929 Z=28.854
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 18
+alpha Before update: 0.676083
+alpha After update, pass to the gpu later: 0.660693
+apply forces
+update actor location based on velocity
+first node: X=3.747 Y=25.555 Z=4.052
+second node: X=-16.926 Y=-22.668 Z=16.968
+third node: X=-12.325 Y=9.097 Z=29.243
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 19
+alpha Before update: 0.660693
+alpha After update, pass to the gpu later: 0.645654
+apply forces
+update actor location based on velocity
+first node: X=3.631 Y=25.930 Z=4.590
+second node: X=-17.194 Y=-22.587 Z=17.645
+third node: X=-12.438 Y=9.260 Z=29.620
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 20
+alpha Before update: 0.645654
+alpha After update, pass to the gpu later: 0.630957
+apply forces
+update actor location based on velocity
+first node: X=3.518 Y=26.286 Z=5.108
+second node: X=-17.450 Y=-22.504 Z=18.294
+third node: X=-12.548 Y=9.418 Z=29.988
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 21
+alpha Before update: 0.630957
+alpha After update, pass to the gpu later: 0.616595
+apply forces
+update actor location based on velocity
+first node: X=3.407 Y=26.625 Z=5.608
+second node: X=-17.693 Y=-22.418 Z=18.917
+third node: X=-12.655 Y=9.571 Z=30.344
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 22
+alpha Before update: 0.616595
+alpha After update, pass to the gpu later: 0.60256
+apply forces
+update actor location based on velocity
+first node: X=3.299 Y=26.950 Z=6.090
+second node: X=-17.926 Y=-22.331 Z=19.516
+third node: X=-12.759 Y=9.720 Z=30.691
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 23
+alpha Before update: 0.60256
+alpha After update, pass to the gpu later: 0.588844
+apply forces
+update actor location based on velocity
+first node: X=3.194 Y=27.260 Z=6.556
+second node: X=-18.148 Y=-22.242 Z=20.092
+third node: X=-12.860 Y=9.864 Z=31.028
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 24
+alpha Before update: 0.588844
+alpha After update, pass to the gpu later: 0.57544
+apply forces
+update actor location based on velocity
+first node: X=3.092 Y=27.557 Z=7.006
+second node: X=-18.361 Y=-22.153 Z=20.646
+third node: X=-12.958 Y=10.004 Z=31.355
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 25
+alpha Before update: 0.57544
+alpha After update, pass to the gpu later: 0.562341
+apply forces
+update actor location based on velocity
+first node: X=2.992 Y=27.842 Z=7.441
+second node: X=-18.564 Y=-22.064 Z=21.179
+third node: X=-13.054 Y=10.139 Z=31.674
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 26
+alpha Before update: 0.562341
+alpha After update, pass to the gpu later: 0.549541
+apply forces
+update actor location based on velocity
+first node: X=2.895 Y=28.115 Z=7.861
+second node: X=-18.759 Y=-21.975 Z=21.694
+third node: X=-13.147 Y=10.271 Z=31.983
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 27
+alpha Before update: 0.549541
+alpha After update, pass to the gpu later: 0.537032
+apply forces
+update actor location based on velocity
+first node: X=2.801 Y=28.378 Z=8.268
+second node: X=-18.947 Y=-21.886 Z=22.189
+third node: X=-13.237 Y=10.399 Z=32.283
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 28
+alpha Before update: 0.537032
+alpha After update, pass to the gpu later: 0.524808
+apply forces
+update actor location based on velocity
+first node: X=2.709 Y=28.631 Z=8.662
+second node: X=-19.127 Y=-21.798 Z=22.668
+third node: X=-13.325 Y=10.523 Z=32.575
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 29
+alpha Before update: 0.524808
+alpha After update, pass to the gpu later: 0.512861
+apply forces
+update actor location based on velocity
+first node: X=2.619 Y=28.874 Z=9.043
+second node: X=-19.300 Y=-21.710 Z=23.129
+third node: X=-13.411 Y=10.643 Z=32.860
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 30
+alpha Before update: 0.512861
+alpha After update, pass to the gpu later: 0.501187
+apply forces
+update actor location based on velocity
+first node: X=2.532 Y=29.108 Z=9.412
+second node: X=-19.466 Y=-21.624 Z=23.575
+third node: X=-13.494 Y=10.760 Z=33.136
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 31
+alpha Before update: 0.501187
+alpha After update, pass to the gpu later: 0.489779
+apply forces
+update actor location based on velocity
+first node: X=2.448 Y=29.334 Z=9.770
+second node: X=-19.626 Y=-21.538 Z=24.006
+third node: X=-13.575 Y=10.874 Z=33.404
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 32
+alpha Before update: 0.489779
+alpha After update, pass to the gpu later: 0.47863
+apply forces
+update actor location based on velocity
+first node: X=2.365 Y=29.552 Z=10.117
+second node: X=-19.780 Y=-21.454 Z=24.422
+third node: X=-13.654 Y=10.984 Z=33.665
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 33
+alpha Before update: 0.47863
+alpha After update, pass to the gpu later: 0.467735
+apply forces
+update actor location based on velocity
+first node: X=2.285 Y=29.763 Z=10.453
+second node: X=-19.929 Y=-21.370 Z=24.825
+third node: X=-13.730 Y=11.091 Z=33.919
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 34
+alpha Before update: 0.467735
+alpha After update, pass to the gpu later: 0.457088
+apply forces
+update actor location based on velocity
+first node: X=2.207 Y=29.966 Z=10.780
+second node: X=-20.072 Y=-21.288 Z=25.214
+third node: X=-13.805 Y=11.195 Z=34.166
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 35
+alpha Before update: 0.457088
+alpha After update, pass to the gpu later: 0.446684
+apply forces
+update actor location based on velocity
+first node: X=2.131 Y=30.163 Z=11.096
+second node: X=-20.211 Y=-21.208 Z=25.591
+third node: X=-13.878 Y=11.297 Z=34.406
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 36
+alpha Before update: 0.446684
+alpha After update, pass to the gpu later: 0.436516
+apply forces
+update actor location based on velocity
+first node: X=2.057 Y=30.353 Z=11.403
+second node: X=-20.344 Y=-21.128 Z=25.956
+third node: X=-13.948 Y=11.395 Z=34.640
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 37
+alpha Before update: 0.436516
+alpha After update, pass to the gpu later: 0.42658
+apply forces
+update actor location based on velocity
+first node: X=1.985 Y=30.536 Z=11.702
+second node: X=-20.473 Y=-21.050 Z=26.309
+third node: X=-14.017 Y=11.491 Z=34.867
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 38
+alpha Before update: 0.42658
+alpha After update, pass to the gpu later: 0.416869
+apply forces
+update actor location based on velocity
+first node: X=1.915 Y=30.714 Z=11.991
+second node: X=-20.598 Y=-20.974 Z=26.651
+third node: X=-14.084 Y=11.584 Z=35.088
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 39
+alpha Before update: 0.416869
+alpha After update, pass to the gpu later: 0.40738
+apply forces
+update actor location based on velocity
+first node: X=1.847 Y=30.887 Z=12.272
+second node: X=-20.718 Y=-20.899 Z=26.983
+third node: X=-14.149 Y=11.675 Z=35.303
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 40
+alpha Before update: 0.40738
+alpha After update, pass to the gpu later: 0.398107
+apply forces
+update actor location based on velocity
+first node: X=1.781 Y=31.054 Z=12.545
+second node: X=-20.835 Y=-20.825 Z=27.304
+third node: X=-14.212 Y=11.763 Z=35.512
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 41
+alpha Before update: 0.398107
+alpha After update, pass to the gpu later: 0.389045
+apply forces
+update actor location based on velocity
+first node: X=1.716 Y=31.215 Z=12.811
+second node: X=-20.947 Y=-20.753 Z=27.616
+third node: X=-14.273 Y=11.848 Z=35.716
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 42
+alpha Before update: 0.389045
+alpha After update, pass to the gpu later: 0.380189
+apply forces
+update actor location based on velocity
+first node: X=1.653 Y=31.372 Z=13.069
+second node: X=-21.056 Y=-20.682 Z=27.918
+third node: X=-14.333 Y=11.931 Z=35.914
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 43
+alpha Before update: 0.380189
+alpha After update, pass to the gpu later: 0.371535
+apply forces
+update actor location based on velocity
+first node: X=1.592 Y=31.524 Z=13.319
+second node: X=-21.162 Y=-20.613 Z=28.211
+third node: X=-14.392 Y=12.012 Z=36.107
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 44
+alpha Before update: 0.371535
+alpha After update, pass to the gpu later: 0.363078
+apply forces
+update actor location based on velocity
+first node: X=1.533 Y=31.672 Z=13.563
+second node: X=-21.264 Y=-20.545 Z=28.496
+third node: X=-14.449 Y=12.091 Z=36.295
+update link position
+TICK--------------------------------------------------------------------------------------------------------------------------------------------------------
+iterations: 45
+alpha Before update: 0.363078
+alpha After update, pass to the gpu later: 0.354813
+apply forces
+update actor location based on velocity
+first node: X=1.475 Y=31.815 Z=13.800
+second node: X=-21.363 Y=-20.479 Z=28.772
+third node: X=-14.504 Y=12.168 Z=36.477
+update link position
+AKnowledgeGraph::EndPlay
+EndPlayReason: 2
+AKnowledgeGraph::BeginDestroy
+AKnowledgeGraph::~AKnowledgeGraph

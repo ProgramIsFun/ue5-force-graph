@@ -856,21 +856,17 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 {
 	if (use_shaders)
 	{
-		if (iterations == 1)
-		{
-			return;
-		}
 		// Retrieve GPU computed bodies position.
 		TArray<FVector3f> GPUOutputPositions = FNBodySimModule::Get().GetComputedPositions();
 		TArray<float> alphas = FNBodySimModule::Get().GetComputedAlphas();
 		if (GPUOutputPositions.Num() != SimParameters.Bodies.Num())
 		{
-			ll("Size differ for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" +
+			ll("Size differ. Bodies (" +
 			   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
 			   ")", true, 2);
 			return;
 		}
-		ll("Size is same for GPU Velocities Ouput buffer and current Bodies instanced mesh buffer. Bodies (" +
+		ll("Size is same. Bodies (" +
 		   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
 		   ")", use_logging, 2);
 
