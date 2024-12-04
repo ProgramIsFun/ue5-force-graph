@@ -119,7 +119,9 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		float3 pos = Positions[ID.x];  // Read the current position
 		pos += float3(1.0, 1.0,1.0);  // Increment each component by 1
 		Positions[ID.x] = pos;  // Write it back to the buffer
-		alphaS[ID.x] = alpha;
+		// alphaS[ID.x] = alpha;
+		alphaS[ID.x] += (0-alphaS[ID.x]) * 0.022763;
+
 	}
 
 }
