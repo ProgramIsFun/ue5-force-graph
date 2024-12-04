@@ -49,6 +49,21 @@ float3 CalculateGravitationalForce(uint TargetBodyID, uint AffectingBodyID, floa
 	return dir * ForceMagnitude * alpha /l;
 }
 
+float wasteTime() {
+	float sum = 0.0;
+	int i, j;
+
+	// Using a very large number of iterations to waste time
+	for (i = 0; i < 100000; i++) {
+		for (j = 0; j < 100000; j++) {
+			sum += 1; // Adding trigonometric computation to increase loop execution time
+		}
+	}
+    
+	return sum; // Returning sum to prevent the compiler from optimizing the loop away
+}
+
+
 [numthreads(256, 1, 1)]
 void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 {
@@ -116,12 +131,30 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		Positions[ID.x] += Velocities[ID.x];
 	}
 	else {
+		float s=wasteTime();
+
+
+		if (ID.x==0)
+		{
+			alphaS[ID.x] = s;
+		}else
+		{
+			alphaS[ID.x] = alpha;
+
+		}
+
+
+		
+		// alphaS[ID.x] += (0-alphaS[ID.x]) * 0.022763;
+
+
+		
 		float3 pos = Positions[ID.x];  // Read the current position
 		pos += float3(1.0, 1.0,1.0);  // Increment each component by 1
 		Positions[ID.x] = pos;  // Write it back to the buffer
-		// alphaS[ID.x] = alpha;
-		alphaS[ID.x] += (0-alphaS[ID.x]) * 0.022763;
-
+		
 	}
 
 }
+
+
