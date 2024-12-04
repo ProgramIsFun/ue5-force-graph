@@ -75,6 +75,6 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 	// return;
 	
 	
-	if (Maint(DeltaTime)) return;
+	Maint(DeltaTime);
 
 }
