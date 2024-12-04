@@ -84,21 +84,28 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		}
 		else
 		{
-			if (ID.x==0)
+			if (0)
 			{
-				if (alpha==1)
-				{
-					alphaS[ID.x] = 1;
-				}
-				else
-				{
-					alphaS[ID.x] += 1;
-				}
+			
 			}
 			else
 			{
-				alphaS[ID.x] = alpha;
+				if (ID.x==0)
+				{
+					if (alpha==1)
+					{
+						alphaS[ID.x] = 1;
+					}
+					else
+					{
+						alphaS[ID.x] += 1;
+					}
+				}
+				else
+				{
+					alphaS[ID.x] = alpha;
 
+				}
 			}
 
 			
@@ -158,28 +165,31 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		Positions[ID.x] += Velocities[ID.x];
 	}
 	else {
-		float s=wasteTime();
-
-
-		if (ID.x==0)
-		{
-			alphaS[ID.x] = s;
-		}else
-		{
-			alphaS[ID.x] = alpha;
-
-		}
 
 
 		
-		// alphaS[ID.x] += (0-alphaS[ID.x]) * 0.022763;
+		// float s=wasteTime();
+		//
+		//
+		// if (ID.x==0)
+		// {
+		// 	alphaS[ID.x] = s;
+		// }else
+		// {
+		// 	alphaS[ID.x] = alpha;
+		//
+		// }
 
 
 		
-		float3 pos = Positions[ID.x];  // Read the current position
-		pos += float3(1.0, 1.0,1.0);  // Increment each component by 1
-		Positions[ID.x] = pos;  // Write it back to the buffer
+		// Positions[ID.x] =Positions[ID.x];
+
+
 		
+		// float3 pos = Positions[ID.x];  // Read the current position
+		// pos += float3(1.0, 1.0,1.0);  // Increment each component by 1
+		// Positions[ID.x] = pos;  // Write it back to the buffer
+		//
 	}
 
 }

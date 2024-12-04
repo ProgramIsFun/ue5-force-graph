@@ -73,7 +73,7 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 	if(iterationsf<10)
 	{
 		ll("The reason of this section is because the first few frames seems "
-	 "to be of sink between the gpu and the cpu. ", true, 2); 
+	 "to be of sink between the gpu and the cpu. ", false, 2); 
 		iterationsf+=1;
 		return;
 	}

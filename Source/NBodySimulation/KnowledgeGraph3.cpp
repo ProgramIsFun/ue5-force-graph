@@ -147,10 +147,21 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 
 	if (!use_shaders)
 	{
-		ll("apply forces", log);
+
+		if(iterations==1)
+		{	ll("In the usual value. ", true, 2);
+			ll("first node: " + nodePositions[0].ToString(), log);
+			ll("second node: " + nodePositions[1].ToString(), log);
+			ll("third node: " + nodePositions[2].ToString(), log);
+		}
+	
+
+
+		
+		// ll("apply forces", log);
 		ApplyForces();
 
-		ll("update actor location based on velocity", log);
+		// ll("update actor location based on velocity", log);
 		update_position_array_according_to_velocity_array();
 
 
