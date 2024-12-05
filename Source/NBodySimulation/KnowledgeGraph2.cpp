@@ -339,22 +339,15 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 	// After loop, the velocity of all notes have been altered a little bit because of the link force already. 
 	for (auto& link : all_links2)
 	{
-		// ll("ApplyForcesssssssssssssssssssss Index: " + FString::FromInt(Index), log);
 
 
 		FVector source_pos = nodePositions[link.source];
-		// ll("source_pos: " + source_pos.ToString(), log);
 		FVector source_velocity = nodeVelocities[link.source];
-		// ll("source_velocity: " + source_velocity.ToString(), log);
 		FVector target_pos = nodePositions[link.target];
-		// ll("target_pos: " + target_pos.ToString(), log);
 		FVector target_velocity = nodeVelocities[link.target];
-		// ll("target_velocity: " + target_velocity.ToString(), log);
-
-
+		
 		FVector new_v = target_pos + target_velocity - source_pos - source_velocity;
-		// ll("new_v: " + new_v.ToString(), log);
-
+		
 		if (new_v.IsNearlyZero())
 		{
 			new_v = Jiggle(new_v, 1e-6f);
@@ -362,25 +355,16 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 
 
 		float l = new_v.Size();
-		// UE_LOG(LogTemp, Warning, TEXT("!!!link.Value->distance: %f"), link.Value->distance);
-
+		
 		// ll("l: " + FString::SanitizeFloat(l), log);
 		// By looking at the javascript code, we can see strength Will only be computed when there is a change Of the graph structure to the graph.
 		l = (l - link.distance) /
 			l * alpha * link.strength;
-		// ll("l: " + FString::SanitizeFloat(l), log);
 		new_v *= l;
 
 
-		if (false)
-		{
-		}
-		// ll("new_v: " + new_v.ToString(), log);
-		// ll("link.Value->bias: " + FString::SanitizeFloat(link.Value->bias), log);
-		// target_node->velocity -= new_v * (link.Value->bias);
 		nodeVelocities[link.target] -= new_v * (link.bias);
 
-		// source_node->velocity += new_v * (1 - link.Value->bias);
 		nodeVelocities[link.source] += new_v * (1 - link.bias);
 	}
 }
@@ -666,22 +650,16 @@ void AKnowledgeGraph::update_link_position()
 
 void AKnowledgeGraph::ApplyForces()
 {
-	bool log = false;
+	bool log = true;
 
 	// In here velocity of all notes are zeroed
 	// In the following for loop, In the first few loop, the velocity is 0. 
-
-
-	ll("11111111111111111Warning printing out all things. ", log, 1);
-
+	
 
 	ll("Ready to calculate link.--------------------------------------", log);
 
-	double start = FPlatformTime::Seconds();
 	calculate_link_force_and_update_velocity();
-	double end = FPlatformTime::Seconds();
-
-
+	
 	ll("Finish calculating link.--------------------------------------", log);
 
 
@@ -966,11 +944,6 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 
 	for (auto& link : all_links2)
 	{
-		ll("link.source: " +
-		   FString::FromInt(link.source) +
-		   " link.target: " + FString::FromInt(link.target),
-		   log, 2);
-
 		Nodeconnection[link.source] += 1;
 		Nodeconnection[link.target] += 1;
 
@@ -997,6 +970,8 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 			// Better have a check because strength is set to 1 when it is initialized. 
 			link.strength = 1.0 / fmin(s1,
 			                           s2);
+
+			ll("cpu bias: " + FString::SanitizeFloat(bias), log);
 		}
 	}else{
 		int32 Index = 0;
