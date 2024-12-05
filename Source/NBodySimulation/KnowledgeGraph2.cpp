@@ -836,87 +836,48 @@ void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 
 void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 {
-	if (use_shaders)
+	if (use_shaders && !GPUvalid)
 	{
+		return;
+	}
+	
+	
+	// Update bodies visual with new positions.
+	for (int i = 0; i < nodePositions.Num(); i++)
+	{
+		FVector NewPosition = nodePositions[i];
 		
-		// Retrieve GPU computed bodies position.
-		TArray<FVector3f> GPUOutputPositions = FNBodySimModule::Get().GetComputedPositions();
-		TArray<float> alphas = FNBodySimModule::Get().GetComputedAlphas();
-		if (GPUOutputPositions.Num() != SimParameters.Bodies.Num())
-		{
-			ll("Size differ. Bodies (" +
-			   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
-			   ")", true, 2);
-			return;
-		}
-		ll("Size is same. Bodies (" +
-		   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
-		   ")", use_logging, 2);
-
-		ll("alpha: " + FString::SanitizeFloat(alphas[0]), use_logging, 2);
-		ll("alpha1: " + FString::SanitizeFloat(alphas[1]), use_logging, 2);
-
-		ll("First element position is: " + GPUOutputPositions[0].ToString(), use_logging, 2);
-		ll("second element position is: " + GPUOutputPositions[1].ToString(), use_logging, 2);
-		ll("third element position is: " + GPUOutputPositions[2].ToString(), use_logging, 2);
-		// QUICK_SCOPE_CYCLE_COUNTER(STAT_SimulationEngine_UpdateBodiesPosition);
-
-
-		if (iterations == 1)
-		{
-			ll("First iteration gpu is useless!!!!!!!!!!!!!!!!!!!!!!!!! ", use_logging, 2);
-			return;
+		if (use_actor_fornode){
+			all_nodes2[i].node->SetActorLocation(NewPosition);
 		}
 		
-		// Update bodies visual with new positions.
-		for (int i = 0; i < SimParameters.Bodies.Num(); i++)
-		{
-			FVector NewPosition = FVector(GPUOutputPositions[i]);
-
-
-			nodePositions[i] = NewPosition;
-
-
-			if (use_instance_static_mesh_fornode)
-			{
-				BodyTransforms[i].SetTranslation(NewPosition);
-			}
-
-
-			if (use_text_render_components_fornode)
-			{
-				FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
-
-				TextComponents11111111111111111111[i]->SetWorldLocation(FVector(GPUOutputPositions[i]));
-
-				if (rotate_to_face_player)
-				{
-					// Compute the direction from the text component to the player.
-					FVector ToPlayer = PlayerLocation - NewPosition;
-					ToPlayer.Normalize();
-
-					// Create a look-at rotation. The second parameter is the up-vector, adjust if needed.
-					FRotator NewRotation = FRotationMatrix::MakeFromX(ToPlayer).Rotator();
-					TextComponents11111111111111111111[i]->SetWorldRotation(NewRotation);
-				}
-			}
-		}
-
 		if (use_instance_static_mesh_fornode)
 		{
-			InstancedStaticMeshComponent->BatchUpdateInstancesTransforms(0, BodyTransforms, false, true);
+			BodyTransforms[i].SetTranslation(NewPosition);
+		}
+		
+		if (use_text_render_components_fornode)
+		{
+			FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
+
+			TextComponents11111111111111111111[i]->SetWorldLocation(NewPosition);
+
+			if (rotate_to_face_player)
+			{
+				// Compute the direction from the text component to the player.
+				FVector ToPlayer = PlayerLocation - NewPosition;
+				ToPlayer.Normalize();
+
+				// Create a look-at rotation. The second parameter is the up-vector, adjust if needed.
+				FRotator NewRotation = FRotationMatrix::MakeFromX(ToPlayer).Rotator();
+				TextComponents11111111111111111111[i]->SetWorldRotation(NewRotation);
+			}
 		}
 	}
-	else
+
+	if (use_instance_static_mesh_fornode)
 	{
-		int32 Index = 0;
-		for (auto& node : all_nodes2)
-		{
-			node.node->SetActorLocation(nodePositions[
-				Index
-			]);
-			Index++;
-		}
+		InstancedStaticMeshComponent->BatchUpdateInstancesTransforms(0, BodyTransforms, false, true);
 	}
 }
 

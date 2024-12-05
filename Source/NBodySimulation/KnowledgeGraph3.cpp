@@ -3,26 +3,23 @@
 
 void AKnowledgeGraph::prepare()
 {
-	
 	if (
 		!use_shaders && !use_actor_fornode
 	)
 	{
-		ll("If CPU we must use actor for node for right now. ", 1, 2);
+		ll("If CPU we must use actor for node for right now. ", true, 2);
 		prechecksucceeded = false;
 		qq();
 		return;
 	}
 	if (use_instance_static_mesh_fornode)
 	{
-
-		if(!InstancedStaticMeshComponent)
+		if (!InstancedStaticMeshComponent)
 		{
 			prechecksucceeded = false;
 			qq();
 			return;
 		}
-		
 	}
 
 
@@ -42,7 +39,7 @@ void AKnowledgeGraph::prepare()
 	if (use_shaders)
 	{
 		SimParameters.Bodies.SetNumUninitialized(
-		jnodessss
+			jnodessss
 		);
 		BodyTransforms.SetNumUninitialized(
 			jnodessss);
@@ -52,8 +49,6 @@ void AKnowledgeGraph::prepare()
 		"AKnowledgeGraph::initializeNodePosition",
 		&AKnowledgeGraph::initializeNodePosition);
 
-	
-	
 
 	timeThisMemberFunction(
 		"AKnowledgeGraph::CalculateBiasstrengthOflinks",
@@ -67,11 +62,10 @@ void AKnowledgeGraph::prepare()
 		SimParameters.GravityConstant = 1000.0;
 		SimParameters.NumBodies = jnodessss;
 		SimParameters.alphaS = 1;
-		SimParameters.shaderdebug=static_cast<unsigned int>(shaderdebug);
+		SimParameters.shaderdebug = static_cast<unsigned int>(shaderdebug);
 		FNBodySimModule::Get().BeginRendering();
 		FNBodySimModule::Get().InitWithParameters(SimParameters);
 	}
-
 }
 
 
@@ -86,7 +80,7 @@ void AKnowledgeGraph::Updatmeterinshader(float DeltaTime)
 	{
 		float DeltaTime = use_constant_delta_time;
 		SimParameters.DeltaTime = DeltaTime;
-		FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, alpha );
+		FNBodySimModule::Get().UpdateDeltaTime(DeltaTime, alpha);
 	}
 }
 
@@ -99,7 +93,7 @@ bool AKnowledgeGraph::Earlyexit(bool log)
 		update_link_position();
 		return true;
 	}
-	
+
 	ll("alpha Before update: " + FString::SanitizeFloat(alpha), log);
 	if (alpha < alphaMin)
 	{
@@ -113,16 +107,15 @@ bool AKnowledgeGraph::Earlyexit(bool log)
 
 void AKnowledgeGraph::CPUcalculate(bool log)
 {
-	if(iterations==1)
-	{	ll("In the usual value. ", true, 2);
+	if (iterations == 1)
+	{
+		ll("In the usual value. ", true, 2);
 		ll("first node: " + nodePositions[0].ToString(), log);
 		ll("second node: " + nodePositions[1].ToString(), log);
 		ll("third node: " + nodePositions[2].ToString(), log);
 	}
-	
 
 
-		
 	// ll("apply forces", log);
 	ApplyForces();
 
@@ -157,27 +150,29 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	ll("iterations: " + FString::FromInt(iterations), log);
 
 
-	if (Earlyexit(log)) return true;
+	if (Earlyexit(log))
+	{
+		return true;
+	}
 
-	
+
 	alpha += (alphaTarget - alpha) * alphaDecay; //need to restart this if want to keep moving
 	ll("alpha After update, pass to the gpu later: " + FString::SanitizeFloat(alpha), log);
 
-	
+
 	if (use_shaders)
 	{
+		gpugetpositions();
+		
 		Updatmeterinshader(DeltaTime);
-	}
-
-	if (!use_shaders)
+	}else
 	{
 		CPUcalculate(log);
 	}
 	update_Node_world_position_according_to_position_array();
 
-	
-	
-	if (1)
+
+	if (true)
 	{
 		ll("update link position", log);
 		update_link_position();
@@ -185,4 +180,49 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	return false;
 }
 
+void AKnowledgeGraph::gpugetpositions()
+{
+	// Retrieve GPU computed bodies position.
+	TArray<FVector3f> GPUOutputPositions = FNBodySimModule::Get().GetComputedPositions();
+	TArray<float> alphas = FNBodySimModule::Get().GetComputedAlphas();
+	if (GPUOutputPositions.Num() != SimParameters.Bodies.Num())
+	{
+		ll("Size differ. Bodies (" +
+		   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
+		   ")", true, 2);
 
+		GPUvalid = false;
+		return;
+	}
+	ll("Size is same. Bodies (" +
+	   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
+	   ")", use_logging, 2);
+
+	ll("alpha: " + FString::SanitizeFloat(alphas[0]), use_logging, 2);
+	ll("alpha1: " + FString::SanitizeFloat(alphas[1]), use_logging, 2);
+
+	ll("First element position is: " + GPUOutputPositions[0].ToString(), use_logging, 2);
+	ll("second element position is: " + GPUOutputPositions[1].ToString(), use_logging, 2);
+	ll("third element position is: " + GPUOutputPositions[2].ToString(), use_logging, 2);
+	// QUICK_SCOPE_CYCLE_COUNTER(STAT_SimulationEngine_UpdateBodiesPosition);
+
+
+	if (iterations == 1)
+	{
+		ll("First iteration gpu is useless!!!!!!!!!!!!!!!!!!!!!!!!! ", use_logging, 2);
+		GPUvalid = false;
+		return;
+	}
+
+	// Update bodies visual with new positions.
+	for (int i = 0; i < SimParameters.Bodies.Num(); i++)
+	{
+		FVector NewPosition = FVector(GPUOutputPositions[i]);
+
+
+		nodePositions[i] = NewPosition;
+	}
+	GPUvalid = true;
+
+	
+}

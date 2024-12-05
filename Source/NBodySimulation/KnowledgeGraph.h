@@ -121,6 +121,11 @@ public:
 	virtual ~AKnowledgeGraph() override;
 	bool prechecksucceeded=true;
 
+
+	// Boolean for signaling whether this round of computation from GPU is valid. 
+	bool GPUvalid = false;
+
+	
 	// Integer ID to original string ID. 
 	TMap<int32, FString> id_to_string;
 
@@ -331,6 +336,7 @@ public:
 
 	
 	virtual void BeginPlay() override;
+	void gpugetpositions();
 	bool Maint(float DeltaTime);
 	virtual void BeginDestroy() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
