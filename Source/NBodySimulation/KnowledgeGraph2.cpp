@@ -339,7 +339,7 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 	// After loop, the velocity of all notes have been altered a little bit because of the link force already. 
 	for (auto& link : all_links2)
 	{
-
+		
 
 		FVector source_pos = nodePositions[link.source];
 		FVector source_velocity = nodeVelocities[link.source];
@@ -352,8 +352,7 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 		{
 			new_v = Jiggle(new_v, 1e-6f);
 		}
-
-
+		
 		float l = new_v.Size();
 		
 		// ll("l: " + FString::SanitizeFloat(l), log);
@@ -362,10 +361,15 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 			l * alpha * link.strength;
 		new_v *= l;
 
-
+		ll("nodeVelocities[link.target]: " + nodeVelocities[link.target].ToString(), log);
+		ll("nodeVelocities[link.source]: " + nodeVelocities[link.source].ToString(), log);
 		nodeVelocities[link.target] -= new_v * (link.bias);
-
 		nodeVelocities[link.source] += new_v * (1 - link.bias);
+		ll("nodeVelocities[link.target]: " + nodeVelocities[link.target].ToString(), log);
+		ll("nodeVelocities[link.source]: " + nodeVelocities[link.source].ToString(), log);
+		
+
+		
 	}
 }
 

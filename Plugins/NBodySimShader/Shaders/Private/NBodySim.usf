@@ -69,7 +69,7 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 {
 	if (ID.x >= NumBodies) return;
 
-	if (shaderdebug == 0)
+	if (shaderdebug < 10)
 	{
 
 		if(alpha>0.98)
@@ -116,49 +116,75 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		
 		float3 Acceleration= float3(0, 0, 0);
 		
-		// Calculate link force
-		int offset = LinkOffsets[ID.x];
-		int count = LinkCounts[ID.x];
-		for (int i = offset;
-			i < offset + count;
-			i++)
+		bool calculateLinkForce;
+		bool calculateGravityForce;
+
+		if(shaderdebug==1)
 		{
-			int affectingBodyID = LinkIndices[i];
-			int Linkinout1 = Linkinout[i];
+			calculateLinkForce = true;
+			calculateGravityForce = false;
+		}
+
+		if(shaderdebug==2)
+		{
+			calculateLinkForce = false;
+			calculateGravityForce = true;
+		}
+
+		if (shaderdebug==3)
+		{
+			calculateLinkForce = true;
+			calculateGravityForce = true;
+		}
+		
+		
+		if (calculateLinkForce)
+		{
+			int offset = LinkOffsets[ID.x];
+			int count = LinkCounts[ID.x];
+			for (int i = offset;
+			     i < offset + count;
+			     i++)
+			{
+				int affectingBodyID = LinkIndices[i];
+				int Linkinout1 = Linkinout[i];
 
 
-			float3 new_v;
-			if (Linkinout1 == 1)
-			{
-				new_v = Positions[affectingBodyID] + Velocities[affectingBodyID] - Positions[ID.x] - Velocities[ID.x];
-			}else
-			{
-				new_v = Positions[ID.x] + Velocities[ID.x] - Positions[affectingBodyID] - Velocities[affectingBodyID];
-			}
+				float3 new_v;
+				if (Linkinout1 == 1)
+				{
+					new_v = Positions[affectingBodyID] + Velocities[affectingBodyID] - Positions[ID.x] - Velocities[ID.x];
+				}else
+				{
+					new_v = Positions[ID.x] + Velocities[ID.x] - Positions[affectingBodyID] - Velocities[affectingBodyID];
+				}
 			
-			float l = length(new_v);
-			l = (l - 30) /
-				l * alphaUUU * LinkStrengths[i];
-			new_v *= l;
+				float l = length(new_v);
+				l = (l - 30) /
+					l * alphaUUU * LinkStrengths[i];
+				new_v *= l;
 			
-			if (Linkinout1 == 1)
-			{
-				Acceleration += new_v * (1 - LinkBiases[i]);
-			}
-			else
-			{
-				Acceleration -= new_v * (LinkBiases[i]);
+				if (Linkinout1 == 1)
+				{
+					Acceleration += new_v * (1 - LinkBiases[i]);
+				}
+				else
+				{
+					Acceleration -= new_v * (LinkBiases[i]);
+				}
 			}
 		}
 		
 		// Calculate gravitational force
-		for (uint i = 0; i < NumBodies; i++)
+		if (calculateGravityForce)
 		{
-			// Skip if self.
-			if (i == ID.x) continue;
-			float3 GravityForce = CalculateGravitationalForce(ID.x, i,alphaUUU);
-			Acceleration += GravityForce;
-			
+			for (uint i = 0; i < NumBodies; i++)
+			{
+				// Skip if self.
+				if (i == ID.x) continue;
+				float3 GravityForce = CalculateGravitationalForce(ID.x, i,alphaUUU);
+				Acceleration += GravityForce;
+			}
 		}
 		
 		Velocities[ID.x] += Acceleration;
