@@ -111,6 +111,30 @@ bool AKnowledgeGraph::Earlyexit(bool log)
 	return false;
 }
 
+void AKnowledgeGraph::CPUcalculate(bool log)
+{
+	if(iterations==1)
+	{	ll("In the usual value. ", true, 2);
+		ll("first node: " + nodePositions[0].ToString(), log);
+		ll("second node: " + nodePositions[1].ToString(), log);
+		ll("third node: " + nodePositions[2].ToString(), log);
+	}
+	
+
+
+		
+	// ll("apply forces", log);
+	ApplyForces();
+
+	// ll("update actor location based on velocity", log);
+	update_position_array_according_to_velocity_array();
+
+
+	ll("first node: " + nodePositions[0].ToString(), log);
+	ll("second node: " + nodePositions[1].ToString(), log);
+	ll("third node: " + nodePositions[2].ToString(), log);
+}
+
 bool AKnowledgeGraph::Maint(float DeltaTime)
 {
 	if (!prechecksucceeded)
@@ -147,27 +171,7 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 
 	if (!use_shaders)
 	{
-
-		if(iterations==1)
-		{	ll("In the usual value. ", true, 2);
-			ll("first node: " + nodePositions[0].ToString(), log);
-			ll("second node: " + nodePositions[1].ToString(), log);
-			ll("third node: " + nodePositions[2].ToString(), log);
-		}
-	
-
-
-		
-		// ll("apply forces", log);
-		ApplyForces();
-
-		// ll("update actor location based on velocity", log);
-		update_position_array_according_to_velocity_array();
-
-
-		ll("first node: " + nodePositions[0].ToString(), log);
-		ll("second node: " + nodePositions[1].ToString(), log);
-		ll("third node: " + nodePositions[2].ToString(), log);
+		CPUcalculate(log);
 	}
 	update_Node_world_position_according_to_position_array();
 

@@ -872,7 +872,11 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 		for (int i = 0; i < SimParameters.Bodies.Num(); i++)
 		{
 			FVector NewPosition = FVector(GPUOutputPositions[i]);
+
+
 			nodePositions[i] = NewPosition;
+
+
 			if (use_instance_static_mesh_fornode)
 			{
 				BodyTransforms[i].SetTranslation(NewPosition);
