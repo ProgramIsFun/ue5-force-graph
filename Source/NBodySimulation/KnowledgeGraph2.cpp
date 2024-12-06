@@ -98,6 +98,49 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		}
 	}
 
+
+	
+	if(!use_Jason)
+	{
+
+	}else
+	{
+		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[JSONFileIndex];
+		FString JsonString; //Json converted to FString
+		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
+		TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
+		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
+
+		if (
+			FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
+			JsonObject.IsValid())
+		{
+			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+
+			for (int32 i = 0; i < jnodessss; i++)
+			{
+				auto jobj = jnodes[i]->AsObject();
+
+				FString jid;
+				if (false)
+				{
+					// int jid = jobj->GetIntegerField("id");
+				}
+				jid = jobj->GetStringField("id");
+				ll("jid: " + jid, log);
+				string_to_id.Emplace(jid, i);
+				id_to_string.Emplace(i, jid);
+				
+			}
+		}
+		
+	}
+
+
+
+
+	
+
 	nodePositions.SetNumUninitialized(jnodessss);
 	nodeVelocities.SetNumUninitialized(jnodessss);
 	all_nodes2.SetNumUninitialized(jnodessss);
@@ -186,16 +229,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			for (int32 i = 0; i < jnodessss; i++)
 			{
 				auto jobj = jnodes[i]->AsObject();
-
-				FString jid;
-				if (false)
-				{
-					// int jid = jobj->GetIntegerField("id");
-				}
-				jid = jobj->GetStringField("id");
-				ll("jid: " + jid, log);
-				string_to_id.Emplace(jid, i);
-				id_to_string.Emplace(i, jid);
 
 				if (use_actor_fornode)
 				{
