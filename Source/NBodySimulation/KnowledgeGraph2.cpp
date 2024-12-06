@@ -355,7 +355,7 @@ void AKnowledgeGraph::calculate_charge_force_and_update_velocity()
 	bool log2 = false;
 
 
-	if (!many_body_use_brute_force)
+	if (!cpu_many_body_use_brute_force)
 	{
 		//
 		OctreeData2 = new OctreeNode(
@@ -373,7 +373,7 @@ void AKnowledgeGraph::calculate_charge_force_and_update_velocity()
 		ll("!!!OctreeData2->strength: " + FString::SanitizeFloat(OctreeData2->Strength), log);
 
 
-		if (!use_parallel)
+		if (!cpu_use_parallel)
 		{
 			int32 Index = 0;
 			for (auto& node : all_nodes2)
@@ -414,7 +414,7 @@ void AKnowledgeGraph::calculate_charge_force_and_update_velocity()
 	}
 	else
 	{
-		if (!use_parallel)
+		if (!cpu_use_parallel)
 		{
 			// Brute force
 			int32 Index = 0;
@@ -547,7 +547,7 @@ void AKnowledgeGraph::calculate_centre_force_and_update_position()
 
 void AKnowledgeGraph::update_position_array_according_to_velocity_array()
 {
-	if (!use_parallel)
+	if (!cpu_use_parallel)
 	{
 		int32 Index = 0;
 		for (auto& node : all_nodes2)
@@ -636,7 +636,7 @@ void AKnowledgeGraph::ApplyForces()
 	// In the following for loop, In the first few loop, the velocity is 0. 
 
 
-	if (linkc)
+	if (cpu_linkc)
 	{
 		ll("Ready to calculate link.--------------------------------------", log);
 		calculate_link_force_and_update_velocity();
@@ -644,11 +644,11 @@ void AKnowledgeGraph::ApplyForces()
 	}
 	else
 	{
-		ll("linkc is disabled. ", log);
+		ll("cpu_linkc is disabled. ", log);
 	}
 
 
-	if (manybody)
+	if (cpu_manybody)
 	{
 		ll("Ready to calculate charge.--------------------------------------", log);
 
@@ -656,7 +656,7 @@ void AKnowledgeGraph::ApplyForces()
 		ll("Finish calculating charge.--------------------------------------", log);
 	}else
 	{
-		ll("manybody is disabled. ", log);
+		ll("cpu_manybody is disabled. ", log);
 	}
 
 
@@ -673,7 +673,7 @@ void AKnowledgeGraph::ApplyForces()
 
 void AKnowledgeGraph::initializeNodePosition()
 {
-	if (!use_parallel)
+	if (!cpu_use_parallel)
 	{
 		// for (
 		// 	auto& node : all_nodes11111111111

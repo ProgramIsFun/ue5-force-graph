@@ -299,8 +299,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	float use_constant_delta_time = 1;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool use_parallel = false;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	int32 maxiterations = 1000000;
@@ -316,16 +314,17 @@ public:
 	int jnodes1 = 50;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	// Calculate many body force or not. 
-	bool manybody = true;
+	bool cpu_use_parallel = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool linkc=true;
+	bool cpu_linkc=true;
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	// Calculate many body force or not. 
+	bool cpu_manybody = true;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool many_body_use_brute_force = true;
+	bool cpu_many_body_use_brute_force = true;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool connect_to_previous = true;
