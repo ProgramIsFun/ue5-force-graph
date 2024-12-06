@@ -303,10 +303,6 @@ void AKnowledgeGraph::generateGraph()
 	defaultGenerateGraphMethod();
 }
 
-void AKnowledgeGraph::GenerateConnectedGraph(int32 NumClusters, int32 NodesPerCluster)
-{
-}
-
 
 void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 {
