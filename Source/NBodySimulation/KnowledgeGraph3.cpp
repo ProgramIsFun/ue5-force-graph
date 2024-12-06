@@ -86,8 +86,9 @@ bool AKnowledgeGraph::Earlyexit(bool log)
 	return false;
 }
 
-void AKnowledgeGraph::CPUcalculate(bool log)
+void AKnowledgeGraph::CPUcalculate()
 {
+	bool log = use_logging;
 	if (iterations == 1)
 	{
 		ll("In the usual value. ", true, 2);
@@ -117,7 +118,7 @@ void AKnowledgeGraph::Updatepositionarray(bool log)
 		
 	}else
 	{
-		CPUcalculate(log);
+		CPUcalculate();
 	}
 }
 

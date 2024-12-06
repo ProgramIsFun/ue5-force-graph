@@ -166,7 +166,7 @@ public:
 	void prepare();
 	void Updatmeterinshader(float DeltaTime);
 	bool Earlyexit(bool log);
-	void CPUcalculate(bool log);
+	void CPUcalculate();
 	void Updatepositionarray(bool log);
 	void UpdateAlpha();
 
