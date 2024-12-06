@@ -109,6 +109,18 @@ void AKnowledgeGraph::CPUcalculate(bool log)
 	ll("third node: " + nodePositions[2].ToString(), log);
 }
 
+void AKnowledgeGraph::Updatepositionarray(bool log)
+{
+	if (use_shaders)
+	{
+		gpugetpositions();
+		
+	}else
+	{
+		CPUcalculate(log);
+	}
+}
+
 bool AKnowledgeGraph::Maint(float DeltaTime)
 {
 	if (!prechecksucceeded)
@@ -141,15 +153,8 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	ll("alpha After update, pass to the gpu later: " + FString::SanitizeFloat(alpha), log);
 
 
-	if (use_shaders)
-	{
-		gpugetpositions();
-		
-		Updatmeterinshader(DeltaTime);
-	}else
-	{
-		CPUcalculate(log);
-	}
+	Updatepositionarray(log);
+	
 	update_Node_world_position_according_to_position_array();
 
 
@@ -157,6 +162,13 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	{
 		ll("update link position", log);
 		update_link_position();
+	}
+
+
+	
+	if (use_shaders){
+	
+		Updatmeterinshader(DeltaTime);
 	}
 	return false;
 }
