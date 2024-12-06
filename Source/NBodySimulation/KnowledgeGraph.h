@@ -328,6 +328,13 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool connect_to_previous = true;
+
+
+
+
+
+
+
 	
 	float alpha = 1;
 	int iterationsf = 0;

@@ -89,14 +89,6 @@ bool AKnowledgeGraph::Earlyexit(bool log)
 void AKnowledgeGraph::CPUcalculate()
 {
 	bool log = use_logging;
-	if (iterations == 1)
-	{
-		ll("In the usual value. ", true, 2);
-		ll("first node: " + nodePositions[0].ToString(), log);
-		ll("second node: " + nodePositions[1].ToString(), log);
-		ll("third node: " + nodePositions[2].ToString(), log);
-	}
-
 
 	// ll("apply forces", log);
 	ApplyForces();
@@ -104,10 +96,6 @@ void AKnowledgeGraph::CPUcalculate()
 	// ll("update actor location based on velocity", log);
 	update_position_array_according_to_velocity_array();
 
-
-	ll("first node: " + nodePositions[0].ToString(), log);
-	ll("second node: " + nodePositions[1].ToString(), log);
-	ll("third node: " + nodePositions[2].ToString(), log);
 }
 
 void AKnowledgeGraph::Updatepositionarray(bool log)
@@ -159,8 +147,17 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 
 	UpdateAlpha();
 
-
+	
+	ll("Before update. ", log);
+	ll("first element. " + nodePositions[0].ToString(), log);
+	ll("second element. " + nodePositions[1].ToString(), log);
+	ll("third element. " + nodePositions[2].ToString(), log);
 	Updatepositionarray(log);
+	ll("After update. ", log);
+	ll("first element. " + nodePositions[0].ToString(), log);
+	ll("second element. " + nodePositions[1].ToString(), log);
+	ll("third element. " + nodePositions[2].ToString(), log);
+	
 	
 	update_Node_world_position_according_to_position_array();
 
@@ -203,10 +200,10 @@ void AKnowledgeGraph::gpugetpositions()
 	ll("alpha: " + FString::SanitizeFloat(alphas[0]), use_logging, 2);
 	ll("alpha1: " + FString::SanitizeFloat(alphas[1]), use_logging, 2);
 
-	ll("First element position is: " + GPUOutputPositions[0].ToString(), use_logging, 2);
-	ll("second element position is: " + GPUOutputPositions[1].ToString(), use_logging, 2);
-	ll("third element position is: " + GPUOutputPositions[2].ToString(), use_logging, 2);
-	
+	// ll("First element position is: " + GPUOutputPositions[0].ToString(), use_logging, 2);
+	// ll("second element position is: " + GPUOutputPositions[1].ToString(), use_logging, 2);
+	// ll("third element position is: " + GPUOutputPositions[2].ToString(), use_logging, 2);
+	//
 	if (iterations == 1)
 	{
 		ll("First iteration gpu is useless!!!!!!!!!!!!!!!!!!!!!!!!! ", use_logging, 2);
