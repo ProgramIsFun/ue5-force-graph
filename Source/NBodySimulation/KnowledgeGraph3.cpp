@@ -3,26 +3,7 @@
 
 void AKnowledgeGraph::prepare()
 {
-	if (
-		!use_shaders && !use_actor_fornode
-	)
-	{
-		ll("If CPU we must use actor for node for right now. ", true, 2);
-		prechecksucceeded = false;
-		qq();
-		return;
-	}
-	if (use_instance_static_mesh_fornode)
-	{
-		if (!InstancedStaticMeshComponent)
-		{
-			prechecksucceeded = false;
-			qq();
-			return;
-		}
-	}
-
-
+	
 	if (use_tick_interval)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Restricting tick interval"));
@@ -184,7 +165,6 @@ void AKnowledgeGraph::gpugetpositions()
 {
 	// Retrieve GPU computed bodies position.
 	TArray<FVector3f> GPUOutputPositions = FNBodySimModule::Get().GetComputedPositions();
-	TArray<float> alphas = FNBodySimModule::Get().GetComputedAlphas();
 	if (GPUOutputPositions.Num() != SimParameters.Bodies.Num())
 	{
 		ll("Size differ. Bodies (" +
@@ -193,20 +173,21 @@ void AKnowledgeGraph::gpugetpositions()
 
 		GPUvalid = false;
 		return;
+	}else
+	{
+		ll("Size is same. Bodies (" +
+		   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
+		   ")", use_logging, 2);
 	}
-	ll("Size is same. Bodies (" +
-	   FString::FromInt(SimParameters.Bodies.Num()) + ") Output(" + FString::FromInt(GPUOutputPositions.Num()) +
-	   ")", use_logging, 2);
 
+	TArray<float> alphas = FNBodySimModule::Get().GetComputedAlphas();
 	ll("alpha: " + FString::SanitizeFloat(alphas[0]), use_logging, 2);
 	ll("alpha1: " + FString::SanitizeFloat(alphas[1]), use_logging, 2);
 
 	ll("First element position is: " + GPUOutputPositions[0].ToString(), use_logging, 2);
 	ll("second element position is: " + GPUOutputPositions[1].ToString(), use_logging, 2);
 	ll("third element position is: " + GPUOutputPositions[2].ToString(), use_logging, 2);
-	// QUICK_SCOPE_CYCLE_COUNTER(STAT_SimulationEngine_UpdateBodiesPosition);
-
-
+	
 	if (iterations == 1)
 	{
 		ll("First iteration gpu is useless!!!!!!!!!!!!!!!!!!!!!!!!! ", use_logging, 2);
@@ -214,7 +195,6 @@ void AKnowledgeGraph::gpugetpositions()
 		return;
 	}
 
-	// Update bodies visual with new positions.
 	for (int i = 0; i < SimParameters.Bodies.Num(); i++)
 	{
 		FVector NewPosition = FVector(GPUOutputPositions[i]);

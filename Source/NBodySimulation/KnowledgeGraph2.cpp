@@ -30,8 +30,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			velocity.Y = 0.0f;
 			velocity.Z = 0.0f;
 		}
-
-
+		
 		for (int32 i = 0; i < jnodessss; i++)
 		{
 			if (use_actor_fornode)
@@ -82,7 +81,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				nodeVelocities[id111] = FVector(0, 0, 0);
 
 
-				// all_nodes1.Emplace(id, kn);
 				all_nodes2[id111] = Node(id111, kn);
 			}
 
@@ -103,7 +101,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				}
 			}
 		}
-
 
 		// Edge creation loop
 		if (!connect_to_previous)
@@ -167,7 +164,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			int32 index = 0;
 			int32 jnodesNum = jnodes.Num();
 			jnodessss = jnodesNum;
-
 
 			nodePositions.SetNumUninitialized(jnodessss);
 			ll("nodePositions.Num(): " + FString::FromInt(nodePositions.Num()), log);
