@@ -95,8 +95,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	if (!use_Jason)
 	{
 		ll("Not using Jason. ", log);
-
-		
 		for (int32 i = 0; i < jnodessss; i++)
 		{
 			if (use_actor_fornode)
@@ -108,7 +106,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 					qq();
 					return;
 				}
-
 				int id111 = i;
 				nodeVelocities[id111] = FVector(0, 0, 0);
 				all_nodes2[id111] = Node(id111, kn);
@@ -176,7 +173,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		{
 			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 
-			int32 index = 0;
 			for (int32 i = 0; i < jnodessss; i++)
 			{
 				auto jobj = jnodes[i]->AsObject();
@@ -188,8 +184,8 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				}
 				jid = jobj->GetStringField("id");
 				ll("jid: " + jid, log);
-				string_to_id.Emplace(jid, index);
-				id_to_string.Emplace(index, jid);
+				string_to_id.Emplace(jid, i);
+				id_to_string.Emplace(i, jid);
 
 				if (use_actor_fornode)
 				{
@@ -200,7 +196,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 						qq();
 						return;
 					}
-					int id111 = index;
+					int id111 = i;
 					nodeVelocities[id111] = FVector(0, 0, 0);
 					all_nodes2[id111] = Node(id111, kn);
 				}
@@ -233,7 +229,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 						TextComponents11111111111111111111.Add(TextComponent);
 					}
 				}
-				index = index + 1;
+				
 			}
 
 			TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("links");
