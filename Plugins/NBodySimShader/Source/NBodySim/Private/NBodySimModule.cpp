@@ -117,6 +117,8 @@ void FNBodySimModule::ComputeSimulation_RenderThread(FNBodySimParameters& SimPar
 		CSBuffers
 		);
 
+
+	
 	RenderEveryFrameLock.Lock();
 	{
 		
