@@ -173,6 +173,7 @@ public:
 
 	void generateGraph();
 	bool Generateactorandattach(AKnowledgeNode*& kn);
+	void Generateaxcomponent(FString name);
 	void defaultGenerateGraphMethod();
 
 

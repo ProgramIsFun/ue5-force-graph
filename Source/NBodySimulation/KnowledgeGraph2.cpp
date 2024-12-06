@@ -57,6 +57,23 @@ bool AKnowledgeGraph::Generateactorandattach(AKnowledgeNode*& kn)
 	return false;
 }
 
+void AKnowledgeGraph::Generateaxcomponent(FString name)
+{
+	UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
+		this, FName("TextComponent"+name)
+	);
+	if (TextComponent)
+	{
+		TextComponent->SetText(FText::FromString(name));
+		TextComponent->SetupAttachment(RootComponent);
+		TextComponent->SetWorldSize(text_size);
+		TextComponent->RegisterComponent(); // This is important to initialize the component
+
+		TextComponents11111111111111111111.Add(TextComponent);
+		// Assuming TextComponents is a valid TArray<UTextRenderComponent*>
+	}
+}
+
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
 	bool log = true;
@@ -118,19 +135,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				name = "Sample Text : " + FString::FromInt(i);
 
 
-				UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
-					this, FName("TextComponent"+name)
-				);
-				if (TextComponent)
-				{
-					TextComponent->SetText(FText::FromString(name));
-					TextComponent->SetupAttachment(RootComponent);
-					TextComponent->SetWorldSize(text_size);
-					TextComponent->RegisterComponent(); // This is important to initialize the component
-
-					TextComponents11111111111111111111.Add(TextComponent);
-					// Assuming TextComponents is a valid TArray<UTextRenderComponent*>
-				}
+				Generateaxcomponent(name);
 			}
 		}
 
@@ -218,22 +223,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 						name = "Sample Text : " + FString::FromInt(i);
 					}
 
-					
-					UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
-					this, FName("TextComponent"+name)
-					);
-					if (TextComponent)
-					{
-						TextComponent->SetText(
-								FText::FromString(name)
-							);
-
-						TextComponent->SetupAttachment(RootComponent);
-						TextComponent->SetWorldSize(text_size);
-						TextComponent->RegisterComponent(); // This is important to initialize the component
-
-						TextComponents11111111111111111111.Add(TextComponent);
-					}
+					Generateaxcomponent(name);
 				}
 				
 			}
