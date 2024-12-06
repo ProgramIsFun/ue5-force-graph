@@ -320,6 +320,11 @@ public:
 	bool manybody = true;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	bool linkc=true;
+
+
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool many_body_use_brute_force = true;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)

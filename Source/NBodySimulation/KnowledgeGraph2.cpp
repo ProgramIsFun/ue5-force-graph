@@ -634,13 +634,18 @@ void AKnowledgeGraph::ApplyForces()
 
 	// In here velocity of all notes are zeroed
 	// In the following for loop, In the first few loop, the velocity is 0. 
-	
 
-	ll("Ready to calculate link.--------------------------------------", log);
 
-	calculate_link_force_and_update_velocity();
-	
-	ll("Finish calculating link.--------------------------------------", log);
+	if (linkc)
+	{
+		ll("Ready to calculate link.--------------------------------------", log);
+		calculate_link_force_and_update_velocity();
+		ll("Finish calculating link.--------------------------------------", log);
+	}
+	else
+	{
+		ll("linkc is disabled. ", log);
+	}
 
 
 	if (manybody)
@@ -649,6 +654,9 @@ void AKnowledgeGraph::ApplyForces()
 
 		calculate_charge_force_and_update_velocity();
 		ll("Finish calculating charge.--------------------------------------", log);
+	}else
+	{
+		ll("manybody is disabled. ", log);
 	}
 
 
