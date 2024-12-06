@@ -113,12 +113,15 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 			if (use_text_render_components_fornode)
 			{
+				
+				FString name;
+				name = "Sample Text : " + FString::FromInt(i);
 				UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
 					this, FName("TextComponent" + FString::FromInt(i))
 				);
 				if (TextComponent)
 				{
-					TextComponent->SetText(FText::FromString("Sample Text : " + FString::FromInt(i)));
+					TextComponent->SetText(FText::FromString(name));
 					TextComponent->SetupAttachment(RootComponent);
 					TextComponent->SetWorldSize(text_size);
 					TextComponent->RegisterComponent(); // This is important to initialize the component
@@ -203,24 +206,25 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 				if (use_text_render_components_fornode)
 				{
+					FString name;
+					try
+					{
+						name = jobj->GetStringField("name");
+					}
+					catch (...)
+					{
+						name = "Sample Text : " + FString::FromInt(i);
+					}
+
+					
 					UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
 						this, FName("T1111111111111extComponent" + FString::FromInt(i))
 					);
 					if (TextComponent)
 					{
-						try
-						{
-							FString name = jobj->GetStringField("name");
-							TextComponent->SetText(
+						TextComponent->SetText(
 								FText::FromString(name)
 							);
-						}
-						catch (...)
-						{
-							TextComponent->SetText(
-								FText::FromString("Sample Text : " + FString::FromInt(i))
-							);
-						}
 
 						TextComponent->SetupAttachment(RootComponent);
 						TextComponent->SetWorldSize(text_size);
