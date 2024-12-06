@@ -165,6 +165,7 @@ public:
 
 
 	void generateGraph();
+	bool Generateactorandattach(AKnowledgeNode*& kn);
 	void defaultGenerateGraphMethod();
 
 

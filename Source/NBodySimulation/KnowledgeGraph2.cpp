@@ -11,6 +11,52 @@
 #define print(text) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 10, FColor::White,text)
 
 
+bool AKnowledgeGraph::Generateactorandattach(AKnowledgeNode*& kn)
+{
+	
+	kn = GetWorld()->SpawnActor<AKnowledgeNode>();
+
+	if (kn)
+	{
+		UStaticMeshComponent* MeshComp = NewObject<UStaticMeshComponent>(kn);
+		MeshComp->AttachToComponent(
+			kn->GetRootComponent(),
+			FAttachmentTransformRules::SnapToTargetIncludingScale
+		);
+		MeshComp->RegisterComponent(); // Don't forget to register the component
+
+
+		float sss = static_mesh_size;
+		FVector NewScale = FVector(sss, sss, sss);
+		MeshComp->SetWorldScale3D(NewScale);
+
+
+		UStaticMesh* CubeMesh;
+		// SelectedMesh1111111111111
+		if (false)
+		{
+			CubeMesh = LoadObject<UStaticMesh>(
+				nullptr,
+				TEXT(
+					"/Engine/BasicShapes/Cube.Cube"
+				)
+			);
+		}
+		CubeMesh = SelectedMesh1111111111111;
+		if (CubeMesh)
+		{
+			MeshComp->SetStaticMesh(CubeMesh);
+		}
+		else
+		{
+			ll("CubeMesh failed", true, 2);
+			qq();
+			return true;
+		}
+	}
+	return false;
+}
+
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
 	bool log = true;
@@ -35,45 +81,12 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		{
 			if (use_actor_fornode)
 			{
-				AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
-
-				if (kn)
+				AKnowledgeNode* kn;
+				if (Generateactorandattach(kn))
 				{
-					UStaticMeshComponent* MeshComp = NewObject<UStaticMeshComponent>(kn);
-					MeshComp->AttachToComponent(
-						kn->GetRootComponent(),
-						FAttachmentTransformRules::SnapToTargetIncludingScale
-					);
-					MeshComp->RegisterComponent(); // Don't forget to register the component
-
-
-					float sss = static_mesh_size;
-					FVector NewScale = FVector(sss, sss, sss);
-					MeshComp->SetWorldScale3D(NewScale);
-
-
-					UStaticMesh* CubeMesh;
-					// SelectedMesh1111111111111
-					if (false)
-					{
-						CubeMesh = LoadObject<UStaticMesh>(
-							nullptr,
-							TEXT(
-								"/Engine/BasicShapes/Cube.Cube"
-							)
-						);
-					}
-					CubeMesh = SelectedMesh1111111111111;
-					if (CubeMesh)
-					{
-						MeshComp->SetStaticMesh(CubeMesh);
-					}
-					else
-					{
-						ll("CubeMesh failed", log, 2);
-						qq();
-						return;
-					}
+					ll("Generateactorandattach failed", log, 2);
+					qq();
+					return;
 				}
 
 				int id111 = i;
@@ -196,47 +209,13 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 				if (use_actor_fornode)
 				{
-					AKnowledgeNode* kn = GetWorld()->SpawnActor<AKnowledgeNode>();
-
-					if (kn)
+					AKnowledgeNode* kn;
+					if (Generateactorandattach(kn))
 					{
-						UStaticMeshComponent* MeshComp = NewObject<UStaticMeshComponent>(kn);
-						MeshComp->AttachToComponent(
-							kn->GetRootComponent(),
-							FAttachmentTransformRules::SnapToTargetIncludingScale
-						);
-						MeshComp->RegisterComponent(); // Don't forget to register the component
-
-
-						float sss = static_mesh_size;
-						FVector NewScale = FVector(sss, sss, sss);
-						MeshComp->SetWorldScale3D(NewScale);
-
-
-						UStaticMesh* CubeMesh;
-						// SelectedMesh1111111111111
-						if (false)
-						{
-							CubeMesh = LoadObject<UStaticMesh>(
-								nullptr,
-								TEXT(
-									"/Engine/BasicShapes/Cube.Cube"
-								)
-							);
-						}
-						CubeMesh = SelectedMesh1111111111111;
-						if (CubeMesh)
-						{
-							MeshComp->SetStaticMesh(CubeMesh);
-						}
-						else
-						{
-							ll("CubeMesh failed", log, 2);
-							qq();
-							return;
-						}
+						ll("Generateactorandattach failed", log, 2);
+						qq();
+						return;
 					}
-
 					int id111 = index;
 
 					nodeVelocities[id111] = FVector(0, 0, 0);
