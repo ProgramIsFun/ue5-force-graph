@@ -116,8 +116,10 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				
 				FString name;
 				name = "Sample Text : " + FString::FromInt(i);
+
+
 				UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
-					this, FName("TextComponent" + FString::FromInt(i))
+					this, FName("TextComponent"+name)
 				);
 				if (TextComponent)
 				{
@@ -218,7 +220,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 					
 					UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
-						this, FName("T1111111111111extComponent" + FString::FromInt(i))
+					this, FName("TextComponent"+name)
 					);
 					if (TextComponent)
 					{
