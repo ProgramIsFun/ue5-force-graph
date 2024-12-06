@@ -166,7 +166,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			int32 jnodesNum =jnodessss;
 
 			nodePositions.SetNumUninitialized(jnodessss);
-			ll("nodePositions.Num(): " + FString::FromInt(nodePositions.Num()), log);
 			nodeVelocities.SetNumUninitialized(jnodessss);
 			all_nodes2.SetNumUninitialized(jnodessss);
 			for (FVector& velocity : nodeVelocities)
@@ -175,10 +174,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				velocity.Y = 0.0f;
 				velocity.Z = 0.0f;
 			}
-
-
-			ll("jnodesNum111111111111111111: " + FString::FromInt(jnodesNum), log);
-
+			
 			for (int32 i = 0; i < jnodesNum; i++)
 			{
 				auto jobj = jnodes[i]->AsObject();
@@ -192,7 +188,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				ll("jid: " + jid, log);
 				string_to_id.Emplace(jid, index);
 				id_to_string.Emplace(index, jid);
-
 
 				if (use_actor_fornode)
 				{
