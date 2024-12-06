@@ -335,13 +335,15 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 			l * alpha * link.strength;
 		new_v *= l;
 
-		ll("nodeVelocities[link.target]: " + nodeVelocities[link.target].ToString(), log);
-		ll("nodeVelocities[link.source]: " + nodeVelocities[link.source].ToString(), log);
+		ll("before update nodeVelocities", log);
+		ll("nodeVelocities[" + FString::FromInt(link.target) + "]: " + nodeVelocities[link.target].ToString(), log);
+		ll("nodeVelocities[" + FString::FromInt(link.source) + "]: " + nodeVelocities[link.source].ToString(), log);
 		nodeVelocities[link.target] -= new_v * (link.bias);
 		nodeVelocities[link.source] += new_v * (1 - link.bias);
-		ll("nodeVelocities[link.target]: " + nodeVelocities[link.target].ToString(), log);
-		ll("nodeVelocities[link.source]: " + nodeVelocities[link.source].ToString(), log);
-		
+
+		ll("after update nodeVelocities", log);
+		ll("nodeVelocities[" + FString::FromInt(link.target) + "]: " + nodeVelocities[link.target].ToString(), log);
+		ll("nodeVelocities[" + FString::FromInt(link.source) + "]: " + nodeVelocities[link.source].ToString(), log);
 
 		
 	}
