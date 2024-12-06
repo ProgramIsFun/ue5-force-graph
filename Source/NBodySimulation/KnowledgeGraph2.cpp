@@ -60,24 +60,42 @@ bool AKnowledgeGraph::Generateactorandattach(AKnowledgeNode*& kn)
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
 	bool log = true;
+	if(!use_Jason)
+	{
+		jnodessss = jnodes1;
 
+	}else
+	{
+		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[JSONFileIndex];
+		FString JsonString; //Json converted to FString
+		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
+		TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
+		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
 
+		if (
+			FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
+			JsonObject.IsValid())
+		{
+			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+			jnodessss = jnodes.Num();
+		}
+	}
+
+	nodePositions.SetNumUninitialized(jnodessss);
+	nodeVelocities.SetNumUninitialized(jnodessss);
+	all_nodes2.SetNumUninitialized(jnodessss);
+	for (FVector& velocity : nodeVelocities)
+	{
+		velocity.X = 0.0f;
+		velocity.Y = 0.0f;
+		velocity.Z = 0.0f;
+	}
+
+	
 	if (!use_Jason)
 	{
 		ll("Not using Jason. ", log);
 
-
-
-		jnodessss = jnodes1;
-		nodePositions.SetNumUninitialized(jnodessss);
-		nodeVelocities.SetNumUninitialized(jnodessss);
-		all_nodes2.SetNumUninitialized(jnodessss);
-		for (FVector& velocity : nodeVelocities)
-		{
-			velocity.X = 0.0f;
-			velocity.Y = 0.0f;
-			velocity.Z = 0.0f;
-		}
 		
 		for (int32 i = 0; i < jnodessss; i++)
 		{
@@ -146,8 +164,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		ll("using Jason. ", log);
 		// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
 
-		
-		
 		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[JSONFileIndex];
 		FString JsonString; //Json converted to FString
 		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
@@ -159,20 +175,8 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			JsonObject.IsValid())
 		{
 			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
-			jnodessss = jnodes.Num();
 
 			int32 index = 0;
-
-			nodePositions.SetNumUninitialized(jnodessss);
-			nodeVelocities.SetNumUninitialized(jnodessss);
-			all_nodes2.SetNumUninitialized(jnodessss);
-			for (FVector& velocity : nodeVelocities)
-			{
-				velocity.X = 0.0f;
-				velocity.Y = 0.0f;
-				velocity.Z = 0.0f;
-			}
-			
 			for (int32 i = 0; i < jnodessss; i++)
 			{
 				auto jobj = jnodes[i]->AsObject();
