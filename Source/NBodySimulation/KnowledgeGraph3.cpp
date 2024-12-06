@@ -121,6 +121,13 @@ void AKnowledgeGraph::Updatepositionarray(bool log)
 	}
 }
 
+void AKnowledgeGraph::UpdateAlpha()
+{
+	bool log=true;
+	alpha += (alphaTarget - alpha) * alphaDecay; //need to restart this if want to keep moving
+	ll("alpha After update, pass to the gpu later: " + FString::SanitizeFloat(alpha), log);
+}
+
 bool AKnowledgeGraph::Maint(float DeltaTime)
 {
 	if (!prechecksucceeded)
@@ -149,8 +156,7 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	}
 
 
-	alpha += (alphaTarget - alpha) * alphaDecay; //need to restart this if want to keep moving
-	ll("alpha After update, pass to the gpu later: " + FString::SanitizeFloat(alpha), log);
+	UpdateAlpha();
 
 
 	Updatepositionarray(log);

@@ -168,6 +168,7 @@ public:
 	bool Earlyexit(bool log);
 	void CPUcalculate(bool log);
 	void Updatepositionarray(bool log);
+	void UpdateAlpha();
 
 	void GenerateConnectedGraph(int32 NumClusters, int32 NodesPerCluster);
 
