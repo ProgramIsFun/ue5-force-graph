@@ -158,7 +158,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
 			JsonObject.IsValid())
 		{
-			//Retrieving an array property and printing each field
 			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 			jnodessss = jnodes.Num();
 
@@ -233,8 +232,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				index = index + 1;
 			}
 
-
-			// TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("edges");
 			TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("links");
 			ll("jedges.Num(): " + FString::FromInt(jedges.Num()), log);
 
