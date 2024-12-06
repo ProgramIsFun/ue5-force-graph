@@ -311,9 +311,10 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 
 	// link forces
 	// After loop, the velocity of all notes have been altered a little bit because of the link force already. 
+	int32 Index = 0;
 	for (auto& link : all_links2)
 	{
-		
+		ll("link iteration: !!!!!!!!!!!!!!!!!!" + FString::FromInt(Index), log);
 		
 		FVector source_pos = nodePositions[link.source];
 		FVector source_velocity = nodeVelocities[link.source];
@@ -321,7 +322,9 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 		FVector target_velocity = nodeVelocities[link.target];
 		
 		FVector new_v = target_pos + target_velocity - source_pos - source_velocity;
+		
 
+		ll("new_v: " + new_v.ToString(), log);
 		if (0)
 		{
 			if (new_v.IsNearlyZero())
@@ -333,7 +336,9 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 		else
 		{
 			ll("GIGGLE is disabled............"
-	  "................................................... ", log);
+	  "...................................................  "
+   ""
+   "Remember to turn it back on. ", log);
 		}
 		
 		float l = new_v.Size();
@@ -354,7 +359,7 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 		ll("nodeVelocities[" + FString::FromInt(link.target) + "]: " + nodeVelocities[link.target].ToString(), log);
 		ll("nodeVelocities[" + FString::FromInt(link.source) + "]: " + nodeVelocities[link.source].ToString(), log);
 
-		
+		Index++;
 	}
 }
 

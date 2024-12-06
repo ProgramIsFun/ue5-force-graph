@@ -86,31 +86,23 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		}
 		else
 		{
-			if (0)
-			{
 			
-			}
-			else
+			if (ID.x==1)
 			{
-				if (ID.x==0)
+				if (abs(alpha-0.977)<0.001)
 				{
-					if (abs(alpha-0.977)<0.001)
-					{
-						alphaS[ID.x] = 1;
-					}
-					else
-					{
-						alphaS[ID.x] += 1;
-					}
+					alphaS[ID.x] = 1;
 				}
 				else
 				{
-					alphaS[ID.x] = alpha;
-
+					alphaS[ID.x] += 1;
 				}
 			}
+			else
+			{
+				alphaS[ID.x] = alpha;
 
-			
+			}
 			alphaUUU = alpha;
 		}
 		
@@ -158,6 +150,14 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 				{
 					new_v = Positions[ID.x] + Velocities[ID.x] - Positions[affectingBodyID] - Velocities[affectingBodyID];
 				}
+
+
+				////////////////////////////////////////////////////////////////
+				// if(ID.x==0)
+				// {
+				// 	alphaS[ID.x] = new_v;
+				// }
+				///////////////////////////////////////////////////////////////
 			
 				float l = length(new_v);
 				l = (l - 30) /

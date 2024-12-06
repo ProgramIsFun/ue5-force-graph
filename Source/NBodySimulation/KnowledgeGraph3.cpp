@@ -127,12 +127,18 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 		return true;
 	}
 
+	
 
 	bool log = use_logging;
 
 
 	iterations += 1;
 
+	if (iterations>3)
+	{
+		return true;
+	}
+	
 	ll("TICK----------------------------------------------------------------------------"
 	   "----------------------------------------------------------------------------", log);
 
