@@ -325,6 +325,7 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 		
 
 		ll("new_v: " + new_v.ToString(), log);
+		ll("target_pos- source_pos: " + (target_pos - source_pos).ToString(), log);
 		if (0)
 		{
 			if (new_v.IsNearlyZero())

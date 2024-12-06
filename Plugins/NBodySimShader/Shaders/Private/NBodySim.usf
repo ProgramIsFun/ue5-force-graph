@@ -155,8 +155,15 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 				////////////////////////////////////////////////////////////////
 				// if(ID.x==0)
 				// {
-				// 	alphaS[ID.x] = new_v;
+				// 	Positions[0]=Positions[ID.x];
+				//
+				// 	alphaS[ID.x] = new_v.x;
+				// 	return;
+				// }else
+				// {
+				// 	return;
 				// }
+				//
 				///////////////////////////////////////////////////////////////
 			
 				float l = length(new_v);
