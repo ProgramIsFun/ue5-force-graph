@@ -65,8 +65,10 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	if (!use_Jason)
 	{
 		ll("Not using Jason. ", log);
-		jnodessss = jnodes1;
 
+
+
+		jnodessss = jnodes1;
 		nodePositions.SetNumUninitialized(jnodessss);
 		nodeVelocities.SetNumUninitialized(jnodessss);
 		all_nodes2.SetNumUninitialized(jnodessss);
@@ -90,10 +92,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				}
 
 				int id111 = i;
-
 				nodeVelocities[id111] = FVector(0, 0, 0);
-
-
 				all_nodes2[id111] = Node(id111, kn);
 			}
 
@@ -147,36 +146,24 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		ll("using Jason. ", log);
 		// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
 
-
-		TMap<int32, FString> fileIndexToPath= {
-			{0, "statered.json"},
-			{1, "state - 2024-06-18T223257.374.json"},
-			{2, "state777777777.json"},
-
-		};
-
+		
 		
 		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[JSONFileIndex];
-
 		FString JsonString; //Json converted to FString
-
 		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
-
 		TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
 		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
 
 		if (
-
 			FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
-
 			JsonObject.IsValid())
 		{
 			//Retrieving an array property and printing each field
 			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+			jnodessss = jnodes.Num();
 
 			int32 index = 0;
-			int32 jnodesNum = jnodes.Num();
-			jnodessss = jnodesNum;
+			int32 jnodesNum =jnodessss;
 
 			nodePositions.SetNumUninitialized(jnodessss);
 			ll("nodePositions.Num(): " + FString::FromInt(nodePositions.Num()), log);
@@ -217,11 +204,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 						return;
 					}
 					int id111 = index;
-
 					nodeVelocities[id111] = FVector(0, 0, 0);
-
-
-					// all_nodes1.Emplace(id, kn);
 					all_nodes2[id111] = Node(id111, kn);
 				}
 

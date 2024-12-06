@@ -155,6 +155,13 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Instanced)
 	TObjectPtr<UInstancedStaticMeshComponent> InstancedStaticMeshComponent;
+
+	TMap<int32, FString> fileIndexToPath= {
+		{0, "statered.json"},
+		{1, "state - 2024-06-18T223257.374.json"},
+		{2, "state777777777.json"},
+	};
+
 	
 	void prepare();
 	void Updatmeterinshader(float DeltaTime);
