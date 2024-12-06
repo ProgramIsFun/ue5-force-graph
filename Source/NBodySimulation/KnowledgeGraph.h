@@ -98,19 +98,20 @@ public:
 	bool use_shaders = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	int32 shaderdebug = 0;
-
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_Jason = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	int32 JSONFileIndex = 0;
 	
-	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	int32 wayofinitnodeslinks = 2;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	bool cpu_linkc=true;
 
-
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	// Calculate many body force or not. 
+	bool cpu_manybody = true;
+	
 	
 	GENERATED_BODY()
 
@@ -169,9 +170,7 @@ public:
 	void CPUcalculate();
 	void Updatepositionarray(bool log);
 	void UpdateAlpha();
-
-	void GenerateConnectedGraph(int32 NumClusters, int32 NodesPerCluster);
-
+	
 
 	void generateGraph();
 	bool Generateactorandattach(AKnowledgeNode*& kn);
@@ -316,25 +315,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool cpu_use_parallel = false;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool cpu_linkc=true;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	// Calculate many body force or not. 
-	bool cpu_manybody = true;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool cpu_many_body_use_brute_force = true;
+
+
+
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool connect_to_previous = true;
-
-
-
-
-
-
-
 	
 	float alpha = 1;
 	int iterationsf = 0;
