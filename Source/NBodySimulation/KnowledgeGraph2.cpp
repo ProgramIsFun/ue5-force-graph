@@ -314,17 +314,26 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 	for (auto& link : all_links2)
 	{
 		
-
+		
 		FVector source_pos = nodePositions[link.source];
 		FVector source_velocity = nodeVelocities[link.source];
 		FVector target_pos = nodePositions[link.target];
 		FVector target_velocity = nodeVelocities[link.target];
 		
 		FVector new_v = target_pos + target_velocity - source_pos - source_velocity;
-		
-		if (new_v.IsNearlyZero())
+
+		if (0)
 		{
-			new_v = Jiggle(new_v, 1e-6f);
+			if (new_v.IsNearlyZero())
+			{
+				new_v = Jiggle(new_v, 1e-6f);
+			}
+			ll("GIGGLE is enabled............", log);
+		}
+		else
+		{
+			ll("GIGGLE is disabled............"
+	  "................................................... ", log);
 		}
 		
 		float l = new_v.Size();
@@ -868,25 +877,20 @@ void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
 void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 {
 	bool log = true;
-	//link forces
 	float n = all_nodes2.Num();
 	float m = all_links2.Num();
-
-	// ll("n: " + FString::SanitizeFloat(n), log);
-	// ll("m: " + FString::SanitizeFloat(m), log);
-
-
+	
 	std::map<int32, int32> Nodeconnection;
-
-
+	
 	std::map<int, std::vector<int>> connectout;
 	std::map<int, std::vector<int>> connectin;
+
+
 	if (use_shaders)
 	{
 		int m2 = m * 2;
 		SimParameters.NumLinks = m2;
-
-
+		
 		LinkOffsets.SetNumUninitialized(n);
 		LinkCounts.SetNumUninitialized(n);
 		LinkIndices.SetNumUninitialized(m2);
@@ -910,6 +914,8 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 
 	if (!use_shaders)
 	{
+
+		int i=0;
 		for (auto& link : all_links2)
 		{
 			int s1 = Nodeconnection[link.source];
@@ -923,8 +929,10 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 			// Better have a check because strength is set to 1 when it is initialized. 
 			link.strength = 1.0 / fmin(s1,
 			                           s2);
-
-			ll("cpu bias: " + FString::SanitizeFloat(bias), log);
+			ll("i: " + FString::FromInt(i), log);
+			ll("link.bias: " + FString::SanitizeFloat(link.bias), log);
+			ll("link.strength: " + FString::SanitizeFloat(link.strength), log);
+			i++;
 		}
 	}else{
 		int32 Index = 0;
