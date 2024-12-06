@@ -163,7 +163,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			jnodessss = jnodes.Num();
 
 			int32 index = 0;
-			int32 jnodesNum =jnodessss;
 
 			nodePositions.SetNumUninitialized(jnodessss);
 			nodeVelocities.SetNumUninitialized(jnodessss);
@@ -175,7 +174,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				velocity.Z = 0.0f;
 			}
 			
-			for (int32 i = 0; i < jnodesNum; i++)
+			for (int32 i = 0; i < jnodessss; i++)
 			{
 				auto jobj = jnodes[i]->AsObject();
 
