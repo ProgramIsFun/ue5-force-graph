@@ -151,6 +151,20 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		velocity.Z = 0.0f;
 	}
 
+	if(use_shaders)
+	{
+		SimParameters.Bodies.SetNumUninitialized(
+			jnodessss
+		);
+	}
+
+	if (use_instance_static_mesh_fornode)
+	{
+		BodyTransforms.SetNumUninitialized(
+				jnodessss);
+	}
+
+	
 	
 	if (!use_Jason)
 	{
@@ -793,31 +807,27 @@ void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 	ll("index: " + FString::FromInt(index) + " init_pos: " + init_pos.ToString());
 
 
-
-	if (use_shaders)
+	if(use_instance_static_mesh_fornode)
 	{
-		float RandomMass = FMath::FRandRange(
-			20.0
-			,
-			50.0);
-		
-		
-
 		float MeshScale = instance_static_mesh_size;
-
 		FTransform MeshTransform(
 			FRotator(),
 			init_pos,
 			FVector(MeshScale, MeshScale, MeshScale)
 		);
-
 		BodyTransforms[index] = MeshTransform;
+	}
 
-
+	if (use_shaders)
+	{
 		FVector3f RandomVelocity
 				{
 					0, 0, 0
 				};
+		float RandomMass = FMath::FRandRange(
+					20.0
+					,
+					50.0);
 		SimParameters.Bodies[index] = FBodyData(
 			RandomMass,
 			FVector3f(init_pos),

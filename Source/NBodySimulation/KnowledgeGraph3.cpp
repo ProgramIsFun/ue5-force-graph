@@ -17,14 +17,7 @@ void AKnowledgeGraph::prepare()
 		&AKnowledgeGraph::generateGraph
 	);
 
-	if (use_shaders)
-	{
-		SimParameters.Bodies.SetNumUninitialized(
-			jnodessss
-		);
-		BodyTransforms.SetNumUninitialized(
-			jnodessss);
-	}
+	
 
 	timeThisMemberFunction(
 		"AKnowledgeGraph::initializeNodePosition",
@@ -134,10 +127,7 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 
 	iterations += 1;
 
-	if (iterations>3)
-	{
-		return true;
-	}
+	
 	
 	ll("TICK----------------------------------------------------------------------------"
 	   "----------------------------------------------------------------------------", log);
