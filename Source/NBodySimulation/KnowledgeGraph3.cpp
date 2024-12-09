@@ -43,7 +43,7 @@ void AKnowledgeGraph::prepare()
 }
 
 
-void AKnowledgeGraph::Updatmeterinshader(float DeltaTime)
+void AKnowledgeGraph::update_parameter_in_shader(float DeltaTime)
 {
 	if (use_constant_delta_time < 0)
 	{
@@ -58,7 +58,7 @@ void AKnowledgeGraph::Updatmeterinshader(float DeltaTime)
 	}
 }
 
-bool AKnowledgeGraph::Earlyexit(bool log)
+bool AKnowledgeGraph::early_exit(bool log)
 {
 	if (iterations > maxiterations)
 	{
@@ -79,7 +79,7 @@ bool AKnowledgeGraph::Earlyexit(bool log)
 	return false;
 }
 
-void AKnowledgeGraph::CPUcalculate()
+void AKnowledgeGraph::cpu_calculate()
 {
 	bool log = use_logging;
 
@@ -91,19 +91,19 @@ void AKnowledgeGraph::CPUcalculate()
 
 }
 
-void AKnowledgeGraph::Updatepositionarray(bool log)
+void AKnowledgeGraph::update_position_array(bool log)
 {
 	if (use_shaders)
 	{
-		gpugetpositions();
+		gpu_get_positions();
 		
 	}else
 	{
-		CPUcalculate();
+		cpu_calculate();
 	}
 }
 
-void AKnowledgeGraph::UpdateAlpha()
+void AKnowledgeGraph::update_alpha()
 {
 	bool log=true;
 	alpha += (alphaTarget - alpha) * alphaDecay; //need to restart this if want to keep moving
@@ -112,7 +112,7 @@ void AKnowledgeGraph::UpdateAlpha()
 
 void AKnowledgeGraph::print_out_location_of_the_node()
 {
-	bool log;
+	bool log=true;
 	ll("Before update. ", log);
 	ll("first element. " + nodePositions[0].ToString(), log);
 	ll("second element. " + nodePositions[1].ToString(), log);
@@ -131,18 +131,16 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	ll("iterations: " + FString::FromInt(iterations), log);
 
 
-	if (Earlyexit(log))
+	if (early_exit(log))
 	{
 		return true;
 	}
 
-
-	UpdateAlpha();
-
+	update_alpha();
 	
 	print_out_location_of_the_node();
 
-	Updatepositionarray(log);
+	update_position_array(log);
 
 	print_out_location_of_the_node();
 	
@@ -156,12 +154,12 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	
 	if (use_shaders){
 	
-		Updatmeterinshader(DeltaTime);
+		update_parameter_in_shader(DeltaTime);
 	}
 	return false;
 }
 
-void AKnowledgeGraph::gpugetpositions()
+void AKnowledgeGraph::gpu_get_positions()
 {
 	// Retrieve GPU computed bodies position.
 	TArray<FVector3f> GPUOutputPositions = FNBodySimModule::Get().GetComputedPositions();

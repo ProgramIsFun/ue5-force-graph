@@ -245,11 +245,11 @@ public:
 
 
 	void prepare();
-	void Updatmeterinshader(float DeltaTime);
-	bool Earlyexit(bool log);
-	void CPUcalculate();
-	void Updatepositionarray(bool log);
-	void UpdateAlpha();
+	void update_parameter_in_shader(float DeltaTime);
+	bool early_exit(bool log);
+	void cpu_calculate();
+	void update_position_array(bool log);
+	void update_alpha();
 	void print_out_location_of_the_node();
 
 
@@ -313,7 +313,7 @@ public:
 
 
 	virtual void BeginPlay() override;
-	void gpugetpositions();
+	void gpu_get_positions();
 	bool Maint(float DeltaTime);
 	virtual void BeginDestroy() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
