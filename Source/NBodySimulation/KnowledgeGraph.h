@@ -30,6 +30,9 @@ public:
 
 
 	AKnowledgeEdge* edge;
+	
+	UStaticMeshComponent* edgeMesh;
+	
 
 	Link(int32 source, int32 target, AKnowledgeEdge* edge)
 	{
@@ -155,7 +158,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool link_use_actor = false;
 
-	// 2////////////////////
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	bool link_use_static_mesh = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	UStaticMesh* link_use_static_meshlinkMesh;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool link_use_debug_line = true;
 	

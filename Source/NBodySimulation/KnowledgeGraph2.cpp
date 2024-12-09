@@ -635,6 +635,14 @@ void AKnowledgeGraph::update_link_position()
 			);
 		}
 
+		if (link_use_static_mesh)
+		{
+			auto l = link.edgeMesh;
+	
+			l->SetWorldLocation(
+				(Location1 + Location2) / 2
+			);
+		}
 		if (link_use_debug_line)
 		{
 			UWorld* World = GetWorld();
@@ -867,12 +875,12 @@ void AKnowledgeGraph::update_node_world_position_according_to_position_array()
 		
 		if (node_use_text_render_components)
 		{
-			FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
 
 			TextComponents11111111111111111111[i]->SetWorldLocation(NewPosition);
 
 			if (rotate_to_face_player)
 			{
+				FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
 				// Compute the direction from the text component to the player.
 				FVector ToPlayer = PlayerLocation - NewPosition;
 				ToPlayer.Normalize();
@@ -1088,28 +1096,23 @@ void AKnowledgeGraph::AddEdge(int32 id, int32 source, int32 target)
 		if (true)
 		{
 			// This approach works in both play and editor and package game. 
-
 			UClass* loadedClass = StaticLoadClass(UObject::StaticClass(), nullptr,
 			                                      TEXT(
 				                                      // "Blueprint'/Game/Characters/Enemies/BP_LitchBoss1.BP_LitchBoss1_C'"
 				                                      "Blueprint'/Game/arttttttt/iii9.iii9_C'"
-
 			                                      ));
 			if (loadedClass)
 			{
 				e = GetWorld()->SpawnActor<AKnowledgeEdge>(loadedClass);
-				// SpawnedActor->TeleportTo(position, rotation.ToOrientationRotator());		
 			}
 			else
 			{
 				qq();
 				return;
 				ll("error loading classsssssssssssssssssssssss");
-
 				e = GetWorld()->SpawnActor<AKnowledgeEdge>(
 					AKnowledgeEdge::StaticClass()
 				);
-				// GEngine->AddOnScreenDebugMessage(-1, 4, FColor::Red, "error loading class");
 			}
 		}
 		else
@@ -1141,29 +1144,69 @@ void AKnowledgeGraph::AddEdge(int32 id, int32 source, int32 target)
 				bpClass
 			);
 		}
-
-
 		// all_links1.Emplace(id, e);
 		link.edge = e;
 	}
-	else
+
+
+	
+	if (link_use_static_mesh)
 	{
-		// ULineBatchComponent* LineBatch = NewObject<ULineBatchComponent>(this);
-		// LineBatch->RegisterComponent();
-		// LineBatch->DrawLine(StartPosition, EndPosition, FLinearColor::Green, SDPG_World, 10.0f, 10.0f);
+		UStaticMeshComponent* CylinderMesh;
+		// Dynamically create the mesh component and attach it
+		CylinderMesh = NewObject<UStaticMeshComponent>(this,
+			UStaticMeshComponent::StaticClass(),
+			TEXT("CylinderMesh")
+			);
+		CylinderMesh->RegisterComponent();  // Registers the component with the World so it gets rendered and updated
+		CylinderMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
 
-		// all_links2.Add(ALLLink(source, target));
+		if (0)
+		{
+			// Load the mesh
+			static ConstructorHelpers::FObjectFinder<UStaticMesh>
+				CylinderMeshAsset(TEXT("StaticMesh'/Game/Meshes/CylinderMesh.CylinderMesh'"));
+			if (CylinderMeshAsset.Succeeded())
+			{
+				CylinderMesh->SetStaticMesh(CylinderMeshAsset.Object);
+			}
+		}
+		else
+		{
+			CylinderMesh->SetStaticMesh(
+				link_use_static_meshlinkMesh
+			);
+		}
+		
+
+		// UStaticMesh* CubeMesh;
+		// // SelectedMesh1111111111111
+		// if (1)
+		// {
+		// 	CubeMesh = LoadObject<UStaticMesh>(
+		// 		nullptr,
+		// 		TEXT(
+		// 			"/Engine/BasicShapes/Cube.Cube"
+		// 		)
+		// 	);
+		// }
+		// CubeMesh = SelectedMesh1111111111111;
+		// if (CubeMesh)
+		// {
+		// 	MeshComp->SetStaticMesh(CubeMesh);
+		// }
+		// else
+		// {
+		// 	ll("CubeMesh failed", true, 2);
+		// 	qq();
+		// }
+		
+		link.edgeMesh = CylinderMesh;
 	}
-	//
-	// e->strength = 1;
-	//
+	
 	link.strength = 1;
-	//
-	// e->distance = edgeDistance;
-	//
 	link.distance = edgeDistance;
-
-
+	
 	all_links2.Add(link);
 }
