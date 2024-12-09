@@ -79,13 +79,13 @@ public:
 	bool use_shaders = false;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	int32 shaderdebug = 0;
+	int32 use_shaders_debug = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool use_Jason = false;
+	bool use_json = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	int32 JSONFileIndex = 0;
+	int32 use_json_file_index = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool cpu_linkc = true;

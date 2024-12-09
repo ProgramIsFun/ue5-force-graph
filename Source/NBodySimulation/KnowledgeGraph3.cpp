@@ -36,7 +36,7 @@ void AKnowledgeGraph::prepare()
 		SimParameters.GravityConstant = 1000.0;
 		SimParameters.NumBodies = jnodessss;
 		SimParameters.alphaS = 1;
-		SimParameters.shaderdebug = static_cast<unsigned int>(shaderdebug);
+		SimParameters.shaderdebug = static_cast<unsigned int>(use_shaders_debug);
 		FNBodySimModule::Get().BeginRendering();
 		FNBodySimModule::Get().InitWithParameters(SimParameters);
 	}
@@ -196,8 +196,6 @@ void AKnowledgeGraph::gpu_get_positions()
 	for (int i = 0; i < SimParameters.Bodies.Num(); i++)
 	{
 		FVector NewPosition = FVector(GPUOutputPositions[i]);
-
-
 		nodePositions[i] = NewPosition;
 	}
 	GPUvalid = true;

@@ -77,13 +77,13 @@ void AKnowledgeGraph::Generateaxcomponent(FString name)
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
 	bool log = true;
-	if(!use_Jason)
+	if(!use_json)
 	{
 		jnodessss = jnodes1;
 
 	}else
 	{
-		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[JSONFileIndex];
+		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[use_json_file_index];
 		FString JsonString; //Json converted to FString
 		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
 		TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
@@ -100,12 +100,12 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 
 	
-	if(!use_Jason)
+	if(!use_json)
 	{
 
 	}else
 	{
-		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[JSONFileIndex];
+		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[use_json_file_index];
 		FString JsonString; //Json converted to FString
 		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
 		TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
@@ -166,7 +166,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 	
 	
-	if (!use_Jason)
+	if (!use_json)
 	{
 		ll("Not using Jason. ", log);
 		for (int32 i = 0; i < jnodessss; i++)
@@ -228,7 +228,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		ll("using Jason. ", log);
 		// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
 
-		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[JSONFileIndex];
+		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[use_json_file_index];
 		FString JsonString; //Json converted to FString
 		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
 		TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
