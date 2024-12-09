@@ -652,8 +652,9 @@ void AKnowledgeGraph::update_link_position()
 			
 			l->SetWorldScale3D(
 				FVector(
-					1,
-					1,link_use_static_mesh_size*CylinderHeight)
+					link_use_static_mesh_size1,
+					link_use_static_mesh_size1,
+					link_use_static_mesh_size*CylinderHeight)
 			);
 			l->SetWorldRotation(
 				Rotation
