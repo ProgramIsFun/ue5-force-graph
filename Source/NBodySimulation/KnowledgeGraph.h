@@ -72,6 +72,8 @@ public:
 UCLASS()
 class NBODYSIMULATION_API AKnowledgeGraph : public AActor
 {
+	GENERATED_BODY()
+	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_shaders = false;
@@ -91,92 +93,8 @@ public:
 	// Calculate many body force or not. 
 	bool cpu_manybody = true;
 
-	GENERATED_BODY()
-	AKnowledgeGraph();
-	virtual ~AKnowledgeGraph() override;
 
-	bool prechecksucceeded = true;
-
-	// Boolean for signaling whether this round of computation from GPU is valid. 
-	bool GPUvalid = false;
-	// Integer ID to original string ID. 
-	TMap<int32, FString> id_to_string;
-	// Original string ID to integer ID.
-	TMap<FString, int32> string_to_id;
-	TArray<Node> all_nodes2;
-
-	TArray<FVector> nodePositions;
-	TArray<FVector> nodeVelocities;
-
-	TArray<Link> all_links2;
-
-	OctreeNode* OctreeData2;
-
-
-	TArray<double> ElapsedTimes;
-
-	FNBodySimParameters SimParameters;
-
-	UPROPERTY()
-	TArray<FTransform> BodyTransforms;
-
-	UPROPERTY(VisibleAnywhere, Instanced)
-	TObjectPtr<UInstancedStaticMeshComponent> InstancedStaticMeshComponent;
-
-	TMap<int32, FString> fileIndexToPath = {
-		{0, "statered.json"},
-		{1, "state - 2024-06-18T223257.374.json"},
-		{2, "state777777777.json"},
-	};
-
-
-	void prepare();
-	void Updatmeterinshader(float DeltaTime);
-	bool Earlyexit(bool log);
-	void CPUcalculate();
-	void Updatepositionarray(bool log);
-	void UpdateAlpha();
-
-
-	void generateGraph();
-	bool Generateactorandattach(AKnowledgeNode*& kn);
-	void Generateaxcomponent(FString name);
-	void defaultGenerateGraphMethod();
-
-
-	void AddEdge(int32 id, int32 source, int32 target);
-
-
-	void initializeNodePosition();
-
-	void initializeNodePosition_Individual(int index
-	);
-
-	void CalculateBiasstrengthOflinks();
-
-	void ApplyForces();
-	void calculate_link_force_and_update_velocity();
-	void calculate_charge_force_and_update_velocity();
-	void calculate_centre_force_and_update_position();
-
-	void update_Node_world_position_according_to_position_array();
-	void update_position_array_according_to_velocity_array();
-	void update_link_position();
-
-	int32 jnodessss;
-
-
-	/////////////////////////////////////////////////////////////////////////////////
-
-	TArray<int> LinkOffsets; // Holds the offset for each body
-	TArray<int> LinkCounts; // Holds the count of links for each body
-	TArray<int> LinkIndices; // Flat array containing all links
-	TArray<float> LinkStrengths; // Holds the strength of each link
-	TArray<float> LinkBiases; // Holds the bias of each link
-	TArray<int> Linkinout;
-
-
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Turn on logging or not. 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
@@ -278,6 +196,100 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool connect_to_previous = true;
 
+
+
+
+
+
+
+
+
+	
+	AKnowledgeGraph();
+	virtual ~AKnowledgeGraph() override;
+
+	bool prechecksucceeded = true;
+
+	// Boolean for signaling whether this round of computation from GPU is valid. 
+	bool GPUvalid = false;
+	// Integer ID to original string ID. 
+	TMap<int32, FString> id_to_string;
+	// Original string ID to integer ID.
+	TMap<FString, int32> string_to_id;
+	TArray<Node> all_nodes2;
+
+	TArray<FVector> nodePositions;
+	TArray<FVector> nodeVelocities;
+
+	TArray<Link> all_links2;
+
+	OctreeNode* OctreeData2;
+
+
+	TArray<double> ElapsedTimes;
+
+	FNBodySimParameters SimParameters;
+
+	UPROPERTY()
+	TArray<FTransform> BodyTransforms;
+
+	UPROPERTY(VisibleAnywhere, Instanced)
+	TObjectPtr<UInstancedStaticMeshComponent> InstancedStaticMeshComponent;
+
+	TMap<int32, FString> fileIndexToPath = {
+		{0, "statered.json"},
+		{1, "state - 2024-06-18T223257.374.json"},
+		{2, "state777777777.json"},
+	};
+
+
+	void prepare();
+	void Updatmeterinshader(float DeltaTime);
+	bool Earlyexit(bool log);
+	void CPUcalculate();
+	void Updatepositionarray(bool log);
+	void UpdateAlpha();
+
+
+	void generateGraph();
+	bool Generateactorandattach(AKnowledgeNode*& kn);
+	void Generateaxcomponent(FString name);
+	void defaultGenerateGraphMethod();
+
+
+	void AddEdge(int32 id, int32 source, int32 target);
+
+
+	void initializeNodePosition();
+
+	void initializeNodePosition_Individual(int index
+	);
+
+	void CalculateBiasstrengthOflinks();
+
+	void ApplyForces();
+	void calculate_link_force_and_update_velocity();
+	void calculate_charge_force_and_update_velocity();
+	void calculate_centre_force_and_update_position();
+
+	void update_Node_world_position_according_to_position_array();
+	void update_position_array_according_to_velocity_array();
+	void update_link_position();
+
+	int32 jnodessss;
+
+
+	/////////////////////////////////////////////////////////////////////////////////
+
+	TArray<int> LinkOffsets; // Holds the offset for each body
+	TArray<int> LinkCounts; // Holds the count of links for each body
+	TArray<int> LinkIndices; // Flat array containing all links
+	TArray<float> LinkStrengths; // Holds the strength of each link
+	TArray<float> LinkBiases; // Holds the bias of each link
+	TArray<int> Linkinout;
+
+
+	
 	float alpha = 1;
 	int iterationsf = 0;
 
