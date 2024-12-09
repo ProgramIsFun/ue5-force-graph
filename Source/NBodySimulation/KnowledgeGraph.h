@@ -4,33 +4,19 @@
 
 #include "KnowledgeNode.h"
 #include "KnowledgeEdge.h"
-// #include "GenericOctree333.h"
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
 #include "CoreMinimal.h"
 #include "octreeeeeeeeee3.h"
 #include "utillllllssss.h"
 
-
-
-// Testing new shader. /////////////////////////////////////////////////////////////
 #include "NBodySimModule.h"
-//#include "Config/SimulationConfig.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-
 #include "KnowledgeGraph.generated.h"
-
-
-/**
- *
- */
-// class FORCEGRAPH_API AKnowledgeGraph : public AActor
-
-
 
 class Link
 {
@@ -112,32 +98,19 @@ public:
 	// Calculate many body force or not. 
 	bool cpu_manybody = true;
 	
-	
 	GENERATED_BODY()
-
-
-	
-
 	AKnowledgeGraph();
 	virtual ~AKnowledgeGraph() override;
+	
 	bool prechecksucceeded=true;
-
-
+	
 	// Boolean for signaling whether this round of computation from GPU is valid. 
 	bool GPUvalid = false;
-
-	
 	// Integer ID to original string ID. 
 	TMap<int32, FString> id_to_string;
-
-
 	// Original string ID to integer ID.
 	TMap<FString, int32> string_to_id;
-
-	// TMap<int32, AKnowledgeNode*> all_nodes1;
-
 	TArray<Node> all_nodes2;
-
 	
 	TArray<FVector> nodePositions;
 	TArray<FVector> nodeVelocities;
@@ -288,16 +261,9 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
 	// If want to use constant delta time
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	float use_constant_delta_time = 1;
-	
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	int32 maxiterations = 1000000;
@@ -314,13 +280,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool cpu_use_parallel = false;
-
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool cpu_many_body_use_brute_force = true;
-
-
-
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool connect_to_previous = true;
@@ -331,7 +293,7 @@ public:
 	float iterations = 0;
 	float alphaMin = 0.001;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	float alphaDecay = 1 - FMath::Pow(alphaMin, 1.0 / 300);
 	
 	float edgeDistance = 30;
