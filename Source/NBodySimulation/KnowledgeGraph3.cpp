@@ -60,9 +60,9 @@ void AKnowledgeGraph::update_parameter_in_shader(float DeltaTime)
 
 bool AKnowledgeGraph::early_exit(bool log)
 {
-	if (iterations > maxiterations)
+	if (iterations > max_iterations)
 	{
-		ll("iterations is greater than maxiterations", log);
+		ll("iterations is greater than max_iterations", log);
 		FNBodySimModule::Get().EndRendering();
 		update_link_position();
 		return true;

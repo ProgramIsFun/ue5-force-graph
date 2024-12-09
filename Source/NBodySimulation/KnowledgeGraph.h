@@ -153,13 +153,12 @@ public:
 
 	// 1////////////////////
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool useactorforlink = false;
+	bool link_use_actor = false;
 
 	// 2////////////////////
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool usedebuglinetrace = true;
-
-
+	bool link_use_debug_line = true;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool update_link_before_stabilize = false;
 
@@ -170,7 +169,7 @@ public:
 	float use_constant_delta_time = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	int32 maxiterations = 1000000;
+	int32 max_iterations = 1000000;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	// Use extremely small tick interval

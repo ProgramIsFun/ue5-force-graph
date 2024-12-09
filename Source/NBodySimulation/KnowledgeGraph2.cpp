@@ -626,7 +626,7 @@ void AKnowledgeGraph::update_link_position()
 		FVector Location1 = nodePositions[link.source];
 		FVector Location2 = nodePositions[link.target];
 
-		if (useactorforlink)
+		if (link_use_actor)
 		{
 			auto l = link.edge;
 			l->ChangeLoc(
@@ -635,7 +635,7 @@ void AKnowledgeGraph::update_link_position()
 			);
 		}
 
-		if (usedebuglinetrace)
+		if (link_use_debug_line)
 		{
 			UWorld* World = GetWorld();
 			if (!World)
@@ -1082,7 +1082,7 @@ void AKnowledgeGraph::AddEdge(int32 id, int32 source, int32 target)
 {
 	AKnowledgeEdge* e;
 	Link link = Link(source, target);
-	if (useactorforlink)
+	if (link_use_actor)
 	{
 		UClass* bpClass;
 		if (true)
