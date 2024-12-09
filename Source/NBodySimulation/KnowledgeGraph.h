@@ -100,35 +100,29 @@ public:
 	// Turn on logging or not. 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_logging = false;
-
-
-	// Every node will be Initialize with position 0. 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool initialize_with_zero_position = false;
-
-
+	
 	//Node setting////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// 1////////////////////
 
 	// Use instance static mesh or not
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool use_instance_static_mesh_fornode = false;
+	bool node_use_instance_static_mesh = false;
 
 	// The size of the node
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	float instance_static_mesh_size = 0.3f;
+	float node_use_instance_static_mesh_size = 0.3f;
 
 
 	// 2////////////////////
 
 	// Use a lot of actor Or not
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool use_actor_fornode = true;
+	bool node_use_actor = true;
 
 	// The size of Static mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	float static_mesh_size = 0.3f;
+	float node_use_actor_size = 0.3f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	UStaticMesh* SelectedMesh1111111111111;
@@ -137,7 +131,7 @@ public:
 
 	// Use TextRenderComponent or not
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool use_text_render_components_fornode = false;
+	bool node_use_text_render_components = false;
 
 	// The size of TextRenderComponent
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)

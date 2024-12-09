@@ -26,7 +26,7 @@ bool AKnowledgeGraph::Generateactorandattach(AKnowledgeNode*& kn)
 		MeshComp->RegisterComponent(); // Don't forget to register the component
 
 
-		float sss = static_mesh_size;
+		float sss = node_use_actor_size;
 		FVector NewScale = FVector(sss, sss, sss);
 		MeshComp->SetWorldScale3D(NewScale);
 
@@ -158,7 +158,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		);
 	}
 
-	if (use_instance_static_mesh_fornode)
+	if (node_use_instance_static_mesh)
 	{
 		BodyTransforms.SetNumUninitialized(
 				jnodessss);
@@ -171,7 +171,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		ll("Not using Jason. ", log);
 		for (int32 i = 0; i < jnodessss; i++)
 		{
-			if (use_actor_fornode)
+			if (node_use_actor)
 			{
 				AKnowledgeNode* kn;
 				if (Generateactorandattach(kn))
@@ -185,7 +185,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				all_nodes2[id111] = Node(id111, kn);
 			}
 
-			if (use_text_render_components_fornode)
+			if (node_use_text_render_components)
 			{
 				
 				FString name;
@@ -244,7 +244,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			{
 				auto jobj = jnodes[i]->AsObject();
 
-				if (use_actor_fornode)
+				if (node_use_actor)
 				{
 					AKnowledgeNode* kn;
 					if (Generateactorandattach(kn))
@@ -258,7 +258,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 					all_nodes2[id111] = Node(id111, kn);
 				}
 
-				if (use_text_render_components_fornode)
+				if (node_use_text_render_components)
 				{
 					FString name;
 					try
@@ -741,7 +741,7 @@ void AKnowledgeGraph::initializeNodePosition()
 	}
 
 
-	if (use_instance_static_mesh_fornode)
+	if (node_use_instance_static_mesh)
 	{
 		InstancedStaticMeshComponent->AddInstances(BodyTransforms, false);
 	}
@@ -807,9 +807,9 @@ void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 	ll("index: " + FString::FromInt(index) + " init_pos: " + init_pos.ToString());
 
 
-	if(use_instance_static_mesh_fornode)
+	if(node_use_instance_static_mesh)
 	{
-		float MeshScale = instance_static_mesh_size;
+		float MeshScale = node_use_instance_static_mesh_size;
 		FTransform MeshTransform(
 			FRotator(),
 			init_pos,
@@ -856,16 +856,16 @@ void AKnowledgeGraph::update_node_world_position_according_to_position_array()
 	{
 		FVector NewPosition = nodePositions[i];
 		
-		if (use_actor_fornode){
+		if (node_use_actor){
 			all_nodes2[i].node->SetActorLocation(NewPosition);
 		}
 		
-		if (use_instance_static_mesh_fornode)
+		if (node_use_instance_static_mesh)
 		{
 			BodyTransforms[i].SetTranslation(NewPosition);
 		}
 		
-		if (use_text_render_components_fornode)
+		if (node_use_text_render_components)
 		{
 			FVector PlayerLocation = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation();
 
@@ -884,7 +884,7 @@ void AKnowledgeGraph::update_node_world_position_according_to_position_array()
 		}
 	}
 
-	if (use_instance_static_mesh_fornode)
+	if (node_use_instance_static_mesh)
 	{
 		InstancedStaticMeshComponent->BatchUpdateInstancesTransforms(0, BodyTransforms, false, true);
 	}
