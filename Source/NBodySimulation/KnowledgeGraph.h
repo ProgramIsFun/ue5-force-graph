@@ -79,6 +79,13 @@ class NBODYSIMULATION_API AKnowledgeGraph : public AActor
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	bool debug111= false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	bool debug112= false;
+	
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_shaders = false;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
@@ -161,18 +168,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool link_use_static_mesh = false;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool debug111= false;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool debug112= false;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	UStaticMesh* link_use_static_meshlinkMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	UStaticMesh* link_use_static_meshlinkMesh2;
-
+	float link_use_static_mesh_size = 0.3f;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool link_use_debug_line = true;

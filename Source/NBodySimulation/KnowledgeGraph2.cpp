@@ -637,10 +637,27 @@ void AKnowledgeGraph::update_link_position()
 		if (link_use_static_mesh)
 		{
 			auto l = link.edgeMesh;
-	
+
+			FVector MidPoint = (Location1 + Location2) / 2.0f;
+			FVector ForwardVector = (Location2 - Location1);
+			float CylinderHeight = ForwardVector.Size();
+
+			FRotator Rotation = FRotationMatrix::MakeFromZ(ForwardVector).Rotator();
+
+			
 			l->SetWorldLocation(
-				(Location1 + Location2) / 2
+				MidPoint
 			);
+			// Calculate the length.
+			
+			l->SetWorldScale3D(
+				FVector(
+					1,
+					1,link_use_static_mesh_size*CylinderHeight)
+			);
+			l->SetWorldRotation(
+				Rotation
+			);			
 		}
 		if (link_use_debug_line)
 		{
@@ -1161,35 +1178,12 @@ void AKnowledgeGraph::AddEdge(int32 id, int32 source, int32 target)
 		
 		CylinderMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 		CylinderMesh->RegisterComponent();  // Registers the component with the World so it gets rendered and updated
-		
+
+		CylinderMesh->SetWorldScale3D(FVector(1, 1, 1));
 		
 		CylinderMesh->SetStaticMesh(
 			link_use_static_meshlinkMesh
 		);
-	
-		
-
-		// UStaticMesh* CubeMesh;
-		// // SelectedMesh1111111111111
-		// if (1)
-		// {
-		// 	CubeMesh = LoadObject<UStaticMesh>(
-		// 		nullptr,
-		// 		TEXT(
-		// 			"/Engine/BasicShapes/Cube.Cube"
-		// 		)
-		// 	);
-		// }
-		// CubeMesh = SelectedMesh1111111111111;
-		// if (CubeMesh)
-		// {
-		// 	MeshComp->SetStaticMesh(CubeMesh);
-		// }
-		// else
-		// {
-		// 	ll("CubeMesh failed", true, 2);
-		// 	qq();
-		// }
 		
 		link.edgeMesh = CylinderMesh;
 	}

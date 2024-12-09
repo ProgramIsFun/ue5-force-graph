@@ -57,61 +57,8 @@ void AKnowledgeGraph::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 void AKnowledgeGraph::debug_test()
 {
-	if (1)
+	if (0)
 	{
-		UStaticMeshComponent* CylinderMesh;
-
-		if (debug111)
-		{
-			// Dynamically create the mesh component and attach it
-			CylinderMesh = NewObject<UStaticMeshComponent>(this,
-			                                               TEXT("CylinderMesh1")
-			);
-			CylinderMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-			CylinderMesh->RegisterComponent();  // Registers the component with the World so it gets rendered and updated
-
-			CylinderMesh->SetWorldScale3D(FVector(10, 1, 1));
-		
-		
-			CylinderMesh->SetStaticMesh(
-				link_use_static_meshlinkMesh);
-		
-			// Set the position. 
-			CylinderMesh->SetRelativeLocation(FVector(10, 10, 100));
-
-		}
-
-
-		if (debug112)
-		{
-			// Dynamically create the mesh component and attach it
-			CylinderMesh = NewObject<UStaticMeshComponent>(this,
-			                                               TEXT("CylinderMesh2")
-			);
-			CylinderMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-			CylinderMesh->RegisterComponent();  // Registers the component with the World so it gets rendered and updated
-
-			CylinderMesh->SetWorldScale3D(FVector(1, 1, 10));
-			if (0)
-			{
-				// Load the mesh
-				static ConstructorHelpers::FObjectFinder<UStaticMesh>
-					CylinderMeshAsset(TEXT("StaticMesh'/Game/Meshes/CylinderMesh.CylinderMesh'"));
-				if (CylinderMeshAsset.Succeeded())
-				{
-					CylinderMesh->SetStaticMesh(CylinderMeshAsset.Object);
-				}
-			}
-			else
-			{
-				CylinderMesh->SetStaticMesh(
-					link_use_static_meshlinkMesh2
-				);
-			}
-			// Set the position. 
-			CylinderMesh->SetRelativeLocation(FVector(10, 10, 100));
-		
-		}
 	}
 	else
 	{
