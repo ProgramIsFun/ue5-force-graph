@@ -69,7 +69,7 @@ void AKnowledgeGraph::BeginPlay()
 void AKnowledgeGraph::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	
 	if(iterationsf<10)
 	{
 		ll("The reason of this section is because the first few frames seems "

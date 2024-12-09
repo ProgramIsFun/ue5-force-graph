@@ -112,22 +112,9 @@ void AKnowledgeGraph::UpdateAlpha()
 
 bool AKnowledgeGraph::Maint(float DeltaTime)
 {
-	if (!prechecksucceeded)
-	{
-		ll("prechecksucceeded is false", true, 2);
-		FNBodySimModule::Get().EndRendering();
-		qq();
-		return true;
-	}
-
-	
-
 	bool log = use_logging;
-
-
-	iterations += 1;
-
 	
+	iterations += 1;
 	
 	ll("TICK----------------------------------------------------------------------------"
 	   "----------------------------------------------------------------------------", log);
