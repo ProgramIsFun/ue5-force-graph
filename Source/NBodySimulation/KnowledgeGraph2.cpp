@@ -657,7 +657,7 @@ void AKnowledgeGraph::update_link_position()
 	}
 }
 
-void AKnowledgeGraph::ApplyForces()
+void AKnowledgeGraph::apply_force()
 {
 	bool log = true;
 
@@ -843,7 +843,7 @@ void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 
 }
 
-void AKnowledgeGraph::update_Node_world_position_according_to_position_array()
+void AKnowledgeGraph::update_node_world_position_according_to_position_array()
 {
 	if (use_shaders && !GPUvalid)
 	{

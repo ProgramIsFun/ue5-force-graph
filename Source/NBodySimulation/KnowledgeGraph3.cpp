@@ -84,7 +84,7 @@ void AKnowledgeGraph::cpu_calculate()
 	bool log = use_logging;
 
 	// ll("apply forces", log);
-	ApplyForces();
+	apply_force();
 
 	// ll("update actor location based on velocity", log);
 	update_position_array_according_to_velocity_array();
@@ -144,7 +144,7 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 
 	print_out_location_of_the_node();
 	
-	update_Node_world_position_according_to_position_array();
+	update_node_world_position_according_to_position_array();
 	
 	if (update_link_before_stabilize)
 	{
