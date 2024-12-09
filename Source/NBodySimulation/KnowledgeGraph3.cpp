@@ -158,7 +158,7 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	update_Node_world_position_according_to_position_array();
 
 
-	if (true)
+	if (update_link_before_stabilize)
 	{
 		ll("update link position", log);
 		update_link_position();

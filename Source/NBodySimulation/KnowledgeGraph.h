@@ -246,6 +246,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool usedebuglinetrace = true;
 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	bool update_link_before_stabilize = false;
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// If want to use constant delta time
