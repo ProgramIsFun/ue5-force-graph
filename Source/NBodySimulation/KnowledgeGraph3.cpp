@@ -110,6 +110,15 @@ void AKnowledgeGraph::UpdateAlpha()
 	ll("alpha After update, pass to the gpu later: " + FString::SanitizeFloat(alpha), log);
 }
 
+void AKnowledgeGraph::print_out_location_of_the_node()
+{
+	bool log;
+	ll("Before update. ", log);
+	ll("first element. " + nodePositions[0].ToString(), log);
+	ll("second element. " + nodePositions[1].ToString(), log);
+	ll("third element. " + nodePositions[2].ToString(), log);
+}
+
 bool AKnowledgeGraph::Maint(float DeltaTime)
 {
 	bool log = use_logging;
@@ -131,15 +140,11 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	UpdateAlpha();
 
 	
-	ll("Before update. ", log);
-	ll("first element. " + nodePositions[0].ToString(), log);
-	ll("second element. " + nodePositions[1].ToString(), log);
-	ll("third element. " + nodePositions[2].ToString(), log);
+	print_out_location_of_the_node();
+
 	Updatepositionarray(log);
-	ll("After update. ", log);
-	ll("first element. " + nodePositions[0].ToString(), log);
-	ll("second element. " + nodePositions[1].ToString(), log);
-	ll("third element. " + nodePositions[2].ToString(), log);
+
+	print_out_location_of_the_node();
 	
 	update_Node_world_position_according_to_position_array();
 	

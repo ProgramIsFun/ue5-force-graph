@@ -77,6 +77,7 @@ class NBODYSIMULATION_API AKnowledgeGraph : public AActor
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_shaders = false;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	int32 shaderdebug = 0;
 
@@ -249,6 +250,7 @@ public:
 	void CPUcalculate();
 	void Updatepositionarray(bool log);
 	void UpdateAlpha();
+	void print_out_location_of_the_node();
 
 
 	void generateGraph();
