@@ -94,7 +94,7 @@ void OctreeNode::accumulate_with_recursion()
 			FVector position = Data->Position;
 			double strength = -60;
 
-			ll("strength555555555: " + FString::SanitizeFloat(strength));
+			ll2("strength555555555: " + FString::SanitizeFloat(strength));
 			Strength = strength;
 			StrengthSet = true;
 
@@ -133,8 +133,8 @@ void OctreeNode::accumulate_with_recursion()
 
 
 					totalWeight += c;
-					ll("c: " + FString::SanitizeFloat(c));
-					ll("child->CenterOfMass: " + child->CenterOfMass.ToString());
+					ll2("c: " + FString::SanitizeFloat(c));
+					ll2("child->CenterOfMass: " + child->CenterOfMass.ToString());
 					aggregatePosition += c * child->CenterOfMass;
 				}
 			}
@@ -148,14 +148,14 @@ void OctreeNode::accumulate_with_recursion()
 		// Calculate the center of mass based on total weight
 		if (totalWeight > 0)
 		{
-			ll("aggregateStrength2222: " + FString::SanitizeFloat(aggregateStrength));
+			ll2("aggregateStrength2222: " + FString::SanitizeFloat(aggregateStrength));
 			aggregateStrength *= sqrt(4.0 / 8);
-			ll("aggregateStrength: " + FString::SanitizeFloat(aggregateStrength));
-			ll("aggregatePosition: " + aggregatePosition.ToString());
-			ll("totalWeight: " + FString::SanitizeFloat(totalWeight));
-			ll("aggregatePosition / totalWeight: " + (aggregatePosition / totalWeight).ToString());
+			ll2("aggregateStrength: " + FString::SanitizeFloat(aggregateStrength));
+			ll2("aggregatePosition: " + aggregatePosition.ToString());
+			ll2("totalWeight: " + FString::SanitizeFloat(totalWeight));
+			ll2("aggregatePosition / totalWeight: " + (aggregatePosition / totalWeight).ToString());
 			CenterOfMass = aggregatePosition / totalWeight;
-			ll("CenterOfMass: " + CenterOfMass.ToString());
+			ll2("CenterOfMass: " + CenterOfMass.ToString());
 			Strength = aggregateStrength; // Optionally, adjust strength scaling here
 			// TotalWeight = totalWeight;
 		}
@@ -246,7 +246,7 @@ void OctreeNode::accumulate_without_recursion()
 		OctreeNode* currentNode = stack.top();
 		stack.pop();
 
-		ll("currentNode Lower bound" + (currentNode->Center - currentNode->Extent).ToString() +
+		ll2("currentNode Lower bound" + (currentNode->Center - currentNode->Extent).ToString() +
 		   " Upper bound" + " " + (currentNode->Center + currentNode->Extent).ToString(),log);
 
 
@@ -259,7 +259,7 @@ void OctreeNode::accumulate_without_recursion()
 					currentNode->Children[i]->check_contain_data_or_not()
 				)
 				{
-					ll("i: " + FString::FromInt(i),log);
+					ll2("i: " + FString::FromInt(i),log);
 					stack.push(currentNode->Children[i]);
 				}
 			}
@@ -275,7 +275,7 @@ void OctreeNode::accumulate_without_recursion()
 		OctreeNode* node = traversalOrder.top();
 		traversalOrder.pop();
 
-		ll("node->Center: " + node->Center.ToString(),log);
+		ll2("node->Center: " + node->Center.ToString(),log);
 		if (node->IsLeaf())
 		{
 			if (node->Data)
@@ -349,10 +349,10 @@ void TraverseBFS(OctreeNode* root, OctreeCallback callback, float alpha, int32 i
 		Stack1.pop();
 
 
-		ll("--------------------Right now, dealing with:  Lower bound" +
+		ll2("--------------------Right now, dealing with:  Lower bound" +
 		   (currentNode->Center - currentNode->Extent).ToString() +
 		   " Upper bound" + " " + (currentNode->Center + currentNode->Extent).ToString(), log);
-		ll("Prepare to call the call back functions with this node. ", true);
+		ll2("Prepare to call the call back functions with this node. ", true);
 
 
 		// Execute the callback on the current node
@@ -385,15 +385,15 @@ void TraverseBFS(OctreeNode* root, OctreeCallback callback, float alpha, int32 i
 				{
 					if (child->Data || !child->IsLeaf())
 					{
-						ll("i" + FString::FromInt(i), log);
-						ll("Lower bound" + (child->Center - child->Extent).ToString() +
+						ll2("i" + FString::FromInt(i), log);
+						ll2("Lower bound" + (child->Center - child->Extent).ToString() +
 						   " Upper bound" + (child->Center + child->Extent).ToString(), log);
 
 						if (0)
 						{
-							ll("printing the data of the child", log);
+							ll2("printing the data of the child", log);
 							child->PrintData();
-							ll("finished printing the data of the child", log);
+							ll2("finished printing the data of the child", log);
 						}
 						Stack1.push(child);
 					}
@@ -412,8 +412,8 @@ bool SampleCallback(OctreeNode* node,
 	bool log = false;
 	bool log2 = false;
 	bool log3 = true;
-	ll("-----------------", log);
-	// ll("SampleCallback", log);
+	ll2("-----------------", log);
+	// ll2("SampleCallback", log);
 
 	if (0)
 	{
@@ -434,9 +434,9 @@ bool SampleCallback(OctreeNode* node,
 		float theta2 = 0.81;
 		float distancemax = 1000000000;
 		float distancemin = 1;
-		// ll("bounds: " + node->Center.ToString() + " " + node->Extent.ToString());
+		// ll2("bounds: " + node->Center.ToString() + " " + node->Extent.ToString());
 
-		ll(FString::SanitizeFloat(node->Center.X - node->Extent.X) + " " +
+		ll2(FString::SanitizeFloat(node->Center.X - node->Extent.X) + " " +
 		   FString::SanitizeFloat(node->Center.Y - node->Extent.Y) + " " +
 		   FString::SanitizeFloat(node->Center.Z - node->Extent.Z) + " " +
 		   FString::SanitizeFloat(node->Center.X + node->Extent.X) + " " +
@@ -444,13 +444,13 @@ bool SampleCallback(OctreeNode* node,
 		   FString::SanitizeFloat(node->Center.Z + node->Extent.Z), log);
 
 
-		// ll("lower: " + (node->Center - node->Extent).ToString() +
+		// ll2("lower: " + (node->Center - node->Extent).ToString() +
 		// 	" upper: " + (node->Center + node->Extent).ToString(), log);
 
-		// ll("width: " + width.ToString(), log);
-		ll("dir: " + dir.ToString(), log2);
-		ll("l: " + FString::SanitizeFloat(l), log2);
-		ll("width.X * width.X / theta2: " + FString::SanitizeFloat(width.X * width.X / theta2), log2);
+		// ll2("width: " + width.ToString(), log);
+		ll2("dir: " + dir.ToString(), log2);
+		ll2("l: " + FString::SanitizeFloat(l), log2);
+		ll2("width.X * width.X / theta2: " + FString::SanitizeFloat(width.X * width.X / theta2), log2);
 
 
 		// if size of current box is less than distance between nodes
@@ -504,12 +504,12 @@ bool SampleCallback(OctreeNode* node,
 
 				if (1)
 				{
-					ll("l: " + FString::SanitizeFloat(l), log2);
-					ll("dir: " + dir.ToString(), log2);
-					ll("node->Strength: " + FString::SanitizeFloat(node->Strength), log2);
-					ll("alpha: " + FString::SanitizeFloat(alpha), log2);
-					ll("original Velocity: " + nodeVelocities[id].ToString(), log3);
-					// ll("vector: " + Vector.ToString() + " velocity: " + kn->
+					ll2("l: " + FString::SanitizeFloat(l), log2);
+					ll2("dir: " + dir.ToString(), log2);
+					ll2("node->Strength: " + FString::SanitizeFloat(node->Strength), log2);
+					ll2("alpha: " + FString::SanitizeFloat(alpha), log2);
+					ll2("original Velocity: " + nodeVelocities[id].ToString(), log3);
+					// ll2("vector: " + Vector.ToString() + " velocity: " + kn->
 					//                                                     velocity.ToString(), log2);
 
 				}
@@ -518,19 +518,19 @@ bool SampleCallback(OctreeNode* node,
 
 				// kn->velocity += Vector / l;
 				nodeVelocities[id] += Vector / l;
-				ll("velocity Updated: " + nodeVelocities[id].ToString(), log3);
-				// ll("velocity Updated: " + kn->velocity.ToString(), log);
+				ll2("velocity Updated: " + nodeVelocities[id].ToString(), log3);
+				// ll2("velocity Updated: " + kn->velocity.ToString(), log);
 				//
 				// if (1)
 				// {
 				// 	if (kn->velocity.Size() > 100000000000000)
 				// 	{
-				// 		ll("velocity is too large. eeeeeeeeeeeee ");
+				// 		ll2("velocity is too large. eeeeeeeeeeeee ");
 				// 		eeeee();
 				// 	}
 				// }
 			}
-			ll("11111111111111 Early termination. ", log3);
+			ll2("11111111111111 Early termination. ", log3);
 			return true;
 		}
 
@@ -540,8 +540,8 @@ bool SampleCallback(OctreeNode* node,
 			||
 			l >= distancemax)
 		{
-			ll("22222222222222222 You need to return false here. ", log3);
-			// ll("l: " + FString::SanitizeFloat(l), log);
+			ll2("22222222222222222 You need to return false here. ", log3);
+			// ll2("l: " + FString::SanitizeFloat(l), log);
 			return false;
 		}
 
@@ -551,7 +551,7 @@ bool SampleCallback(OctreeNode* node,
 		if (node->Data == nullptr)
 
 		{
-			ll("Data is null", log, 2);
+			ll2("Data is null", log, 2);
 			return true;
 		}
 		
@@ -568,7 +568,7 @@ bool SampleCallback(OctreeNode* node,
 			//
 		)
 		{
-			// ll("Need to randomize something here.", log);
+			// ll2("Need to randomize something here.", log);
 
 			//print("IM LEAF");
 			if (0)
@@ -656,11 +656,11 @@ bool SampleCallback(OctreeNode* node,
 
 				// kn->velocity += dir * w;
 				nodeVelocities[id] += dir * w;
-				ll("velocity Updated: " + nodeVelocities[id].ToString(), log3);
-				// ll("velocity Updated: " + kn->velocity.ToString(), log);
+				ll2("velocity Updated: " + nodeVelocities[id].ToString(), log3);
+				// ll2("velocity Updated: " + kn->velocity.ToString(), log);
 			}
 		}
-		ll("3333333333333333 Returning false at the very end. ", log3);
+		ll2("3333333333333333 Returning false at the very end. ", log3);
 		return false;
 	}
 }

@@ -340,4 +340,11 @@ public:
 	{
 		FNBodySimModule::Get().EndRendering();
 	}
+
+	void ll(const FString& StringToLog, bool LOG=false, int SeverityLevel = 0, const FString& Prefix = TEXT("[Info]"))
+	{
+		ll2(StringToLog, LOG, SeverityLevel, Prefix);
+	}
+
+	
 };

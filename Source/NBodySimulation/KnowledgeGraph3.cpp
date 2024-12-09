@@ -154,17 +154,13 @@ bool AKnowledgeGraph::Maint(float DeltaTime)
 	ll("second element. " + nodePositions[1].ToString(), log);
 	ll("third element. " + nodePositions[2].ToString(), log);
 	
-	
 	update_Node_world_position_according_to_position_array();
-
-
+	
 	if (update_link_before_stabilize)
 	{
 		ll("update link position", log);
 		update_link_position();
 	}
-
-
 	
 	if (use_shaders){
 	

@@ -30,7 +30,7 @@ void ClearLogFile();
 void lll(const FString& TextToWrite);
 
 
-void ll(const FString& StringToLog, bool LOG=false, int SeverityLevel = 0, const FString& Prefix = TEXT("[Info]")
+void ll2(const FString& StringToLog, bool LOG=false, int SeverityLevel = 0, const FString& Prefix = TEXT("[Info]")
 	 // bool file= false
 );
 

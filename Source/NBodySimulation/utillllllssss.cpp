@@ -82,7 +82,7 @@ void lll(const FString& TextToWrite)
 }
 
 
-void ll(const FString& StringToLog, bool LOG, int SeverityLevel, const FString& Prefix)
+void ll2(const FString& StringToLog, bool LOG, int SeverityLevel, const FString& Prefix)
 {
 	bool nologgggggggg = true;
 

@@ -26,7 +26,8 @@ void OctreeNode::PrintData() const
 	{
 		if (Data->nodeid)
 		{
-			ll("77777777777777Data: " + FString::FromInt(Data->nodeid));
+			ll2
+			("77777777777777Data: " + FString::FromInt(Data->nodeid));
 		}
 	}
 
