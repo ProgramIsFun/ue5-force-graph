@@ -643,12 +643,10 @@ void AKnowledgeGraph::update_link_position()
 			float CylinderHeight = ForwardVector.Size();
 
 			FRotator Rotation = FRotationMatrix::MakeFromZ(ForwardVector).Rotator();
-
 			
 			l->SetWorldLocation(
-				MidPoint
+				Location1
 			);
-			// Calculate the length.
 			
 			l->SetWorldScale3D(
 				FVector(
