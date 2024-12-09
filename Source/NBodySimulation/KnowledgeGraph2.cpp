@@ -32,7 +32,6 @@ bool AKnowledgeGraph::Generateactorandattach(AKnowledgeNode*& kn)
 
 
 		UStaticMesh* CubeMesh;
-		// SelectedMesh1111111111111
 		if (false)
 		{
 			CubeMesh = LoadObject<UStaticMesh>(
@@ -1155,29 +1154,19 @@ void AKnowledgeGraph::AddEdge(int32 id, int32 source, int32 target)
 		UStaticMeshComponent* CylinderMesh;
 		// Dynamically create the mesh component and attach it
 		CylinderMesh = NewObject<UStaticMeshComponent>(this,
-			UStaticMeshComponent::StaticClass(),
-			TEXT("CylinderMesh")
-			);
-		CylinderMesh->RegisterComponent();  // Registers the component with the World so it gets rendered and updated
+
+		FName(*FString::Printf(TEXT("CylinderMesh%d"), id))
+
+		);
+		
 		CylinderMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-
-
-		if (0)
-		{
-			// Load the mesh
-			static ConstructorHelpers::FObjectFinder<UStaticMesh>
-				CylinderMeshAsset(TEXT("StaticMesh'/Game/Meshes/CylinderMesh.CylinderMesh'"));
-			if (CylinderMeshAsset.Succeeded())
-			{
-				CylinderMesh->SetStaticMesh(CylinderMeshAsset.Object);
-			}
-		}
-		else
-		{
-			CylinderMesh->SetStaticMesh(
-				link_use_static_meshlinkMesh
-			);
-		}
+		CylinderMesh->RegisterComponent();  // Registers the component with the World so it gets rendered and updated
+		
+		
+		CylinderMesh->SetStaticMesh(
+			link_use_static_meshlinkMesh
+		);
+	
 		
 
 		// UStaticMesh* CubeMesh;
