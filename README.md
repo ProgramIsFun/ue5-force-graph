@@ -1,6 +1,5 @@
 ## What is this project?
 
-
 A Force-Directed Graph, or Force-Based Graph, is a type of layout commonly used in a variety of application areas: network visualization, large graph visualization, knowledge representation, system management, or mesh visualization.
 
 This contains an implementation of the force directed graph in unreal engine 5.
@@ -8,7 +7,6 @@ This contains an implementation of the force directed graph in unreal engine 5.
 replicate the result of the popular library https://github.com/vasturiano/3d-force-graph.
 
 ![image](https://github.com/user-attachments/assets/4e648745-8ee3-4fc7-9008-fd1d53785711)
-
 
 ## Main reference of this project
 
@@ -19,7 +17,6 @@ https://vasturiano.github.io/3d-force-graph/example/large-graph/ -> https://gith
 ## To do list
 
 [a relative link](To_do_list.md)
-
 
 ## Reference
 
@@ -34,11 +31,6 @@ It is improved in the following ways
 
 It is worse in the following ways
 1. The implementation of the charge force, which is the many body force, use a custom implementation of the OCtree, Which seems to be slower than the library version of the unreal engine.
-
-
-
-
-
 
 ## A introduction to unreal engine 5
 
@@ -82,7 +74,6 @@ So how to put this in the map that we want to play? We can drag the KnowledgeGra
 
 ![image](https://github.com/user-attachments/assets/2042450f-0d52-4c6f-97e2-a8dc2973de14)
 
-
 4.How to open different maps?
 
 You can open different maps by clicking the file in the content browser.
@@ -97,7 +88,6 @@ Because sometimes we want to change the default values of some member variables 
 In order to speed up the workflow, we can add a UPROPERTY() macro in front of the member variable.
 
 https://benui.ca/unreal/uproperty/
-
 
 ## Notice
 
