@@ -1,7 +1,8 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 
-#include "GameFramework/DefaultPawn.h"
+// #include "GameFramework/DefaultPawn.h"
+#include "DefaultPawn2.h"
 #include "GameFramework/Controller.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Components/InputComponent.h"
@@ -13,40 +14,40 @@
 #include "GameFramework/FloatingPawnMovement.h"
 #include "GameFramework/PlayerInput.h"
 
-#include UE_INLINE_GENERATED_CPP_BY_NAME(DefaultPawn)
+//#include UE_INLINE_GENERATED_CPP_BY_NAME(DefaultPawn2)
 
-FName ADefaultPawn::MovementComponentName(TEXT("MovementComponent0"));
-FName ADefaultPawn::CollisionComponentName(TEXT("CollisionComponent0"));
-FName ADefaultPawn::MeshComponentName(TEXT("MeshComponent0"));
+FName ADefaultPawn2::MovementComponentName(TEXT("MovementComponent0"));
+FName ADefaultPawn2::CollisionComponentName(TEXT("CollisionComponent0"));
+FName ADefaultPawn2::MeshComponentName(TEXT("MeshComponent0"));
 
 
-ADefaultPawn::ADefaultPawn(const FObjectInitializer& ObjectInitializer)
+ADefaultPawn2::ADefaultPawn2(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	SetCanBeDamaged(true);
-
+	
 	SetRemoteRoleForBackwardsCompat(ROLE_SimulatedProxy);
 	bReplicates = true;
 	NetPriority = 3.0f;
-
+	
 	BaseEyeHeight = 0.0f;
 	bCollideWhenPlacing = false;
 	SpawnCollisionHandlingMethod = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
-	CollisionComponent = CreateDefaultSubobject<USphereComponent>(ADefaultPawn::CollisionComponentName);
+	
+	CollisionComponent = CreateDefaultSubobject<USphereComponent>(ADefaultPawn2::CollisionComponentName);
 	CollisionComponent->InitSphereRadius(35.0f);
 	CollisionComponent->SetCollisionProfileName(UCollisionProfile::Pawn_ProfileName);
-
+	
 	CollisionComponent->CanCharacterStepUpOn = ECB_No;
 	CollisionComponent->SetShouldUpdatePhysicsVolume(true);
 	CollisionComponent->SetCanEverAffectNavigation(false);
 	CollisionComponent->bDynamicObstacle = true;
-
+	
 	RootComponent = CollisionComponent;
-
-	MovementComponent = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(ADefaultPawn::MovementComponentName);
+	
+	MovementComponent = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(ADefaultPawn2::MovementComponentName);
 	MovementComponent->UpdatedComponent = CollisionComponent;
-
+	
 	// Structure to hold one-time initialization
 	struct FConstructorStatics
 	{
@@ -54,10 +55,10 @@ ADefaultPawn::ADefaultPawn(const FObjectInitializer& ObjectInitializer)
 		FConstructorStatics()
 			: SphereMesh(TEXT("/Engine/EngineMeshes/Sphere")) {}
 	};
-
+	
 	static FConstructorStatics ConstructorStatics;
-
-	MeshComponent = CreateOptionalDefaultSubobject<UStaticMeshComponent>(ADefaultPawn::MeshComponentName);
+	
+	MeshComponent = CreateOptionalDefaultSubobject<UStaticMeshComponent>(ADefaultPawn2::MeshComponentName);
 	if (MeshComponent)
 	{
 		MeshComponent->SetStaticMesh(ConstructorStatics.SphereMesh.Object);
@@ -76,13 +77,21 @@ ADefaultPawn::ADefaultPawn(const FObjectInitializer& ObjectInitializer)
 		MeshComponent->SetGenerateOverlapEvents(false);
 		MeshComponent->SetCanEverAffectNavigation(false);
 	}
-
+	
 	// This is the default pawn class, we want to have it be able to move out of the box.
 	bAddDefaultMovementBindings = true;
-
+	
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
+	
 }
+
+
+
+
+
+
+
 
 void InitializeDefaultPawnInputBindings()
 {
@@ -127,7 +136,7 @@ void InitializeDefaultPawnInputBindings()
 	}
 }
 
-void ADefaultPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ADefaultPawn2::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	check(PlayerInputComponent);
 
@@ -135,17 +144,17 @@ void ADefaultPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	{
 		InitializeDefaultPawnInputBindings();
 
-		PlayerInputComponent->BindAxis("DefaultPawn_MoveForward", this, &ADefaultPawn::MoveForward);
-		PlayerInputComponent->BindAxis("DefaultPawn_MoveRight", this, &ADefaultPawn::MoveRight);
-		PlayerInputComponent->BindAxis("DefaultPawn_MoveUp", this, &ADefaultPawn::MoveUp_World);
-		PlayerInputComponent->BindAxis("DefaultPawn_Turn", this, &ADefaultPawn::AddControllerYawInput);
-		PlayerInputComponent->BindAxis("DefaultPawn_TurnRate", this, &ADefaultPawn::TurnAtRate);
-		PlayerInputComponent->BindAxis("DefaultPawn_LookUp", this, &ADefaultPawn::AddControllerPitchInput);
-		PlayerInputComponent->BindAxis("DefaultPawn_LookUpRate", this, &ADefaultPawn::LookUpAtRate);
+		PlayerInputComponent->BindAxis("DefaultPawn_MoveForward", this, &ADefaultPawn2::MoveForward);
+		PlayerInputComponent->BindAxis("DefaultPawn_MoveRight", this, &ADefaultPawn2::MoveRight);
+		PlayerInputComponent->BindAxis("DefaultPawn_MoveUp", this, &ADefaultPawn2::MoveUp_World);
+		PlayerInputComponent->BindAxis("DefaultPawn_Turn", this, &ADefaultPawn2::AddControllerYawInput);
+		PlayerInputComponent->BindAxis("DefaultPawn_TurnRate", this, &ADefaultPawn2::TurnAtRate);
+		PlayerInputComponent->BindAxis("DefaultPawn_LookUp", this, &ADefaultPawn2::AddControllerPitchInput);
+		PlayerInputComponent->BindAxis("DefaultPawn_LookUpRate", this, &ADefaultPawn2::LookUpAtRate2);
 	}
 }
 
-void ADefaultPawn::UpdateNavigationRelevance()
+void ADefaultPawn2::UpdateNavigationRelevance()
 {
 	if (CollisionComponent)
 	{
@@ -153,7 +162,7 @@ void ADefaultPawn::UpdateNavigationRelevance()
 	}
 }
 
-void ADefaultPawn::MoveRight(float Val)
+void ADefaultPawn2::MoveRight(float Val)
 {
 	if (Val != 0.f)
 	{
@@ -167,7 +176,7 @@ void ADefaultPawn::MoveRight(float Val)
 	}
 }
 
-void ADefaultPawn::MoveForward(float Val)
+void ADefaultPawn2::MoveForward(float Val)
 {
 	if (Val != 0.f)
 	{
@@ -181,7 +190,7 @@ void ADefaultPawn::MoveForward(float Val)
 	}
 }
 
-void ADefaultPawn::MoveUp_World(float Val)
+void ADefaultPawn2::MoveUp_World(float Val)
 {
 	if (Val != 0.f)
 	{
@@ -189,19 +198,19 @@ void ADefaultPawn::MoveUp_World(float Val)
 	}
 }
 
-void ADefaultPawn::TurnAtRate(float Rate)
+void ADefaultPawn2::TurnAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds() * CustomTimeDilation);
 }
 
-void ADefaultPawn::LookUpAtRate(float Rate)
+void ADefaultPawn2::LookUpAtRate2(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds() * CustomTimeDilation);
 }
 
-UPawnMovementComponent* ADefaultPawn::GetMovementComponent() const
+UPawnMovementComponent* ADefaultPawn2::GetMovementComponent() const
 {
 	return MovementComponent;
 }

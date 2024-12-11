@@ -22,9 +22,11 @@ class UStaticMeshComponent;
  * @see UFloatingPawnMovement
  */
 UCLASS()
-class ENGINE_API ADefaultPawn : public APawn
+class NBODYSIMULATION_API ADefaultPawn2 : public APawn
 {
-	GENERATED_UCLASS_BODY()
+	GENERATED_BODY()
+	
+	ADefaultPawn2(const FObjectInitializer& ObjectInitializer);
 
 	// Begin Pawn overrides
 	virtual UPawnMovementComponent* GetMovementComponent() const override;
@@ -68,14 +70,14 @@ class ENGINE_API ADefaultPawn : public APawn
 	* @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
 	*/
 	UFUNCTION(BlueprintCallable, Category="Pawn")
-	virtual void LookUpAtRate(float Rate);
+	virtual void LookUpAtRate2(float Rate);
 	
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Pawn")
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Pawn")
 	float BaseTurnRate;
 
 	/** Base lookup rate, in deg/sec. Other scaling may affect final lookup rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Pawn")
+	// UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Pawn")
 	float BaseLookUpRate;
 
 public:
