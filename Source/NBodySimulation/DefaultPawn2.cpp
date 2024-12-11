@@ -159,6 +159,9 @@ void ADefaultPawn2::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		PlayerInputComponent->BindAxis("DefaultPawn_LookUp", this, &ADefaultPawn2::AddControllerPitchInput);
 		PlayerInputComponent->BindAxis("DefaultPawn_LookUpRate", this, &ADefaultPawn2::LookUpAtRate2);
 	}
+
+	PlayerInputComponent->BindAction("N8888888", IE_Pressed, this, &ADefaultPawn2::increase_speed);
+
 }
 
 void ADefaultPawn2::UpdateNavigationRelevance()
@@ -193,8 +196,8 @@ void ADefaultPawn2::MoveForward(float Val)
 
 
 			// One is the fault I modified it here.
-			ll2("val111111111: " + FString::SanitizeFloat(Val),true,2);
-			float Val2 = Val * 0.07f;
+			// ll2("val111111111: " + FString::SanitizeFloat(Val),true,2);
+			float Val2 = Val * speed_forward;
 			
 			// transform to world space and add it
 			AddMovementInput(
@@ -228,6 +231,16 @@ void ADefaultPawn2::LookUpAtRate2(float Rate)
 UPawnMovementComponent* ADefaultPawn2::GetMovementComponent() const
 {
 	return MovementComponent;
+}
+
+void ADefaultPawn2::increase_speed()
+{
+	// ll("increase_speed"+FString::SanitizeFloat(speed_forward)
+	// 	,true,2);
+	speed_forward += 0.1f;
+	
+	ll("increase_speed"+FString::SanitizeFloat(speed_forward)
+		,true,2);
 }
 
 

@@ -8,6 +8,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "utillllllssss.h"
 #include "UObject/ObjectMacros.h"
 #include "GameFramework/Pawn.h"
 #include "DefaultPawn2.generated.h"
@@ -32,7 +33,7 @@ class NBODYSIMULATION_API ADefaultPawn2 : public APawn
 	virtual UPawnMovementComponent* GetMovementComponent() const override;
 
 
-
+	void increase_speed();
 	// This function will be called for you from the engine. 
 	virtual void SetupPlayerInputComponent(UInputComponent* InInputComponent) override;
 
@@ -88,6 +89,8 @@ class NBODYSIMULATION_API ADefaultPawn2 : public APawn
 	// UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Pawn")
 	float BaseLookUpRate;
 
+
+	float speed_forward=0.01f;
 public:
 	/** Name of the MovementComponent.  Use this name if you want to use a different class (with ObjectInitializer.SetDefaultSubobjectClass). */
 	static FName MovementComponentName;
@@ -124,5 +127,14 @@ public:
 	USphereComponent* GetCollisionComponent() const { return CollisionComponent; }
 	/** Returns MeshComponent subobject **/
 	UStaticMeshComponent* GetMeshComponent() const { return MeshComponent; }
+
+
+	void ll(const FString& StringToLog, bool LOG=false, int SeverityLevel = 0, const FString& Prefix = TEXT("[Info]"))
+	{
+		if(1)
+		{
+			ll2(StringToLog, LOG, SeverityLevel, Prefix);
+		}
+	}
 };
 
