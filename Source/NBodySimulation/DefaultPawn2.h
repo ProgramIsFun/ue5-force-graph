@@ -90,7 +90,7 @@ class NBODYSIMULATION_API ADefaultPawn2 : public APawn
 	float BaseLookUpRate;
 
 
-	float speed_forward=0.01f;
+	float speed_forward=1.01f;
 public:
 	/** Name of the MovementComponent.  Use this name if you want to use a different class (with ObjectInitializer.SetDefaultSubobjectClass). */
 	static FName MovementComponentName;
