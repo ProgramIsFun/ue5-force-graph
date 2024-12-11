@@ -30,7 +30,15 @@ class NBODYSIMULATION_API ADefaultPawn2 : public APawn
 
 	// Begin Pawn overrides
 	virtual UPawnMovementComponent* GetMovementComponent() const override;
+
+
+
+	// This function will be called for you from the engine. 
 	virtual void SetupPlayerInputComponent(UInputComponent* InInputComponent) override;
+
+
+
+
 	virtual void UpdateNavigationRelevance() override;
 	// End Pawn overrides
 

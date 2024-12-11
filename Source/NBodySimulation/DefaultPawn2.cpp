@@ -3,6 +3,8 @@
 
 // #include "GameFramework/DefaultPawn.h"
 #include "DefaultPawn2.h"
+
+#include "utillllllssss.h"
 #include "GameFramework/Controller.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Components/InputComponent.h"
@@ -136,6 +138,8 @@ void InitializeDefaultPawnInputBindings()
 	}
 }
 
+
+
 void ADefaultPawn2::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	check(PlayerInputComponent);
@@ -146,9 +150,12 @@ void ADefaultPawn2::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 		PlayerInputComponent->BindAxis("DefaultPawn_MoveForward", this, &ADefaultPawn2::MoveForward);
 		PlayerInputComponent->BindAxis("DefaultPawn_MoveRight", this, &ADefaultPawn2::MoveRight);
+		
 		PlayerInputComponent->BindAxis("DefaultPawn_MoveUp", this, &ADefaultPawn2::MoveUp_World);
 		PlayerInputComponent->BindAxis("DefaultPawn_Turn", this, &ADefaultPawn2::AddControllerYawInput);
+		
 		PlayerInputComponent->BindAxis("DefaultPawn_TurnRate", this, &ADefaultPawn2::TurnAtRate);
+
 		PlayerInputComponent->BindAxis("DefaultPawn_LookUp", this, &ADefaultPawn2::AddControllerPitchInput);
 		PlayerInputComponent->BindAxis("DefaultPawn_LookUpRate", this, &ADefaultPawn2::LookUpAtRate2);
 	}
@@ -184,8 +191,16 @@ void ADefaultPawn2::MoveForward(float Val)
 		{
 			FRotator const ControlSpaceRot = Controller->GetControlRotation();
 
+
+			// One is the fault I modified it here.
+			ll2("val111111111: " + FString::SanitizeFloat(Val),true,2);
+			float Val2 = Val * 0.07f;
+			
 			// transform to world space and add it
-			AddMovementInput( FRotationMatrix(ControlSpaceRot).GetScaledAxis( EAxis::X ), Val );
+			AddMovementInput(
+				FRotationMatrix(ControlSpaceRot).GetScaledAxis( EAxis::X ),
+				Val2
+				);
 		}
 	}
 }
