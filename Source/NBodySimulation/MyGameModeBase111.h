@@ -13,5 +13,7 @@ UCLASS()
 class NBODYSIMULATION_API AMyGameModeBase111 : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+	AMyGameModeBase111(const FObjectInitializer& ObjectInitializer);
+	// DefaultPawnClass = ADefaultPawn2::StaticClass();
+
 };
