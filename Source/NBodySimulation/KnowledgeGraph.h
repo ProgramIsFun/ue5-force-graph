@@ -173,11 +173,11 @@ public:
 	UStaticMesh* link_use_static_meshlinkMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	float link_use_static_mesh_size1 = 0.3f;
+	float link_use_static_mesh_size1 = 0.05f;
 	
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	float link_use_static_mesh_size = 0.3f;
+	float link_use_static_mesh_size = 0.01f;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool link_use_debug_line = true;
