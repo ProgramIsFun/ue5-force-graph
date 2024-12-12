@@ -63,6 +63,9 @@ float wasteTime() {
 	return sum; // Returning sum to prevent the compiler from optimizing the loop away
 }
 
+bool value_is_close_to(float a, float b, float tolerance) {
+	return abs(a - b) < tolerance;
+}
 
 [numthreads(256, 1, 1)]
 void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
@@ -86,27 +89,30 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		}
 		else
 		{
-			
-			if (ID.x==1)
+			if (0)
 			{
-				if (abs(alpha-0.977)<0.001)
+				if (ID.x==1)
 				{
-					alphaS[ID.x] = 1;
+					if (abs(alpha-0.977)<0.001)
+					{
+						alphaS[ID.x] = 1;
+					}
+					else
+					{
+						alphaS[ID.x] += 1;
+					}
 				}
 				else
 				{
-					alphaS[ID.x] += 1;
+					alphaS[ID.x] = alpha;
+
 				}
 			}
-			else
-			{
-				alphaS[ID.x] = alpha;
 
-			}
+			
 			alphaUUU = alpha;
 		}
 		
-		float3 Acceleration= float3(0, 0, 0);
 		
 		bool calculateLinkForce;
 		bool calculateGravityForce;
@@ -129,59 +135,88 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 			calculateGravityForce = true;
 		}
 		
-		
-		if (calculateLinkForce)
+		if (ID.x==0)
 		{
-			int offset = LinkOffsets[ID.x];
-			int count = LinkCounts[ID.x];
-			for (int i = offset;
-			     i < offset + count;
-			     i++)
+			if (calculateLinkForce)
 			{
-				int affectingBodyID = LinkIndices[i];
-				int Linkinout1 = Linkinout[i];
 
 
-				float3 new_v;
-				if (Linkinout1 == 1)
+				// int offset = LinkOffsets[ID.x];
+				// int count = LinkCounts[ID.x];
+
+				for (
+				     // int i = offset;
+				     // i < offset + count;
+				     // i++
+				     int i = 0;
+				     i < NumLinks;
+				     i++
+				     )
 				{
-					new_v = Positions[affectingBodyID] + Velocities[affectingBodyID] - Positions[ID.x] - Velocities[ID.x];
-				}else
-				{
-					new_v = Positions[ID.x] + Velocities[ID.x] - Positions[affectingBodyID] - Velocities[affectingBodyID];
-				}
+
+					int affectingBodyID = LinkIndices[i];
+					int Linkinout1 = Linkinout[i];
 
 
-				////////////////////////////////////////////////////////////////
-				// if(ID.x==0)
-				// {
-				// 	Positions[0]=Positions[ID.x];
-				//
-				// 	alphaS[ID.x] = new_v.x;
-				// 	return;
-				// }else
-				// {
-				// 	return;
-				// }
-				//
-				///////////////////////////////////////////////////////////////
+					float3 new_v;
+					if (Linkinout1 == 1)
+					{
+						new_v = Positions[affectingBodyID] + Velocities[affectingBodyID] - Positions[ID.x] - Velocities[ID.x];
+					}else
+					{
+						new_v = Positions[ID.x] + Velocities[ID.x] - Positions[affectingBodyID] - Velocities[affectingBodyID];
+					}
+
+
+					////////////////////////////////////////////////////////////////
+					// if(ID.x==0)
+					// {
+					// 	Positions[0]=Positions[ID.x];
+					//
+					// 	alphaS[ID.x] = new_v.x;
+					// 	return;
+					// }else
+					// {
+					// 	return;
+					// }
+					//
+					///////////////////////////////////////////////////////////////
 			
-				float l = length(new_v);
-				l = (l - 30) /
-					l * alphaUUU * LinkStrengths[i];
-				new_v *= l;
-			
-				if (Linkinout1 == 1)
-				{
-					Acceleration += new_v * (1 - LinkBiases[i]);
+					float l = length(new_v);
+					l = (l - 30) /
+						l * alphaUUU * LinkStrengths[i];
+					new_v *= l;
+
+
+
+					float3 Acceleration= float3(0, 0, 0);
+
+					if (Linkinout1 == 1)
+					{
+						Acceleration += new_v * (1 - LinkBiases[i]);
+					}
+					else
+					{
+						Acceleration -= new_v * (LinkBiases[i]);
+					}
+
+					Velocities[i] += Acceleration;
+
 				}
-				else
-				{
-					Acceleration -= new_v * (LinkBiases[i]);
-				}
+				// We signaled that the link force is finished. 
+				alphaS[0]=100; 
 			}
 		}
-		
+		else
+		{
+			while(!value_is_close_to(alphaS[0],100,0.1))
+			{
+				// Wait for the link force to finish
+			}
+		}
+
+
+		float3 Acceleration= float3(0, 0, 0);
 		// Calculate gravitational force
 		if (calculateGravityForce)
 		{
@@ -195,9 +230,22 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 		}
 		
 		Velocities[ID.x] += Acceleration;
+
+
 		const float velocityDecay = 0.6;
 		Velocities[ID.x] *= velocityDecay;
+
+
+		// Logically, we should add a barrier here so that every node has finished update their velocity before we try to move to the next step. 
+
 		Positions[ID.x] += Velocities[ID.x];
+
+
+		// Set the signal back to some value else. 
+		if (ID.x==0)
+		{
+			alphaS[0]=0;
+		}
 	}
 	else {
 
