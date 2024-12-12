@@ -83,7 +83,7 @@ ADefaultPawn2::ADefaultPawn2(const FObjectInitializer& ObjectInitializer)
 	// This is the default pawn class, we want to have it be able to move out of the box.
 	bAddDefaultMovementBindings = true;
 	
-	BaseTurnRate = 45.f;
+	BaseTurnRate =45.f;
 	BaseLookUpRate = 45.f;
 	
 }

@@ -86,43 +86,141 @@ void APj11Character::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 
 	}
 
+	PlayerInputComponent->BindAxis("DefaultPawn_MoveForward", this, &APj11Character::MoveForward);
+	PlayerInputComponent->BindAxis("DefaultPawn_MoveRight", this, &APj11Character::MoveRight);
+		
+	PlayerInputComponent->BindAxis("DefaultPawn_MoveUp", this, &APj11Character::MoveUp_World);
+	PlayerInputComponent->BindAxis("DefaultPawn_Turn", this, &APj11Character::AddControllerYawInput);
+		
+	PlayerInputComponent->BindAxis("DefaultPawn_TurnRate", this, &APj11Character::TurnAtRate);
+
+	PlayerInputComponent->BindAxis("DefaultPawn_LookUp", this, &APj11Character::AddControllerPitchInput);
+	PlayerInputComponent->BindAxis("DefaultPawn_LookUpRate", this, &APj11Character::LookUpAtRate2);
+
+	// PlayerInputComponent->BindAction("N8888888", IE_Pressed, this, &APj11Character::increase_speed);
+
 }
 
-void APj11Character::Move(const FInputActionValue& Value)
+
+
+
+
+void APj11Character::MoveRight(float Val)
 {
-	// input is a Vector2D
-	FVector2D MovementVector = Value.Get<FVector2D>();
-
-	if (Controller != nullptr)
+	if (Val != 0.f)
 	{
-		// find out which way is forward
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
+		if (Controller)
+		{
+			FRotator const ControlSpaceRot = Controller->GetControlRotation();
 
-		// get forward vector
-		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	
-		// get right vector 
-		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-
-		// add movement 
-		AddMovementInput(ForwardDirection, MovementVector.Y);
-		AddMovementInput(RightDirection, MovementVector.X);
+			// transform to world space and add it
+			AddMovementInput( FRotationMatrix(ControlSpaceRot).GetScaledAxis( EAxis::Y ), Val );
+		}
 	}
 }
 
-void APj11Character::Look(const FInputActionValue& Value)
+void APj11Character::MoveForward(float Val)
 {
-	// input is a Vector2D
-	FVector2D LookAxisVector = Value.Get<FVector2D>();
-
-	if (Controller != nullptr)
+	if (Val != 0.f)
 	{
-		// add yaw and pitch input to controller
-		AddControllerYawInput(LookAxisVector.X);
-		AddControllerPitchInput(LookAxisVector.Y);
+		if (Controller)
+		{
+			FRotator const ControlSpaceRot = Controller->GetControlRotation();
+
+
+			// One is the fault I modified it here.
+			// ll2("val111111111: " + FString::SanitizeFloat(Val),true,2);
+			float Val2 = Val * 1;
+			
+			// transform to world space and add it
+			AddMovementInput(
+				FRotationMatrix(ControlSpaceRot).GetScaledAxis( EAxis::X ),
+				Val2
+				);
+		}
 	}
 }
+
+void APj11Character::MoveUp_World(float Val)
+{
+	if (Val != 0.f)
+	{
+		AddMovementInput(FVector::UpVector, Val);
+	}
+}
+
+void APj11Character::TurnAtRate(float Rate)
+{
+	// calculate delta for this frame from the rate information
+	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds() * CustomTimeDilation);
+}
+
+void APj11Character::LookUpAtRate2(float Rate)
+{
+	// calculate delta for this frame from the rate information
+	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds() * CustomTimeDilation);
+}
+
+// UPawnMovementComponent* APj11Character::GetMovementComponent() const
+// {
+// 	return MovementComponent;
+// }
+
+// void APj11Character::increase_speed()
+// {
+// 	// ll("increase_speed"+FString::SanitizeFloat(speed_forward)
+// 	// 	,true,2);
+// 	speed_forward += 0.1f;
+// 	
+// 	ll("increase_speed"+FString::SanitizeFloat(speed_forward)
+// 		,true,2);
+// }
+
+
+
+
+
+
+
+
+
+
+//
+// void APj11Character::Move(const FInputActionValue& Value)
+// {
+// 	// input is a Vector2D
+// 	FVector2D MovementVector = Value.Get<FVector2D>();
+//
+// 	if (Controller != nullptr)
+// 	{
+// 		// find out which way is forward
+// 		const FRotator Rotation = Controller->GetControlRotation();
+// 		const FRotator YawRotation(0, Rotation.Yaw, 0);
+//
+// 		// get forward vector
+// 		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+// 	
+// 		// get right vector 
+// 		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+//
+// 		// add movement 
+// 		AddMovementInput(ForwardDirection, MovementVector.Y);
+// 		AddMovementInput(RightDirection, MovementVector.X);
+// 	}
+// }
+//
+// void APj11Character::Look(const FInputActionValue& Value)
+// {
+// 	// input is a Vector2D
+// 	FVector2D LookAxisVector = Value.Get<FVector2D>();
+//
+// 	if (Controller != nullptr)
+// 	{
+// 		// add yaw and pitch input to controller
+// 		AddControllerYawInput(LookAxisVector.X);
+// 		AddControllerPitchInput(LookAxisVector.Y);
+// 	}
+// }
 
 
 
