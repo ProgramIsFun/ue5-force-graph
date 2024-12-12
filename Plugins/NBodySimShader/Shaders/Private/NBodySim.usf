@@ -134,11 +134,12 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 			calculateLinkForce = true;
 			calculateGravityForce = true;
 		}
-		
-		if (ID.x==0)
+		if (calculateLinkForce)
 		{
-			if (calculateLinkForce)
+
+			if (ID.x==0)
 			{
+			
 
 
 				// int offset = LinkOffsets[ID.x];
@@ -161,10 +162,10 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 					float3 new_v;
 					if (Linkinout1 == 1)
 					{
-						new_v = Positions[affectingBodyID] + Velocities[affectingBodyID] - Positions[ID.x] - Velocities[ID.x];
+						new_v = Positions[affectingBodyID] + Velocities[affectingBodyID] - Positions[i] - Velocities[i];
 					}else
 					{
-						new_v = Positions[ID.x] + Velocities[ID.x] - Positions[affectingBodyID] - Velocities[affectingBodyID];
+						new_v = Positions[i] + Velocities[i] - Positions[affectingBodyID] - Velocities[affectingBodyID];
 					}
 
 
@@ -186,34 +187,34 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 					l = (l - 30) /
 						l * alphaUUU * LinkStrengths[i];
 					new_v *= l;
-
-
-
-					float3 Acceleration= float3(0, 0, 0);
-
 					if (Linkinout1 == 1)
 					{
-						Acceleration += new_v * (1 - LinkBiases[i]);
+						Velocities[i] += new_v * (1 - LinkBiases[i]);
 					}
 					else
 					{
-						Acceleration -= new_v * (LinkBiases[i]);
+						Velocities[i] -= new_v * (LinkBiases[i]);
 					}
-
-					Velocities[i] += Acceleration;
-
 				}
+			
+
 				// We signaled that the link force is finished. 
 				alphaS[0]=100; 
+				
 			}
-		}
-		else
-		{
+
 			while(!value_is_close_to(alphaS[0],100,0.1))
 			{
 				// Wait for the link force to finish
 			}
+			
 		}
+		
+		
+
+		
+		
+	
 
 
 		float3 Acceleration= float3(0, 0, 0);

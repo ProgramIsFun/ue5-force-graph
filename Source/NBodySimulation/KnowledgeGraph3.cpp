@@ -202,3 +202,34 @@ void AKnowledgeGraph::gpu_get_positions()
 
 	
 }
+
+void AKnowledgeGraph::debug_test()
+{
+	if (0)
+	{
+	}
+	else
+	{
+		TArray<UStaticMeshComponent*> CylinderMeshes;
+
+		// Loop to create 10 Cylinder Meshes
+		for (int32 i = 0; i < 10; ++i)
+		{
+			UStaticMeshComponent* NewCylinderMesh = NewObject<UStaticMeshComponent>(this, FName(*FString::Printf(TEXT("CylinderMesh%d"), i)));
+			NewCylinderMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+			NewCylinderMesh->RegisterComponent();
+
+			// Set scale
+			NewCylinderMesh->SetWorldScale3D(FVector(10, 1, 1));
+    
+			// Set static mesh
+			NewCylinderMesh->SetStaticMesh(link_use_static_meshlinkMesh);
+    
+			// Set different relative locations for each cylinder to avoid overlap
+			NewCylinderMesh->SetRelativeLocation(FVector(10, 10, 100 + i * 120));
+
+			// Add to the array
+			CylinderMeshes.Add(NewCylinderMesh);
+		}
+	}
+}
