@@ -200,11 +200,16 @@ void CalculateVelocitiesCS(uint3 ID : SV_DispatchThreadID)
 
 				// We signaled that the link force is finished. 
 				alphaS[0]=100; 
+
+				AllMemoryBarrier();
+				// DeviceMemoryBarrier();
 				
 			}
 
 			while(!value_is_close_to(alphaS[0],100,0.1))
 			{
+				// AllMemoryBarrier();
+				// DeviceMemoryBarrier();
 				// Wait for the link force to finish
 			}
 			
