@@ -8,8 +8,8 @@
 #include "Pj11Character.generated.h"
 
 
-UCLASS(config=Game)
-class APj11Character : public ACharacter
+UCLASS()
+class NBODYSIMULATION_API APj11Character : public ACharacter
 {
 	GENERATED_BODY()
 
