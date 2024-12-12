@@ -27,7 +27,11 @@ public class NBodySimulation : ModuleRules
 			
 			
 			// The following are for JSON 
-			"Json", "JsonUtilities"
+			"Json", "JsonUtilities",
+			
+			
+			"EnhancedInput"
+
 
 		});
 
