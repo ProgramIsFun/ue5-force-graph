@@ -307,8 +307,10 @@ public:
 	TArray<int> Linkinout;
 
 
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	float alpha = 1;
+
+
 	int iterationsf = 0;
 
 	float iterations = 0;
