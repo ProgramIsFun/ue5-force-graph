@@ -63,8 +63,8 @@ void AKnowledgeGraph::BeginPlay()
 	ClearLogFile();
 
 	
-	// debug_test();
-		
+
+	
 	prepare(); 
 	
 }

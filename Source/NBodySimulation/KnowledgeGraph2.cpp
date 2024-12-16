@@ -317,7 +317,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 void AKnowledgeGraph::generateGraph()
 {
-	defaultGenerateGraphMethod();
+	
 }
 
 

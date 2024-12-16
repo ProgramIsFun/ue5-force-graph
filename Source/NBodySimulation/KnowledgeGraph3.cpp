@@ -1,34 +1,12 @@
 #include "KnowledgeGraph.h"
 
 
-void AKnowledgeGraph::prepare()
+void AKnowledgeGraph::post_generate_graph()
 {
+	initializeNodePosition();
 	
-	if (use_tick_interval)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Restricting tick interval"));
-
-		PrimaryActorTick.TickInterval = tick_interval;
-	}
-
-	// generateGraph();
-	timeThisMemberFunction(
-		"AKnowledgeGraph::generateGraph",
-		&AKnowledgeGraph::generateGraph
-	);
-
+	CalculateBiasstrengthOflinks();
 	
-
-	timeThisMemberFunction(
-		"AKnowledgeGraph::initializeNodePosition",
-		&AKnowledgeGraph::initializeNodePosition);
-
-
-	timeThisMemberFunction(
-		"AKnowledgeGraph::CalculateBiasstrengthOflinks",
-		&AKnowledgeGraph::CalculateBiasstrengthOflinks);
-
-
 	if (use_shaders)
 	{
 		SimParameters.ViewportWidth = 8000.0;
@@ -40,6 +18,22 @@ void AKnowledgeGraph::prepare()
 		FNBodySimModule::Get().BeginRendering();
 		FNBodySimModule::Get().InitWithParameters(SimParameters);
 	}
+}
+
+void AKnowledgeGraph::prepare()
+{
+	
+	if (use_tick_interval)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Restricting tick interval"));
+
+		PrimaryActorTick.TickInterval = tick_interval;
+	}
+
+	
+	defaultGenerateGraphMethod();
+	
+	post_generate_graph();
 }
 
 

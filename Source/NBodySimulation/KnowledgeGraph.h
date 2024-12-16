@@ -260,6 +260,7 @@ public:
 	};
 
 
+	void post_generate_graph();
 	void prepare();
 	void update_parameter_in_shader(float DeltaTime);
 	bool early_exit(bool log);
