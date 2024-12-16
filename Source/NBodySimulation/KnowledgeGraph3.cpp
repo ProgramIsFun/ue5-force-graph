@@ -18,6 +18,8 @@ void AKnowledgeGraph::post_generate_graph()
 		FNBodySimModule::Get().BeginRendering();
 		FNBodySimModule::Get().InitWithParameters(SimParameters);
 	}
+
+	graph_initialized = true;
 }
 
 void AKnowledgeGraph::prepare()
@@ -33,10 +35,7 @@ void AKnowledgeGraph::prepare()
 	
 	defaultGenerateGraphMethod();
 	
-	post_generate_graph();
-
-	graph_initialized = true;
-
+	
 }
 
 

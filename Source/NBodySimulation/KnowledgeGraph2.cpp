@@ -316,6 +316,9 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			qq();
 		}
 	}
+
+	post_generate_graph();
+
 }
 
 
