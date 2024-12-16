@@ -35,7 +35,16 @@ public class NBodySimulation : ModuleRules
 
 		});
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "NBodySim", "RHI" });
+		
+		PrivateDependencyModuleNames.AddRange(new string[]
+		{
+			"NBodySim", 
+			"RHI",
+			"HTTP"	
+		});
+		
+		
+		
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

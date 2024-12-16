@@ -13,7 +13,6 @@
 
 bool AKnowledgeGraph::Generateactorandattach(AKnowledgeNode*& kn)
 {
-	
 	kn = GetWorld()->SpawnActor<AKnowledgeNode>();
 
 	if (kn)
@@ -59,7 +58,7 @@ bool AKnowledgeGraph::Generateactorandattach(AKnowledgeNode*& kn)
 void AKnowledgeGraph::Generateaxcomponent(FString name)
 {
 	UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
-		this, FName("TextComponent"+name)
+		this, FName("TextComponent" + name)
 	);
 	if (TextComponent)
 	{
@@ -81,7 +80,8 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	// Check graph validity.    Store object if needed. 
 	if (use_json)
 	{
-		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[use_json_file_index];
+		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/" + fileIndexToPath[
+			use_json_file_index];
 		FString JsonString; //Json converted to FString
 		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
 		JsonObject = MakeShareable(new FJsonObject());
@@ -92,58 +92,49 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			JsonObject.IsValid())
 		{
 			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
-			jnodessss = jnodes.Num();
-		}else
+		}
+		else
 		{
-
 			prechecksucceeded = false;
 			ll("Failed to deserialize JSON. ", log, 2);
 			return;
 		}
 	}
 
-	
 
-	if(!use_json)
+	if (!use_json)
 	{
 		jnodessss = jnodes1;
 	}
-	
 	if (use_json)
 	{
-		
-			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
-			jnodessss = jnodes.Num();
-		
+		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+		jnodessss = jnodes.Num();
 	}
-	
-	if(!use_json)
-	{
 
-	}else
+
+	
+	if (!use_json)
 	{
-		
-			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
-			for (int32 i = 0; i < jnodessss; i++)
+	}
+	else
+	{
+		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+		for (int32 i = 0; i < jnodessss; i++)
+		{
+			auto jobj = jnodes[i]->AsObject();
+			FString jid;
+			if (false)
 			{
-				auto jobj = jnodes[i]->AsObject();
-				FString jid;
-				if (false)
-				{
-					// int jid = jobj->GetIntegerField("id");
-				}
-				jid = jobj->GetStringField("id");
-				ll("jid: " + jid, log);
-				string_to_id.Emplace(jid, i);
-				id_to_string.Emplace(i, jid);
+				// int jid = jobj->GetIntegerField("id");
 			}
-		
+			jid = jobj->GetStringField("id");
+			ll("jid: " + jid, log);
+			string_to_id.Emplace(jid, i);
+			id_to_string.Emplace(i, jid);
+		}
 	}
 
-
-
-
-	
 
 	nodePositions.SetNumUninitialized(jnodessss);
 	nodeVelocities.SetNumUninitialized(jnodessss);
@@ -155,7 +146,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		velocity.Z = 0.0f;
 	}
 
-	if(use_shaders)
+	if (use_shaders)
 	{
 		SimParameters.Bodies.SetNumUninitialized(
 			jnodessss
@@ -165,11 +156,10 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	if (node_use_instance_static_mesh)
 	{
 		BodyTransforms.SetNumUninitialized(
-				jnodessss);
+			jnodessss);
 	}
 
-	
-	
+
 	if (!use_json)
 	{
 		ll("Not using Jason. ", log);
@@ -191,7 +181,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 			if (node_use_text_render_components)
 			{
-				
 				FString name;
 				name = "Sample Text : " + FString::FromInt(i);
 
@@ -232,86 +221,81 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		ll("using Jason. ", log);
 		// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
 
-		
-			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 
-			for (int32 i = 0; i < jnodessss; i++)
+		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+
+		for (int32 i = 0; i < jnodessss; i++)
+		{
+			auto jobj = jnodes[i]->AsObject();
+
+			if (node_use_actor)
 			{
-				auto jobj = jnodes[i]->AsObject();
-
-				if (node_use_actor)
+				AKnowledgeNode* kn;
+				if (Generateactorandattach(kn))
 				{
-					AKnowledgeNode* kn;
-					if (Generateactorandattach(kn))
-					{
-						ll("Generateactorandattach failed", log, 2);
-						qq();
-						return;
-					}
-					int id111 = i;
-					nodeVelocities[id111] = FVector(0, 0, 0);
-					all_nodes2[id111] = Node(id111, kn);
+					ll("Generateactorandattach failed", log, 2);
+					qq();
+					return;
 				}
-
-				if (node_use_text_render_components)
-				{
-					FString name;
-					try
-					{
-						name = jobj->GetStringField("name");
-					}
-					catch (...)
-					{
-						name = "Sample Text : " + FString::FromInt(i);
-					}
-
-					Generateaxcomponent(name);
-				}
-				
+				int id111 = i;
+				nodeVelocities[id111] = FVector(0, 0, 0);
+				all_nodes2[id111] = Node(id111, kn);
 			}
 
-			TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("links");
-			ll("jedges.Num(): " + FString::FromInt(jedges.Num()), log);
-
-
-
-			int index = 0;
-			for (int32 i = 0; i < jedges.Num(); i++)
+			if (node_use_text_render_components)
 			{
-				auto jobj = jedges[i]->AsObject();
-
-				FString jid;
-				if (false)
+				FString name;
+				try
 				{
-					// int jid = jobj->GetIntegerField("id");
-				} // jid =jobj->GetStringField("id");
-
-				int jsource;
-				int jtarget;
-				if (false)
-				{
-					jsource = jobj->GetIntegerField("source");
-					jtarget = jobj->GetIntegerField("target");
+					name = jobj->GetStringField("name");
 				}
-				FString jsourceS = jobj->GetStringField("source");
-				FString jtargetS = jobj->GetStringField("target");
-				jsource = string_to_id[jsourceS];
-				jtarget = string_to_id[jtargetS];
-				ll("jsource: " + FString::FromInt(jsource) + ", jtarget: " + FString::FromInt(jtarget), log);
-				AddEdge(index, jsource, jtarget);
-				index++;
+				catch (...)
+				{
+					name = "Sample Text : " + FString::FromInt(i);
+				}
+
+				Generateaxcomponent(name);
 			}
-		
+		}
+
+		TArray<TSharedPtr<FJsonValue>> jedges = JsonObject->GetArrayField("links");
+		ll("jedges.Num(): " + FString::FromInt(jedges.Num()), log);
+
+
+		int index = 0;
+		for (int32 i = 0; i < jedges.Num(); i++)
+		{
+			auto jobj = jedges[i]->AsObject();
+
+			FString jid;
+			if (false)
+			{
+				// int jid = jobj->GetIntegerField("id");
+			} // jid =jobj->GetStringField("id");
+
+			int jsource;
+			int jtarget;
+			if (false)
+			{
+				jsource = jobj->GetIntegerField("source");
+				jtarget = jobj->GetIntegerField("target");
+			}
+			FString jsourceS = jobj->GetStringField("source");
+			FString jtargetS = jobj->GetStringField("target");
+			jsource = string_to_id[jsourceS];
+			jtarget = string_to_id[jtargetS];
+			ll("jsource: " + FString::FromInt(jsource) + ", jtarget: " + FString::FromInt(jtarget), log);
+			AddEdge(index, jsource, jtarget);
+			index++;
+		}
 	}
 
 	post_generate_graph();
-
 }
 
 
 void AKnowledgeGraph::generateGraph()
 {
-	
 }
 
 
@@ -326,18 +310,18 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 	for (auto& link : all_links2)
 	{
 		ll("link iteration: !!!!!!!!!!!!!!!!!!" + FString::FromInt(Index), log);
-		
+
 		FVector source_pos = nodePositions[link.source];
 		FVector source_velocity = nodeVelocities[link.source];
 		FVector target_pos = nodePositions[link.target];
 		FVector target_velocity = nodeVelocities[link.target];
-		
+
 		FVector new_v = target_pos + target_velocity - source_pos - source_velocity;
-		
+
 
 		ll("new_v: " + new_v.ToString(), log);
 		ll("target_pos- source_pos: " + (target_pos - source_pos).ToString(), log);
-		if (0)
+		if (false)
 		{
 			if (new_v.IsNearlyZero())
 			{
@@ -345,16 +329,13 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 			}
 			ll("GIGGLE is enabled............", log);
 		}
-		else
-		{
-			ll("GIGGLE is disabled............"
-	  "...................................................  "
-   ""
-   "Remember to turn it back on. ", log);
-		}
-		
+		ll("GIGGLE is disabled............"
+		   "...................................................  "
+		   ""
+		   "Remember to turn it back on. ", log);
+
 		float l = new_v.Size();
-		
+
 		// ll("l: " + FString::SanitizeFloat(l), log);
 		// By looking at the javascript code, we can see strength Will only be computed when there is a change Of the graph structure to the graph.
 		l = (l - link.distance) /
@@ -641,20 +622,20 @@ void AKnowledgeGraph::update_link_position()
 			float CylinderHeight = ForwardVector.Size();
 
 			FRotator Rotation = FRotationMatrix::MakeFromZ(ForwardVector).Rotator();
-			
+
 			l->SetWorldLocation(
 				Location1
 			);
-			
+
 			l->SetWorldScale3D(
 				FVector(
 					link_use_static_mesh_size1,
 					link_use_static_mesh_size1,
-					link_use_static_mesh_size*CylinderHeight)
+					link_use_static_mesh_size * CylinderHeight)
 			);
 			l->SetWorldRotation(
 				Rotation
-			);			
+			);
 		}
 		if (link_use_debug_line)
 		{
@@ -704,13 +685,14 @@ void AKnowledgeGraph::apply_force()
 
 		calculate_charge_force_and_update_velocity();
 		ll("Finish calculating charge.--------------------------------------", log);
-	}else
+	}
+	else
 	{
 		ll("cpu_manybody is disabled. ", log);
 	}
 
 
-	if (1)
+	if (true)
 	{
 		ll("centre force is disabled for debugging. ", log);
 	}
@@ -770,9 +752,6 @@ void AKnowledgeGraph::initializeNodePosition()
 
 void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 {
-	
-
-
 	// Calculate index-based radius
 	float radius;
 	int nDim = 3;
@@ -828,7 +807,7 @@ void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 	ll("index: " + FString::FromInt(index) + " init_pos: " + init_pos.ToString());
 
 
-	if(node_use_instance_static_mesh)
+	if (node_use_instance_static_mesh)
 	{
 		float MeshScale = node_use_instance_static_mesh_size;
 		FTransform MeshTransform(
@@ -842,26 +821,18 @@ void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 	if (use_shaders)
 	{
 		FVector3f RandomVelocity
-				{
-					0, 0, 0
-				};
+		{
+			0, 0, 0
+		};
 		float RandomMass = FMath::FRandRange(
-					20.0
-					,
-					50.0);
+			20.0
+			,
+			50.0);
 		SimParameters.Bodies[index] = FBodyData(
 			RandomMass,
 			FVector3f(init_pos),
 			RandomVelocity);
 	}
-
-
-
-
-
-
-
-
 }
 
 void AKnowledgeGraph::update_node_world_position_according_to_position_array()
@@ -870,25 +841,25 @@ void AKnowledgeGraph::update_node_world_position_according_to_position_array()
 	{
 		return;
 	}
-	
-	
+
+
 	// Update bodies visual with new positions.
 	for (int i = 0; i < nodePositions.Num(); i++)
 	{
 		FVector NewPosition = nodePositions[i];
-		
-		if (node_use_actor){
+
+		if (node_use_actor)
+		{
 			all_nodes2[i].node->SetActorLocation(NewPosition);
 		}
-		
+
 		if (node_use_instance_static_mesh)
 		{
 			BodyTransforms[i].SetTranslation(NewPosition);
 		}
-		
+
 		if (node_use_text_render_components)
 		{
-
 			TextComponents11111111111111111111[i]->SetWorldLocation(NewPosition);
 
 			if (rotate_to_face_player)
@@ -916,9 +887,9 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 	bool log = true;
 	float n = all_nodes2.Num();
 	float m = all_links2.Num();
-	
+
 	std::map<int32, int32> Nodeconnection;
-	
+
 	std::map<int, std::vector<int>> connectout;
 	std::map<int, std::vector<int>> connectin;
 
@@ -927,7 +898,7 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 	{
 		int m2 = m * 2;
 		SimParameters.NumLinks = m2;
-		
+
 		LinkOffsets.SetNumUninitialized(n);
 		LinkCounts.SetNumUninitialized(n);
 		LinkIndices.SetNumUninitialized(m2);
@@ -951,8 +922,7 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 
 	if (!use_shaders)
 	{
-
-		int i=0;
+		int i = 0;
 		for (auto& link : all_links2)
 		{
 			int s1 = Nodeconnection[link.source];
@@ -971,11 +941,12 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 			ll("link.strength: " + FString::SanitizeFloat(link.strength), log);
 			i++;
 		}
-	}else{
+	}
+	else
+	{
 		int32 Index = 0;
 		for (int i = 0; i < n; i++)
 		{
-
 			ll("i: " + FString::FromInt(i), log);
 
 			int outcount = connectout[i].size();
@@ -1044,51 +1015,49 @@ void AKnowledgeGraph::CalculateBiasstrengthOflinks()
 		}
 
 
-
-		
 		FString ConcatenatedString;
-		for(int32 Number : LinkOffsets)
+		for (int32 Number : LinkOffsets)
 		{
 			ConcatenatedString += FString::Printf(TEXT("%d "), Number);
 		}
 		ll("LinkOffsets: " + ConcatenatedString, log);
 
 		ConcatenatedString = "";
-		for(int32 Number : LinkCounts)
+		for (int32 Number : LinkCounts)
 		{
 			ConcatenatedString += FString::Printf(TEXT("%d "), Number);
 		}
 		ll("LinkCounts: " + ConcatenatedString, log);
 
 		ConcatenatedString = "";
-		for(int32 Number : LinkIndices)
+		for (int32 Number : LinkIndices)
 		{
 			ConcatenatedString += FString::Printf(TEXT("%d "), Number);
 		}
 		ll("LinkIndices: " + ConcatenatedString, log);
 
 		ConcatenatedString = "";
-		for(float Number : LinkStrengths)
+		for (float Number : LinkStrengths)
 		{
 			ConcatenatedString += FString::Printf(TEXT("%f "), Number);
 		}
 		ll("LinkStrengths: " + ConcatenatedString, log);
-		
+
 		ConcatenatedString = "";
-		for(float Number : LinkBiases)
+		for (float Number : LinkBiases)
 		{
 			ConcatenatedString += FString::Printf(TEXT("%f "), Number);
 		}
 		ll("LinkBiases: " + ConcatenatedString, log);
 
 		ConcatenatedString = "";
-		for(int32 Number : Linkinout)
+		for (int32 Number : Linkinout)
 		{
 			ConcatenatedString += FString::Printf(TEXT("%d "), Number);
 		}
 		ll("Linkinout: " + ConcatenatedString, log);
-		
-		
+
+
 		SimParameters.LinkOffsets = LinkOffsets;
 		SimParameters.LinkCounts = LinkCounts;
 		SimParameters.LinkIndices = LinkIndices;
@@ -1162,31 +1131,30 @@ void AKnowledgeGraph::AddEdge(int32 id, int32 source, int32 target)
 	}
 
 
-	
 	if (link_use_static_mesh)
 	{
 		UStaticMeshComponent* CylinderMesh;
 		// Dynamically create the mesh component and attach it
 		CylinderMesh = NewObject<UStaticMeshComponent>(this,
 
-		FName(*FString::Printf(TEXT("CylinderMesh%d"), id))
+		                                               FName(*FString::Printf(TEXT("CylinderMesh%d"), id))
 
 		);
-		
+
 		CylinderMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-		CylinderMesh->RegisterComponent();  // Registers the component with the World so it gets rendered and updated
+		CylinderMesh->RegisterComponent(); // Registers the component with the World so it gets rendered and updated
 
 		CylinderMesh->SetWorldScale3D(FVector(1, 1, 1));
-		
+
 		CylinderMesh->SetStaticMesh(
 			link_use_static_meshlinkMesh
 		);
-		
+
 		link.edgeMesh = CylinderMesh;
 	}
-	
+
 	link.strength = 1;
 	link.distance = edgeDistance;
-	
+
 	all_links2.Add(link);
 }
