@@ -75,6 +75,10 @@ void AKnowledgeGraph::Generateaxcomponent(FString name)
 
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
+
+
+
+	
 	bool log = true;
 	if(!use_json)
 	{

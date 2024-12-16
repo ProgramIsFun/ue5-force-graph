@@ -65,7 +65,6 @@ void AKnowledgeGraph::BeginPlay()
 	
 
 	
-	prepare(); 
 	
 }
 
@@ -73,6 +72,22 @@ void AKnowledgeGraph::BeginPlay()
 void AKnowledgeGraph::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+
+	if (!graph_initialized)
+	{
+		if (graph_requested)
+		{
+			ll("Graph is requested but not initialized. ", true, 2);
+		}else
+		{
+			graph_requested = true;
+			prepare();
+		}
+		
+		return;
+	}
+
 	
 	if(iterationsf<10)
 	{

@@ -34,6 +34,9 @@ void AKnowledgeGraph::prepare()
 	defaultGenerateGraphMethod();
 	
 	post_generate_graph();
+
+	graph_initialized = true;
+
 }
 
 

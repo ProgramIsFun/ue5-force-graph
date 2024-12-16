@@ -225,6 +225,9 @@ public:
 	AKnowledgeGraph();
 	virtual ~AKnowledgeGraph() override;
 
+
+	bool graph_initialized = false;
+	bool graph_requested = false;
 	bool prechecksucceeded = true;
 
 	// Boolean for signaling whether this round of computation from GPU is valid. 
