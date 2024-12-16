@@ -20,7 +20,6 @@ AKnowledgeGraph::~AKnowledgeGraph()
 AKnowledgeGraph::AKnowledgeGraph()
 	: Super()
 {
-
 	FNBodySimModule::Get().EndRendering();
 
 	PrimaryActorTick.bCanEverTick = true;

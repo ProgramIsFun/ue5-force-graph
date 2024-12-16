@@ -14,6 +14,11 @@
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 
+#include "HttpModule.h"
+#include "Interfaces/IHttpRequest.h"
+#include "Interfaces/IHttpResponse.h"
+
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 #include "KnowledgeGraph.generated.h"
@@ -230,6 +235,7 @@ public:
 	virtual ~AKnowledgeGraph() override;
 
 
+	
 	bool graph_initialized = false;
 	bool graph_requested = false;
 	bool prechecksucceeded = true;
@@ -303,6 +309,18 @@ public:
 	void update_link_position();
 
 	int32 jnodessss;
+
+
+
+	void OnYourFunctionCompleted(TSharedPtr<IHttpRequest> HttpRequest, TSharedPtr<IHttpResponse> HttpResponse, bool bArg);
+	void YourFunction();
+	void debug_error_request(FHttpRequestPtr Request, FHttpResponsePtr Response);
+
+
+
+
+
+	
 
 
 	/////////////////////////////////////////////////////////////////////////////////
