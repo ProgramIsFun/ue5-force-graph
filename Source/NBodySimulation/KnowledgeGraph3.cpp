@@ -24,18 +24,13 @@ void AKnowledgeGraph::post_generate_graph()
 
 void AKnowledgeGraph::prepare()
 {
-	
 	if (use_tick_interval)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Restricting tick interval"));
 
 		PrimaryActorTick.TickInterval = tick_interval;
 	}
-
-	
 	defaultGenerateGraphMethod();
-	
-	
 }
 
 

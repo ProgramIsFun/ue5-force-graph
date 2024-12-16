@@ -75,21 +75,16 @@ void AKnowledgeGraph::Generateaxcomponent(FString name)
 
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
-
-
-
-	
 	bool log = true;
-	if(!use_json)
-	{
-		jnodessss = jnodes1;
 
-	}else
+
+	// Check graph validity.    Store object if needed. 
+	if (use_json)
 	{
 		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[use_json_file_index];
 		FString JsonString; //Json converted to FString
 		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
-		TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
+		JsonObject = MakeShareable(new FJsonObject());
 		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
 
 		if (
@@ -98,32 +93,40 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		{
 			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 			jnodessss = jnodes.Num();
+		}else
+		{
+
+			prechecksucceeded = false;
+			ll("Failed to deserialize JSON. ", log, 2);
+			return;
 		}
 	}
 
+	
 
+	if(!use_json)
+	{
+		jnodessss = jnodes1;
+	}
+	
+	if (use_json)
+	{
+		
+			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+			jnodessss = jnodes.Num();
+		
+	}
 	
 	if(!use_json)
 	{
 
 	}else
 	{
-		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[use_json_file_index];
-		FString JsonString; //Json converted to FString
-		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
-		TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
-		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
-
-		if (
-			FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
-			JsonObject.IsValid())
-		{
+		
 			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
-
 			for (int32 i = 0; i < jnodessss; i++)
 			{
 				auto jobj = jnodes[i]->AsObject();
-
 				FString jid;
 				if (false)
 				{
@@ -133,9 +136,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				ll("jid: " + jid, log);
 				string_to_id.Emplace(jid, i);
 				id_to_string.Emplace(i, jid);
-				
 			}
-		}
 		
 	}
 
@@ -231,16 +232,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		ll("using Jason. ", log);
 		// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
 
-		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/"+ fileIndexToPath[use_json_file_index];
-		FString JsonString; //Json converted to FString
-		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
-		TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
-		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
-
-		if (
-			FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
-			JsonObject.IsValid())
-		{
+		
 			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 
 			for (int32 i = 0; i < jnodessss; i++)
@@ -309,12 +301,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				AddEdge(index, jsource, jtarget);
 				index++;
 			}
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("JSON PARSING FAILED"));
-			qq();
-		}
+		
 	}
 
 	post_generate_graph();

@@ -92,6 +92,9 @@ public:
 	int32 use_shaders_debug = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	bool use_auto_generate = true;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_json = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
@@ -215,6 +218,7 @@ public:
 
 
 
+	TSharedPtr<FJsonObject> JsonObject;
 
 
 

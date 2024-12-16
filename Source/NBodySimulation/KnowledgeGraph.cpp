@@ -67,7 +67,13 @@ void AKnowledgeGraph::BeginPlay()
 void AKnowledgeGraph::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if (prechecksucceeded)
+	{
+		
+	}else
+	{
+		return;
+	}
 
 	if (!graph_initialized)
 	{
