@@ -66,11 +66,9 @@ void AKnowledgeGraph::BeginPlay()
 void AKnowledgeGraph::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (prechecksucceeded)
+	if (!prechecksucceeded)
 	{
-		
-	}else
-	{
+		ll("Prechecks failed. ", true, 2);
 		return;
 	}
 
