@@ -115,52 +115,35 @@ public:
 	// Calculate many body force or not. 
 	bool cpu_manybody = true;
 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	// Turn on logging or not. 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_logging = false;
-	
 	//Node setting////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	// 1////////////////////
-
 	// Use instance static mesh or not
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool node_use_instance_static_mesh = false;
-
 	// The size of the node
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	float node_use_instance_static_mesh_size = 0.3f;
-
-
 	// 2////////////////////
-
 	// Use a lot of actor Or not
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool node_use_actor = true;
-
 	// The size of Static mesh
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	float node_use_actor_size = 0.3f;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	UStaticMesh* SelectedMesh1111111111111;
-
 	// 3////////////////////
-
 	// Use TextRenderComponent or not
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool node_use_text_render_components = false;
-
 	// The size of TextRenderComponent
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	float text_size = 10;
-
 	UPROPERTY(VisibleAnywhere)
 	TArray<UTextRenderComponent*> TextComponents11111111111111111111;
-
 	// rotation to face the player
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool rotate_to_face_player = true;
