@@ -30,7 +30,7 @@ void AKnowledgeGraph::prepare()
 
 		PrimaryActorTick.TickInterval = tick_interval;
 	}
-	defaultGenerateGraphMethod();
+	request_a_graph();
 }
 
 
