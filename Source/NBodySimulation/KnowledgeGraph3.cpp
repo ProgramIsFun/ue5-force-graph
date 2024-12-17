@@ -72,8 +72,13 @@ bool AKnowledgeGraph::early_exit(bool log)
 
 void AKnowledgeGraph::update_text_size_of_all_nodes1112(float size)
 {
-
-	
+	for (int i = 0; i < nodePositions.Num(); i++)
+	{
+		if (node_use_text_render_components)
+		{
+			TextComponents11111111111111111111[i]->SetWorldSize(size);
+		}
+	}
 }
 
 void AKnowledgeGraph::cpu_calculate()
