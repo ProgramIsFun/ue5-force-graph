@@ -11,7 +11,7 @@
 
 void AKnowledgeGraph::request_a_graph()
 {
-	if (use_database)
+	if (cgm == CGM::DATABASE)
 	{
 		TSharedPtr<FJsonObject> Js = MakeShareable(new FJsonObject());
 		Js->SetStringField("some_field", "some_value");

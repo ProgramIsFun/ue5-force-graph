@@ -77,18 +77,21 @@ public:
 };
 
 
+
+UENUM(BlueprintType)
+enum class CGM : uint8
+{
+	GENERATE UMETA(DisplayName = "autoGenerate11111"),
+	JSON UMETA(DisplayName = "json22222"),
+	DATABASE UMETA(DisplayName = "database333333")
+};
+
 UCLASS()
 class NBODYSIMULATION_API AKnowledgeGraph : public AActor
 {
 	GENERATED_BODY()
 	
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool debug111= false;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool debug112= false;
-	
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_shaders = false;
@@ -97,15 +100,18 @@ public:
 	int32 use_shaders_debug = 0;
 
 
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool use_database = false;
+	CGM cgm= CGM::GENERATE;
 	
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool use_auto_generate = true;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	bool use_json = false;
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	// bool use_database = false;
+	//
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	// bool use_auto_generate = true;
+	//
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	// bool use_json = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	int32 use_json_file_index = 0;

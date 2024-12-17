@@ -74,11 +74,12 @@ void AKnowledgeGraph::Generateaxcomponent(FString name)
 
 void AKnowledgeGraph::get_number_of_note()
 {
-	if (!use_json)
+	if (cgm==CGM::GENERATE)
+	
 	{
 		jnodessss = jnodes1;
 	}
-	if (use_json)
+	if (cgm==CGM::JSON)
 	{
 		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 		jnodessss = jnodes.Num();
@@ -91,7 +92,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 
 	// Check graph validity.    Store object if needed. 
-	if (use_json)
+	if (cgm==CGM::JSON)
 	{
 		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/" + fileIndexToPath[
 			use_json_file_index];
@@ -115,12 +116,8 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	}
 	
 	get_number_of_note();
-
 	
-	if (!use_json)
-	{
-	}
-	else
+	if (cgm==CGM::JSON)
 	{
 		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 		for (int32 i = 0; i < jnodessss; i++)
@@ -163,7 +160,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	}
 
 
-	if (!use_json)
+	if (cgm==CGM::GENERATE)
 	{
 		ll("Not using Jason. ", log);
 		for (int32 i = 0; i < jnodessss; i++)
