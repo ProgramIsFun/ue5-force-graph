@@ -291,6 +291,7 @@ public:
 	void generateGraph();
 	bool Generateactorandattach(AKnowledgeNode*& kn);
 	void Generateaxcomponent(FString name);
+	void get_number_of_note();
 	void defaultGenerateGraphMethod();
 
 

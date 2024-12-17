@@ -72,6 +72,19 @@ void AKnowledgeGraph::Generateaxcomponent(FString name)
 	}
 }
 
+void AKnowledgeGraph::get_number_of_note()
+{
+	if (!use_json)
+	{
+		jnodessss = jnodes1;
+	}
+	if (use_json)
+	{
+		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+		jnodessss = jnodes.Num();
+	}
+}
+
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
 	bool log = true;
@@ -100,18 +113,8 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			return;
 		}
 	}
-
-
-	if (!use_json)
-	{
-		jnodessss = jnodes1;
-	}
-	if (use_json)
-	{
-		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
-		jnodessss = jnodes.Num();
-	}
-
+	
+	get_number_of_note();
 
 	
 	if (!use_json)

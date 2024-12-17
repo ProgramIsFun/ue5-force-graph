@@ -40,8 +40,6 @@ void AKnowledgeGraph::request_a_graph()
 	}
 }
 
-
-
 void AKnowledgeGraph::OnYourFunctionCompleted(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
 	ll("OnYourFunctionCompleted called", true, 0, TEXT("OnYourFunctionCompleted: "));
@@ -52,7 +50,6 @@ void AKnowledgeGraph::OnYourFunctionCompleted(FHttpRequestPtr Request, FHttpResp
 			// Content-Type: application/json; charset=utf-8
 			Response->GetContentType() == "application/json" ||
 			Response->GetContentType() == "application/json; charset=utf-8"
-
 		)
 		{
 			TSharedPtr<FJsonObject> Js = MakeShareable(new FJsonObject());
@@ -64,8 +61,6 @@ void AKnowledgeGraph::OnYourFunctionCompleted(FHttpRequestPtr Request, FHttpResp
 			{
 				// Process the JSON object here
 				ll("Successfully parsed JSON.", true, 0, TEXT("OnYourFunctionCompleted: "));
-
-
 				//SomeOtherVariable = Js->GetStringField("nodes");
 
 				TArray<TSharedPtr<FJsonValue>> jnodes = Js->GetArrayField("nodes");
