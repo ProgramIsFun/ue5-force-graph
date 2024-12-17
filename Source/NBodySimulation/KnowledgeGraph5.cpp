@@ -36,6 +36,31 @@ void AKnowledgeGraph::request_a_graph()
 	}
 	else
 	{
+
+		if (cgm==CGM::JSON)
+		{
+				ll("hiiiiiiiii", true, 0, TEXT("YourFunction: "));
+				const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/" + fileIndexToPath[
+					use_json_file_index];
+				FString JsonString; //Json converted to FString
+				FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
+				JsonObject = MakeShareable(new FJsonObject());
+				TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
+
+				if (
+					FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
+					JsonObject.IsValid())
+				{
+					TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+				}
+				else
+				{
+					prechecksucceeded = false;
+					ll("Failed to deserialize JSON. ", true, 2);
+					return;
+				}
+			
+		}
 		defaultGenerateGraphMethod();
 	}
 }

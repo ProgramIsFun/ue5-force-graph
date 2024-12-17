@@ -86,53 +86,36 @@ void AKnowledgeGraph::get_number_of_note()
 	}
 }
 
+void AKnowledgeGraph::create_1_to_one_mapping()
+{
+	bool log=false;
+	TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+	for (int32 i = 0; i < jnodessss; i++)
+	{
+		auto jobj = jnodes[i]->AsObject();
+		FString jid;
+		if (false)
+		{
+			// int jid = jobj->GetIntegerField("id");
+		}
+		jid = jobj->GetStringField("id");
+		ll("jid: " + jid, log);
+		string_to_id.Emplace(jid, i);
+		id_to_string.Emplace(i, jid);
+	}
+}
+
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
 	bool log = true;
 
-
-	// Check graph validity.    Store object if needed. 
-	if (cgm==CGM::JSON)
-	{
-		const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/state/" + fileIndexToPath[
-			use_json_file_index];
-		FString JsonString; //Json converted to FString
-		FFileHelper::LoadFileToString(JsonString, *JsonFilePath);
-		JsonObject = MakeShareable(new FJsonObject());
-		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
-
-		if (
-			FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
-			JsonObject.IsValid())
-		{
-			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
-		}
-		else
-		{
-			prechecksucceeded = false;
-			ll("Failed to deserialize JSON. ", log, 2);
-			return;
-		}
-	}
+	
 	
 	get_number_of_note();
 	
 	if (cgm==CGM::JSON)
 	{
-		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
-		for (int32 i = 0; i < jnodessss; i++)
-		{
-			auto jobj = jnodes[i]->AsObject();
-			FString jid;
-			if (false)
-			{
-				// int jid = jobj->GetIntegerField("id");
-			}
-			jid = jobj->GetStringField("id");
-			ll("jid: " + jid, log);
-			string_to_id.Emplace(jid, i);
-			id_to_string.Emplace(i, jid);
-		}
+		create_1_to_one_mapping();
 	}
 
 
