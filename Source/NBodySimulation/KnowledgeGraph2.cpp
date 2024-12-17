@@ -113,6 +113,37 @@ void AKnowledgeGraph::create_1_to_one_mapping()
 	}
 }
 
+void AKnowledgeGraph::miscellaneous()
+{
+	bool log=false;
+	// Edge creation loop
+	if (!connect_to_previous)
+	{
+		for (int32 i = 1; i < jnodessss; i++)
+		{
+			int jid = i - 1;
+			int jsource = i; // Ensures jsource is always valid within the index range
+
+			// Connected to random node 
+			int jtarget = FMath::RandRange(0, i - 1);
+			AddEdge(jid, jsource, jtarget);
+		}
+	}
+	else
+	{
+		ll("Randomly connected is disabled    will always connect to the previous node. ", log);
+		for (int32 i = 1; i < jnodessss; i++)
+		{
+			int jid = i - 1;
+			int jsource = i; // Ensures jsource is always valid within the index range
+
+			// Connected to random node 
+			int jtarget = i - 1;
+			AddEdge(jid, jsource, jtarget);
+		}
+	}
+}
+
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
 	bool log = true;
@@ -178,32 +209,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			}
 		}
 
-		// Edge creation loop
-		if (!connect_to_previous)
-		{
-			for (int32 i = 1; i < jnodessss; i++)
-			{
-				int jid = i - 1;
-				int jsource = i; // Ensures jsource is always valid within the index range
-
-				// Connected to random node 
-				int jtarget = FMath::RandRange(0, i - 1);
-				AddEdge(jid, jsource, jtarget);
-			}
-		}
-		else
-		{
-			ll("Randomly connected is disabled    will always connect to the previous node. ", log);
-			for (int32 i = 1; i < jnodessss; i++)
-			{
-				int jid = i - 1;
-				int jsource = i; // Ensures jsource is always valid within the index range
-
-				// Connected to random node 
-				int jtarget = i - 1;
-				AddEdge(jid, jsource, jtarget);
-			}
-		}
+		miscellaneous();
 	}
 	else
 	{
