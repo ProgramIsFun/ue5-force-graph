@@ -89,16 +89,24 @@ void AKnowledgeGraph::get_number_of_note()
 void AKnowledgeGraph::create_1_to_one_mapping()
 {
 	bool log=false;
+
+
+	
 	TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 	for (int32 i = 0; i < jnodessss; i++)
 	{
 		auto jobj = jnodes[i]->AsObject();
 		FString jid;
-		if (false)
+
+		if (cgm==CGM::JSON)
 		{
-			// int jid = jobj->GetIntegerField("id");
+			jid = jobj->GetStringField("id");
 		}
-		jid = jobj->GetStringField("id");
+		if (cgm==CGM::DATABASE)
+		{
+			jid = jobj->GetStringField("element_id");
+		}
+
 		ll("jid: " + jid, log);
 		string_to_id.Emplace(jid, i);
 		id_to_string.Emplace(i, jid);
@@ -108,12 +116,10 @@ void AKnowledgeGraph::create_1_to_one_mapping()
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
 	bool log = true;
-
-	
 	
 	get_number_of_note();
 	
-	if (cgm==CGM::JSON)
+	if (cgm==CGM::JSON||cgm==CGM::DATABASE)
 	{
 		create_1_to_one_mapping();
 	}
@@ -129,13 +135,13 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		velocity.Z = 0.0f;
 	}
 
+	
 	if (use_shaders)
 	{
 		SimParameters.Bodies.SetNumUninitialized(
 			jnodessss
 		);
 	}
-
 	if (node_use_instance_static_mesh)
 	{
 		BodyTransforms.SetNumUninitialized(
