@@ -92,6 +92,12 @@ class NBODYSIMULATION_API AKnowledgeGraph : public AActor
 	GENERATED_BODY()
 	
 public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	float universal_graph_scale = 1.0f;
+
+
+
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_shaders = false;

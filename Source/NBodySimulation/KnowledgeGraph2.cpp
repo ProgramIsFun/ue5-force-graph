@@ -763,18 +763,28 @@ void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 	if (nDim == 1)
 	{
 		// 1D: Positions along X axis
-		init_pos = FVector(radius, 0, 0);
+		init_pos = FVector(
+			radius * universal_graph_scale,
+			0,
+			0);
 	}
 	else if (nDim == 2)
 	{
 		// 2D: Circular distribution
-		init_pos = FVector(radius * cos(rollAngle), radius * sin(rollAngle), 0);
+		init_pos = FVector(
+			radius * cos(rollAngle) * universal_graph_scale,
+			radius * sin(rollAngle) * universal_graph_scale,
+			0
+			);
 	}
 	else
 	{
 		// 3D: Spherical distribution
-		init_pos = FVector(radius * sin(rollAngle) * cos(yawAngle), radius * cos(rollAngle),
-		                   radius * sin(rollAngle) * sin(yawAngle));
+		init_pos = FVector(
+			radius * sin(rollAngle) * cos(yawAngle) * universal_graph_scale,
+			radius * cos(rollAngle) * universal_graph_scale,
+			radius * sin(rollAngle) * sin(yawAngle) * universal_graph_scale
+			);
 	}
 
 
