@@ -79,18 +79,19 @@ void AKnowledgeGraph::get_number_of_note()
 	{
 		jnodessss = jnodes1;
 	}
-	if (cgm==CGM::JSON)
+	if (cgm==CGM::JSON||cgm==CGM::DATABASE)
 	{
 		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 		jnodessss = jnodes.Num();
 	}
+	
 }
 
 void AKnowledgeGraph::create_1_to_one_mapping()
 {
-	bool log=false;
+	bool log=true;
 
-
+	
 	
 	TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 	for (int32 i = 0; i < jnodessss; i++)
@@ -107,6 +108,7 @@ void AKnowledgeGraph::create_1_to_one_mapping()
 			jid = jobj->GetStringField("element_id");
 		}
 
+		
 		ll("jid: " + jid, log);
 		string_to_id.Emplace(jid, i);
 		id_to_string.Emplace(i, jid);
@@ -198,7 +200,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				nodeVelocities[id111] = FVector(0, 0, 0);
 				all_nodes2[id111] = Node(id111, kn);
 			}
-
 			if (node_use_text_render_components)
 			{
 				FString name;
@@ -214,11 +215,8 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	else
 	{
 		ll("using Jason. ", log);
-		// const FString JsonFilePath = FPaths::ProjectContentDir() + "/data/graph.json";
-
-
+		
 		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
-
 		for (int32 i = 0; i < jnodessss; i++)
 		{
 			auto jobj = jnodes[i]->AsObject();
@@ -248,7 +246,6 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				{
 					name = "Sample Text : " + FString::FromInt(i);
 				}
-
 				Generateaxcomponent(name);
 			}
 		}
@@ -261,20 +258,9 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		for (int32 i = 0; i < jedges.Num(); i++)
 		{
 			auto jobj = jedges[i]->AsObject();
-
 			FString jid;
-			if (false)
-			{
-				// int jid = jobj->GetIntegerField("id");
-			} // jid =jobj->GetStringField("id");
-
 			int jsource;
 			int jtarget;
-			if (false)
-			{
-				jsource = jobj->GetIntegerField("source");
-				jtarget = jobj->GetIntegerField("target");
-			}
 			FString jsourceS = jobj->GetStringField("source");
 			FString jtargetS = jobj->GetStringField("target");
 			jsource = string_to_id[jsourceS];

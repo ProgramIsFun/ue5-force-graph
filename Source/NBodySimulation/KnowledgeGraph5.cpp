@@ -77,38 +77,39 @@ void AKnowledgeGraph::OnYourFunctionCompleted(FHttpRequestPtr Request, FHttpResp
 			Response->GetContentType() == "application/json; charset=utf-8"
 		)
 		{
-			TSharedPtr<FJsonObject> Js = MakeShareable(new FJsonObject());
+			JsonObject = MakeShareable(new FJsonObject());
+
 			TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(
 				Response->GetContentAsString());
 
-			if (FJsonSerializer::Deserialize(JsonReader, Js) &&
-				Js.IsValid())
+			if (FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
+				JsonObject.IsValid())
 			{
 				// Process the JSON object here
 				ll("Successfully parsed JSON.", true, 0, TEXT("OnYourFunctionCompleted: "));
 				//SomeOtherVariable = Js->GetStringField("nodes");
 
-				TArray<TSharedPtr<FJsonValue>> jnodes = Js->GetArrayField("nodes");
-				// jnodes.Num();
+				// TArray<TSharedPtr<FJsonValue>> jnodes = Js->GetArrayField("nodes");
+				// // jnodes.Num();
+				// //
+				// TArray<TSharedPtr<FJsonValue>> jedges = Js->GetArrayField("links");
 				//
-				TArray<TSharedPtr<FJsonValue>> jedges = Js->GetArrayField("links");
-
-				bool log = true;
-				ll("jedges.Num(): " + FString::FromInt(jedges.Num()), log);
-				int index = 0;
-				for (int32 i = 0; i < jedges.Num(); i++)
-				{
-					auto jobj = jedges[i]->AsObject();
-
-					FString jid;
-					
-					FString jsourceS = jobj->GetStringField("source");
-					FString jtargetS = jobj->GetStringField("target");
-
-
-					ll("jsource: " + jsourceS + ", jtarget: " + jtargetS, log);
-					index++;
-				}
+				// bool log = true;
+				// ll("jedges.Num(): " + FString::FromInt(jedges.Num()), log);
+				// int index = 0;
+				// for (int32 i = 0; i < jedges.Num(); i++)
+				// {
+				// 	auto jobj = jedges[i]->AsObject();
+				//
+				// 	FString jid;
+				// 	
+				// 	FString jsourceS = jobj->GetStringField("source");
+				// 	FString jtargetS = jobj->GetStringField("target");
+				//
+				//
+				// 	ll("jsource: " + jsourceS + ", jtarget: " + jtargetS, log);
+				// 	index++;
+				// }
 
 
 				defaultGenerateGraphMethod();
@@ -119,6 +120,7 @@ void AKnowledgeGraph::OnYourFunctionCompleted(FHttpRequestPtr Request, FHttpResp
 			}
 		}
 		else
+			
 		{
 			ll("Response was not in JSON format.", true, 2);
 			ll(FString::Printf(TEXT("Received Content-Type: %s"), *Response->GetContentType()), true, 2);
@@ -133,6 +135,7 @@ void AKnowledgeGraph::OnYourFunctionCompleted(FHttpRequestPtr Request, FHttpResp
 
 void AKnowledgeGraph::debug_error_request(FHttpRequestPtr Request, FHttpResponsePtr Response)
 {
+	prechecksucceeded = false;
 	ll("Request failed", true, 2);
 
 	// Additional debugging information
