@@ -800,11 +800,11 @@ void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 
 	if (node_use_instance_static_mesh)
 	{
-		float MeshScale = node_use_instance_static_mesh_size;
+		float s = node_use_instance_static_mesh_size;
 		FTransform MeshTransform(
 			FRotator(),
 			init_pos,
-			FVector(MeshScale, MeshScale, MeshScale)
+			FVector(s, s, s)
 		);
 		BodyTransforms[index] = MeshTransform;
 	}
