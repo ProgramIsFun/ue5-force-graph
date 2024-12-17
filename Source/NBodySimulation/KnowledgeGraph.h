@@ -243,6 +243,11 @@ public:
 	TSharedPtr<FJsonObject> JsonObject;
 
 
+	
+	void update_text_size_of_all_nodes1112(float size);
+
+
+	
 
 
 
@@ -345,6 +350,8 @@ public:
 
 	/////////////////////////////////////////////////////////////////////////////////
 
+
+	
 	TArray<int> LinkOffsets; // Holds the offset for each body
 	TArray<int> LinkCounts; // Holds the count of links for each body
 	TArray<int> LinkIndices; // Flat array containing all links
@@ -352,19 +359,18 @@ public:
 	TArray<float> LinkBiases; // Holds the bias of each link
 	TArray<int> Linkinout;
 
+	
 
+
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	float alpha = 1;
-
-
+	
 	int iterationsf = 0;
-
 	float iterations = 0;
 	float alphaMin = 0.001;
-
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	float alphaDecay = 1 - FMath::Pow(alphaMin, 1.0 / 300);
-
 	float edgeDistance = 30;
 	float nodeStrength = -60;
 	float distancemin = 1;

@@ -70,6 +70,12 @@ bool AKnowledgeGraph::early_exit(bool log)
 	return false;
 }
 
+void AKnowledgeGraph::update_text_size_of_all_nodes1112(float size)
+{
+
+	
+}
+
 void AKnowledgeGraph::cpu_calculate()
 {
 	bool log = use_logging;
