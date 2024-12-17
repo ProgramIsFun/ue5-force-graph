@@ -95,29 +95,15 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	float universal_graph_scale = 1.0f;
-
-
-
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool use_shaders = false;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	int32 use_shaders_debug = 0;
-
-
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	CGM cgm= CGM::GENERATE;
-	
-	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	// bool use_database = false;
-	//
-	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	// bool use_auto_generate = true;
-	//
-	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	// bool use_json = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	int32 use_json_file_index = 0;
@@ -245,13 +231,7 @@ public:
 
 	
 	void update_text_size_of_all_nodes1112(float size);
-
-
 	
-
-
-
-
 	
 	AKnowledgeGraph();
 	virtual ~AKnowledgeGraph() override;
@@ -276,8 +256,7 @@ public:
 	TArray<Link> all_links2;
 
 	OctreeNode* OctreeData2;
-
-
+	
 	TArray<double> ElapsedTimes;
 
 	FNBodySimParameters SimParameters;
@@ -294,6 +273,9 @@ public:
 		{2, "state777777777.json"},
 	};
 
+	void debug_test();
+	void gpu_get_positions();
+	bool Maint(float DeltaTime);
 
 	void post_generate_graph();
 	void prepare();
@@ -365,7 +347,6 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	float alpha = 1;
-	
 	int iterationsf = 0;
 	float iterations = 0;
 	float alphaMin = 0.001;
@@ -382,12 +363,10 @@ public:
 	float initialRadius = 10;
 
 
+
 	virtual void BeginPlay() override;
-	void gpu_get_positions();
-	bool Maint(float DeltaTime);
 	virtual void BeginDestroy() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-	void debug_test();
 	virtual void Tick(float DeltaTime) override;
 
 	template <typename Func, typename... Args>
