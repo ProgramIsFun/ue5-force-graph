@@ -74,41 +74,39 @@ void AKnowledgeGraph::Generateaxcomponent(FString name)
 
 void AKnowledgeGraph::get_number_of_note()
 {
-	if (cgm==CGM::GENERATE)
-	
+	if (cgm == CGM::GENERATE)
+
 	{
 		jnodessss = jnodes1;
 	}
-	if (cgm==CGM::JSON||cgm==CGM::DATABASE)
+	if (cgm == CGM::JSON || cgm == CGM::DATABASE)
 	{
 		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 		jnodessss = jnodes.Num();
 	}
-	
 }
 
 void AKnowledgeGraph::create_1_to_one_mapping()
 {
-	bool log=true;
+	bool log = true;
 
-	
-	
+
 	TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 	for (int32 i = 0; i < jnodessss; i++)
 	{
 		auto jobj = jnodes[i]->AsObject();
 		FString jid;
 
-		if (cgm==CGM::JSON)
+		if (cgm == CGM::JSON)
 		{
 			jid = jobj->GetStringField("id");
 		}
-		if (cgm==CGM::DATABASE)
+		if (cgm == CGM::DATABASE)
 		{
 			jid = jobj->GetStringField("element_id");
 		}
 
-		
+
 		ll("jid: " + jid, log);
 		string_to_id.Emplace(jid, i);
 		id_to_string.Emplace(i, jid);
@@ -117,7 +115,7 @@ void AKnowledgeGraph::create_1_to_one_mapping()
 
 void AKnowledgeGraph::miscellaneous()
 {
-	bool log=false;
+	bool log = false;
 	// Edge creation loop
 	if (!connect_to_previous)
 	{
@@ -149,10 +147,10 @@ void AKnowledgeGraph::miscellaneous()
 void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
 	bool log = true;
-	
+
 	get_number_of_note();
-	
-	if (cgm==CGM::JSON||cgm==CGM::DATABASE)
+
+	if (cgm == CGM::JSON || cgm == CGM::DATABASE)
 	{
 		create_1_to_one_mapping();
 	}
@@ -168,7 +166,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 		velocity.Z = 0.0f;
 	}
 
-	
+
 	if (use_shaders)
 	{
 		SimParameters.Bodies.SetNumUninitialized(
@@ -182,7 +180,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	}
 
 
-	if (cgm==CGM::GENERATE)
+	if (cgm == CGM::GENERATE)
 	{
 		ll("Not using Jason. ", log);
 		for (int32 i = 0; i < jnodessss; i++)
@@ -215,7 +213,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 	else
 	{
 		ll("using Jason. ", log);
-		
+
 		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 		for (int32 i = 0; i < jnodessss; i++)
 		{
@@ -319,8 +317,10 @@ void AKnowledgeGraph::calculate_link_force_and_update_velocity()
 
 		// ll("l: " + FString::SanitizeFloat(l), log);
 		// By looking at the javascript code, we can see strength Will only be computed when there is a change Of the graph structure to the graph.
-		l = (l - link.distance) /
-			l * alpha * link.strength;
+		l = (l - link.distance * universal_graph_scale) /
+			l
+			* alpha
+			* link.strength;
 		new_v *= l;
 
 		ll("before update nodeVelocities", log);
@@ -458,7 +458,7 @@ void AKnowledgeGraph::calculate_charge_force_and_update_velocity()
 						{
 							l = sqrt(distancemin * l);
 						}
-						nodeVelocities[Index] += dir * nodeStrength * alpha / l;
+						nodeVelocities[Index] += dir * nodeStrength * alpha * universal_graph_scale / l;
 						// kn->velocity += dir * nodeStrength * alpha / l; 
 					}
 					Index2++;
@@ -775,7 +775,7 @@ void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 			radius * cos(rollAngle) * universal_graph_scale,
 			radius * sin(rollAngle) * universal_graph_scale,
 			0
-			);
+		);
 	}
 	else
 	{
@@ -784,7 +784,7 @@ void AKnowledgeGraph::initializeNodePosition_Individual(int index)
 			radius * sin(rollAngle) * cos(yawAngle) * universal_graph_scale,
 			radius * cos(rollAngle) * universal_graph_scale,
 			radius * sin(rollAngle) * sin(yawAngle) * universal_graph_scale
-			);
+		);
 	}
 
 
