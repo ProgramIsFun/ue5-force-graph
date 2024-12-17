@@ -224,19 +224,39 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool connect_to_previous = true;
 
+	
+	TArray<int> LinkOffsets; // Holds the offset for each body
+	TArray<int> LinkCounts; // Holds the count of links for each body
+	TArray<int> LinkIndices; // Flat array containing all links
+	TArray<float> LinkStrengths; // Holds the strength of each link
+	TArray<float> LinkBiases; // Holds the bias of each link
+	TArray<int> Linkinout;
 
+	
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	float alpha = 1;
+	int iterationsf = 0;
+	float iterations = 0;
+	float alphaMin = 0.001;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	float alphaDecay = 1 - FMath::Pow(alphaMin, 1.0 / 300);
+	float edgeDistance = 30;
+	float nodeStrength = -60;
+	float distancemin = 1;
+	float distancemax = 10000000;
+	float theta2 = 0.81;
+	float alphaTarget = 0;
+	float velocityDecay = 0.6;
+	float initialAngle = PI * (3 - sqrt(5));
+	float initialRadius = 10;
 
+	
 	TSharedPtr<FJsonObject> JsonObject;
-
-
 	
 	void update_text_size_of_all_nodes1112(float size);
 	
 	
-	AKnowledgeGraph();
-	virtual ~AKnowledgeGraph() override;
-
-
 	
 	bool graph_initialized = false;
 	bool graph_requested = false;
@@ -285,8 +305,7 @@ public:
 	void update_position_array(bool log);
 	void update_alpha();
 	void print_out_location_of_the_node();
-
-
+	
 	void generateGraph();
 	bool Generateactorandattach(AKnowledgeNode*& kn);
 	void Generateaxcomponent(FString name);
@@ -326,44 +345,8 @@ public:
 
 
 
-
-	
-
-
-	/////////////////////////////////////////////////////////////////////////////////
-
-
-	
-	TArray<int> LinkOffsets; // Holds the offset for each body
-	TArray<int> LinkCounts; // Holds the count of links for each body
-	TArray<int> LinkIndices; // Flat array containing all links
-	TArray<float> LinkStrengths; // Holds the strength of each link
-	TArray<float> LinkBiases; // Holds the bias of each link
-	TArray<int> Linkinout;
-
-	
-
-
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	float alpha = 1;
-	int iterationsf = 0;
-	float iterations = 0;
-	float alphaMin = 0.001;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
-	float alphaDecay = 1 - FMath::Pow(alphaMin, 1.0 / 300);
-	float edgeDistance = 30;
-	float nodeStrength = -60;
-	float distancemin = 1;
-	float distancemax = 10000000;
-	float theta2 = 0.81;
-	float alphaTarget = 0;
-	float velocityDecay = 0.6;
-	float initialAngle = PI * (3 - sqrt(5));
-	float initialRadius = 10;
-
-
-
+	AKnowledgeGraph();
+	virtual ~AKnowledgeGraph() override;
 	virtual void BeginPlay() override;
 	virtual void BeginDestroy() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
