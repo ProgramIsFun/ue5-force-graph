@@ -313,7 +313,7 @@ public:
 
 
 	void OnYourFunctionCompleted(TSharedPtr<IHttpRequest> HttpRequest, TSharedPtr<IHttpResponse> HttpResponse, bool bArg);
-	void YourFunction();
+	void request_a_graph();
 	void debug_error_request(FHttpRequestPtr Request, FHttpResponsePtr Response);
 
 

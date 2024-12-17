@@ -9,7 +9,7 @@
 
 
 
-void AKnowledgeGraph::YourFunction()
+void AKnowledgeGraph::request_a_graph()
 {
 	TSharedPtr<FJsonObject> Js = MakeShareable(new FJsonObject());
 
@@ -60,6 +60,7 @@ void AKnowledgeGraph::debug_error_request(FHttpRequestPtr Request, FHttpResponse
 		ll(FString::Printf(TEXT("Response Content: %s"), *Response->GetContentAsString()), true, 3);
 	}
 
+	
 	// Log information about the request itself
 	ll(FString::Printf(TEXT("HTTP Verb: %s"), *Request->GetVerb()), true, 3);
 	ll(FString::Printf(TEXT("Requested URL: %s"), *Request->GetURL()), true, 3);
