@@ -239,6 +239,16 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				try
 				{
 					name = jobj->GetStringField("name");
+
+					FString Substring(TEXT("everythingallaccount"));
+					FString ReplacementSubstring(TEXT("e"));
+
+					if (name.StartsWith(Substring)) {
+						// Remove the substring by creating a new string that starts right after the substring
+						name = name.Mid(Substring.Len());
+
+						name = ReplacementSubstring + name;
+					}
 				}
 				catch (...)
 				{
