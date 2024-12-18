@@ -207,6 +207,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool connect_to_previous = true;
 
+
+	void set_text_size_of_all_nodes1112(float size);
+	void increase_or_decrease_text_size_of_all_nodes1112(bool increase, float size);
+	void increase_text_size_of_all_nodes1112(float size);
+	void decrease_text_size_of_all_nodes1112(float size);
+
+
+	
 	
 	TArray<int> LinkOffsets; // Holds the offset for each body
 	TArray<int> LinkCounts; // Holds the count of links for each body
@@ -233,11 +241,8 @@ public:
 	float velocityDecay = 0.6;
 	float initialAngle = PI * (3 - sqrt(5));
 	float initialRadius = 10;
-
-	
 	TSharedPtr<FJsonObject> JsonObject;
 	
-	void update_text_size_of_all_nodes1112(float size);
 	
 	
 	

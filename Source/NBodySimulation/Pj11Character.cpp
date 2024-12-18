@@ -86,7 +86,6 @@ void APj11Character::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 
 		//Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APj11Character::Move);
-
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APj11Character::Look);
 

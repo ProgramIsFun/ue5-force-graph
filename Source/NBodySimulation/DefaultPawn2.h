@@ -34,14 +34,22 @@ class NBODYSIMULATION_API ADefaultPawn2 : public APawn
 
 
 	void increase_speed();
+
+
+
+
+	
 	// This function will be called for you from the engine. 
 	virtual void SetupPlayerInputComponent(UInputComponent* InInputComponent) override;
-
-
-
-
+	
 	virtual void UpdateNavigationRelevance() override;
 	// End Pawn overrides
+
+
+
+
+
+
 
 	/**
 	 * Input callback to move forward in local space (or backward if Val is negative).
@@ -129,12 +137,32 @@ public:
 	UStaticMeshComponent* GetMeshComponent() const { return MeshComponent; }
 
 
+
+
+
+
+
+
+
+
+
+
+	
 	void ll(const FString& StringToLog, bool LOG=false, int SeverityLevel = 0, const FString& Prefix = TEXT("[Info]"))
 	{
 		if(1)
 		{
 			ll2(StringToLog, LOG, SeverityLevel, Prefix);
 		}
+	}
+
+
+	
+	UFUNCTION(BlueprintNativeEvent, Category = "Pawn")
+	void show_graph_panel();
+	void show_graph_panel_Implementation()
+	{
+		ll("show_graph_panel_Implementation");
 	}
 };
 

@@ -102,6 +102,15 @@ void InitializeDefaultPawnInputBindings()
 	{
 		bBindingsAdded = true;
 
+
+
+
+
+
+
+
+
+		
 		UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("DefaultPawn_MoveForward", EKeys::W, 1.f));
 		UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("DefaultPawn_MoveForward", EKeys::S, -1.f));
 		UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("DefaultPawn_MoveForward", EKeys::Up, 1.f));
@@ -161,8 +170,14 @@ void ADefaultPawn2::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	}
 
 	PlayerInputComponent->BindAction("N8888888", IE_Pressed, this, &ADefaultPawn2::increase_speed);
+	PlayerInputComponent->BindAction("K66666", IE_Pressed, this, &ADefaultPawn2::show_graph_panel);
 
+
+	
 }
+
+
+
 
 void ADefaultPawn2::UpdateNavigationRelevance()
 {

@@ -70,7 +70,7 @@ bool AKnowledgeGraph::early_exit(bool log)
 	return false;
 }
 
-void AKnowledgeGraph::update_text_size_of_all_nodes1112(float size)
+void AKnowledgeGraph::set_text_size_of_all_nodes1112(float size)
 {
 	for (int i = 0; i < nodePositions.Num(); i++)
 	{
@@ -78,7 +78,35 @@ void AKnowledgeGraph::update_text_size_of_all_nodes1112(float size)
 		{
 			TextComponents11111111111111111111[i]->SetWorldSize(size);
 		}
+	} 
+}
+void AKnowledgeGraph::increase_or_decrease_text_size_of_all_nodes1112(bool increase, float size)
+{
+	for (int i = 0; i < nodePositions.Num(); i++)
+	{
+		if (node_use_text_render_components)
+		{
+			float current_size = TextComponents11111111111111111111[i]->WorldSize;
+			if (increase)
+			{
+				current_size += size;
+			}else
+			{
+				current_size -= size;
+			}
+			TextComponents11111111111111111111[i]->SetWorldSize(current_size);
+		}
 	}
+}
+
+void AKnowledgeGraph::increase_text_size_of_all_nodes1112(float size)
+{
+	increase_or_decrease_text_size_of_all_nodes1112(true, size);
+}
+
+void AKnowledgeGraph::decrease_text_size_of_all_nodes1112(float size)
+{
+	increase_or_decrease_text_size_of_all_nodes1112(false, size);
 }
 
 void AKnowledgeGraph::cpu_calculate()
