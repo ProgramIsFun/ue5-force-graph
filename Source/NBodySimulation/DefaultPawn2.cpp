@@ -170,7 +170,7 @@ void ADefaultPawn2::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	}
 
 	PlayerInputComponent->BindAction("N8888888", IE_Pressed, this, &ADefaultPawn2::increase_speed);
-	PlayerInputComponent->BindAction("K66666", IE_Pressed, this, &ADefaultPawn2::show_graph_panel);
+	PlayerInputComponent->BindAction("K66666", IE_Pressed, this, &ADefaultPawn2::show_graph_panel772);
 
 
 	

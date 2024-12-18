@@ -159,10 +159,10 @@ public:
 
 	
 	UFUNCTION(BlueprintNativeEvent, Category = "Pawn")
-	void show_graph_panel();
-	void show_graph_panel_Implementation()
+	void show_graph_panel772();
+	void show_graph_panel772_Implementation()
 	{
-		ll("show_graph_panel_Implementation");
+		ll("show_graph_panel772_Implementation");
 	}
 };
 
