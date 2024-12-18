@@ -64,7 +64,7 @@ void AKnowledgeGraph::Generateaxcomponent(FString name)
 	{
 		TextComponent->SetText(FText::FromString(name));
 		TextComponent->SetupAttachment(RootComponent);
-		TextComponent->SetWorldSize(text_size * universal_graph_scale);
+		TextComponent->SetWorldSize(text_size);
 		TextComponent->RegisterComponent(); // This is important to initialize the component
 
 		TextComponents11111111111111111111.Add(TextComponent);
