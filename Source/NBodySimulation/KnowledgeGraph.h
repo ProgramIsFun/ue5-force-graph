@@ -207,10 +207,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool connect_to_previous = true;
 
-
+	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void set_text_size_of_all_nodes1112(float size);
+	UFUNCTION(BlueprintCallable, Category = "YourCategory1111111111112222222223")
 	void increase_or_decrease_text_size_of_all_nodes1112(bool increase, float size);
+	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void increase_text_size_of_all_nodes1112(float size);
+	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void decrease_text_size_of_all_nodes1112(float size);
 
 
