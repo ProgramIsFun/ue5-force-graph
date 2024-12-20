@@ -218,12 +218,19 @@ public:
 	void increase_text_size_of_all_nodes1112(float size);
 	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void decrease_text_size_of_all_nodes1112(float size);
+
 	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void update_position_of_all_nodes_to_database1113();
 	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void add_link_to_database1114();
 	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void add_node_to_database1115();
+	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
+	void delete_node_from_database1116();
+	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
+	void delete_link_from_database1117();
+
+
 	
 	TArray<int> LinkOffsets; // Holds the offset for each body
 	TArray<int> LinkCounts; // Holds the count of links for each body

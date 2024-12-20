@@ -167,6 +167,14 @@ void AKnowledgeGraph::add_node_to_database1115()
 {
 }
 
+void AKnowledgeGraph::delete_node_from_database1116()
+{
+}
+
+void AKnowledgeGraph::delete_link_from_database1117()
+{
+}
+
 void AKnowledgeGraph::add_link_to_database1114()
 {
 }
