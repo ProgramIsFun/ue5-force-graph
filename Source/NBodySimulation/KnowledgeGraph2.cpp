@@ -72,7 +72,7 @@ void AKnowledgeGraph::generate_text_render_component_and_attach(FString name)
 	}
 }
 
-void AKnowledgeGraph::get_number_of_note()
+void AKnowledgeGraph::get_number_of_nodes()
 {
 	if (cgm == CGM::GENERATE)
 
@@ -148,7 +148,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 {
 	bool log = true;
 
-	get_number_of_note();
+	get_number_of_nodes();
 
 	if (cgm == CGM::JSON || cgm == CGM::DATABASE)
 	{

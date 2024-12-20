@@ -297,7 +297,7 @@ public:
 	void generateGraph();
 	bool generate_actor_and_register(AKnowledgeNode*& kn);
 	void generate_text_render_component_and_attach(FString name);
-	void get_number_of_note();
+	void get_number_of_nodes();
 	void create_1_to_one_mapping();
 	void miscellaneous();
 	void defaultGenerateGraphMethod();
