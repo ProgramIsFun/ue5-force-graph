@@ -255,7 +255,7 @@ public:
 	int32 jnodessss;
 	bool graph_initialized = false;
 	bool graph_requested = false;
-	bool prechecksucceeded = true;
+	bool precheck_succeed = true;
 	bool GPUvalid = false;
 	
 	TMap<int32, FString> id_to_string;
@@ -304,8 +304,7 @@ public:
 	void default_generate_graph_method();
 	void add_edge(int32 id, int32 source, int32 target);
 	void initialize_node_position();
-	void initialize_node_position_individual(int index
-	);
+	void initialize_node_position_individual(int index);
 	void calculate_bias_and_strength_of_links();
 	void apply_force();
 	void calculate_link_force_and_update_velocity();

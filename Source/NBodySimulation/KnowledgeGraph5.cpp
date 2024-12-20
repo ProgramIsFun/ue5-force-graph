@@ -58,7 +58,7 @@ void AKnowledgeGraph::request_a_graph()
 				}
 				else
 				{
-					prechecksucceeded = false;
+					precheck_succeed = false;
 					ll("Failed to deserialize JSON. ", true, 2);
 					return;
 				}
@@ -138,7 +138,7 @@ void AKnowledgeGraph::request_graph_httpCompleted(FHttpRequestPtr Request, FHttp
 
 void AKnowledgeGraph::debug_error_request(FHttpRequestPtr Request, FHttpResponsePtr Response)
 {
-	prechecksucceeded = false;
+	precheck_succeed = false;
 	ll("Request failed", true, 2);
 
 	// Additional debugging information
