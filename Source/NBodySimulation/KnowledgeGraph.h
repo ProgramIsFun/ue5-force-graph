@@ -218,8 +218,9 @@ public:
 	void increase_text_size_of_all_nodes1112(float size);
 	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void decrease_text_size_of_all_nodes1112(float size);
-
-
+	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
+	void update_position_of_all_nodes_to_database1113();
+	
 	
 	
 	TArray<int> LinkOffsets; // Holds the offset for each body
