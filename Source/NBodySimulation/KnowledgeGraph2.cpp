@@ -691,7 +691,7 @@ void AKnowledgeGraph::apply_force()
 }
 
 
-void AKnowledgeGraph::initializeNodePosition()
+void AKnowledgeGraph::initialize_node_position()
 {
 	if (!cpu_use_parallel)
 	{

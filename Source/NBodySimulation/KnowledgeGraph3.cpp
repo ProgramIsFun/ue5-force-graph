@@ -3,7 +3,7 @@
 
 void AKnowledgeGraph::post_generate_graph()
 {
-	initializeNodePosition();
+	initialize_node_position();
 	
 	calculate_bias_and_strength_of_links();
 	

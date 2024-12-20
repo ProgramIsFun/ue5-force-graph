@@ -305,7 +305,7 @@ public:
 	void AddEdge(int32 id, int32 source, int32 target);
 
 
-	void initializeNodePosition();
+	void initialize_node_position();
 
 	void initializeNodePosition_Individual(int index
 	);
