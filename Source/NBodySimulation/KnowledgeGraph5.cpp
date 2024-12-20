@@ -61,7 +61,7 @@ void AKnowledgeGraph::request_a_graph()
 				}
 			
 		}
-		defaultGenerateGraphMethod();
+		default_generate_graph_method();
 	}
 }
 
@@ -112,7 +112,7 @@ void AKnowledgeGraph::OnYourFunctionCompleted(FHttpRequestPtr Request, FHttpResp
 				// }
 
 
-				defaultGenerateGraphMethod();
+				default_generate_graph_method();
 			}
 			else
 			{

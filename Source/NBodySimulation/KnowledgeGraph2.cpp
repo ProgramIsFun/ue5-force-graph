@@ -144,7 +144,7 @@ void AKnowledgeGraph::miscellaneous()
 	}
 }
 
-void AKnowledgeGraph::defaultGenerateGraphMethod()
+void AKnowledgeGraph::default_generate_graph_method()
 {
 	bool log = true;
 

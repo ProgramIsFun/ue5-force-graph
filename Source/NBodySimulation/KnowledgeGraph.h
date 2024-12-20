@@ -300,7 +300,7 @@ public:
 	void get_number_of_nodes();
 	void create_one_to_one_mapping();
 	void miscellaneous();
-	void defaultGenerateGraphMethod();
+	void default_generate_graph_method();
 
 
 	void AddEdge(int32 id, int32 source, int32 target);
