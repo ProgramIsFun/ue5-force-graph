@@ -207,6 +207,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	bool connect_to_previous = true;
 
+
+
+	
 	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void set_text_size_of_all_nodes1112(float size);
 	UFUNCTION(BlueprintCallable, Category = "YourCategory1111111111112222222223")
@@ -248,7 +251,7 @@ public:
 	
 	
 	
-	
+	int32 jnodessss;
 	bool graph_initialized = false;
 	bool graph_requested = false;
 	bool prechecksucceeded = true;
@@ -321,7 +324,6 @@ public:
 	void update_position_array_according_to_velocity_array();
 	void update_link_position();
 
-	int32 jnodessss;
 
 
 
