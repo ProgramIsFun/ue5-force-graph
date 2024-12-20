@@ -212,7 +212,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void set_text_size_of_all_nodes1112(float size);
-	UFUNCTION(BlueprintCallable, Category = "YourCategory1111111111112222222223")
+	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void increase_or_decrease_text_size_of_all_nodes1112(bool increase, float size);
 	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void increase_text_size_of_all_nodes1112(float size);
@@ -220,8 +220,10 @@ public:
 	void decrease_text_size_of_all_nodes1112(float size);
 	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
 	void update_position_of_all_nodes_to_database1113();
-	
-	
+	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
+	void add_link_to_database1114();
+	UFUNCTION(BlueprintCallable, Category = "YourCategory111111111111222222222")
+	void add_node_to_database1115();
 	
 	TArray<int> LinkOffsets; // Holds the offset for each body
 	TArray<int> LinkCounts; // Holds the count of links for each body
@@ -374,3 +376,5 @@ public:
 
 	
 };
+
+

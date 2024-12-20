@@ -163,3 +163,10 @@ void AKnowledgeGraph::debug_error_request(FHttpRequestPtr Request, FHttpResponse
 		ll("Could be a network connectivity issue or the endpoint might be down.", true, 3);
 	}
 }
+void AKnowledgeGraph::add_node_to_database1115()
+{
+}
+
+void AKnowledgeGraph::add_link_to_database1114()
+{
+}
