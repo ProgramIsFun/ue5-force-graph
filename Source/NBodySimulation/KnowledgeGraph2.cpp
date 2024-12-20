@@ -55,7 +55,7 @@ bool AKnowledgeGraph::generate_actor_and_register(AKnowledgeNode*& kn)
 	return false;
 }
 
-void AKnowledgeGraph::Generateaxcomponent(FString name)
+void AKnowledgeGraph::generate_text_render_component_and_attach(FString name)
 {
 	UTextRenderComponent* TextComponent = NewObject<UTextRenderComponent>(
 		this, FName("TextComponent" + name)
@@ -204,7 +204,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				name = "Sample Text : " + FString::FromInt(i);
 
 
-				Generateaxcomponent(name);
+				generate_text_render_component_and_attach(name);
 			}
 		}
 
@@ -254,7 +254,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 				{
 					name = "Sample Text : " + FString::FromInt(i);
 				}
-				Generateaxcomponent(name);
+				generate_text_render_component_and_attach(name);
 			}
 		}
 
