@@ -700,14 +700,14 @@ void AKnowledgeGraph::initialize_node_position()
 		// 	)
 		// {
 		// 	int index = node.Key;
-		// 	initializeNodePosition_Individual(
+		// 	initialize_node_position_individual(
 		// 		index);
 		// }
 		for (
 			int32 index = 0; index < jnodessss; index++
 		)
 		{
-			initializeNodePosition_Individual(
+			initialize_node_position_individual(
 				index);
 		}
 	}
@@ -717,7 +717,7 @@ void AKnowledgeGraph::initialize_node_position()
 		// 	all_nodes11111111111.Num()
 		// 	, [&](int32 index)
 		//             {
-		// 	            initializeNodePosition_Individual(
+		// 	            initialize_node_position_individual(
 		// 	            	index);
 		//             }
 		// );
@@ -725,7 +725,7 @@ void AKnowledgeGraph::initialize_node_position()
 		ParallelFor(
 			jnodessss, [&](int32 index)
 			{
-				initializeNodePosition_Individual(
+				initialize_node_position_individual(
 					index);
 			}
 		);
@@ -738,7 +738,7 @@ void AKnowledgeGraph::initialize_node_position()
 	}
 }
 
-void AKnowledgeGraph::initializeNodePosition_Individual(int index)
+void AKnowledgeGraph::initialize_node_position_individual(int index)
 {
 	// Calculate index-based radius
 	float radius;

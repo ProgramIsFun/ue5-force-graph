@@ -307,7 +307,7 @@ public:
 
 	void initialize_node_position();
 
-	void initializeNodePosition_Individual(int index
+	void initialize_node_position_individual(int index
 	);
 
 	void calculate_bias_and_strength_of_links();
