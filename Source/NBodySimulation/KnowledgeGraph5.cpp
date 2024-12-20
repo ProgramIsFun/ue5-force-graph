@@ -25,7 +25,7 @@ void AKnowledgeGraph::request_graph_http()
 	// HttpRequest->SetContentAsString(OutputString)
 	HttpRequest->OnProcessRequestComplete().BindUObject(
 		this,
-		&AKnowledgeGraph::OnYourFunctionCompleted
+		&AKnowledgeGraph::request_graph_httpCompleted
 	);
 	HttpRequest->ProcessRequest();
 	ll("YourFunction called", true, 0, TEXT("YourFunction: "));
@@ -68,12 +68,12 @@ void AKnowledgeGraph::request_a_graph()
 	}
 }
 
-void AKnowledgeGraph::OnYourFunctionCompleted(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+void AKnowledgeGraph::request_graph_httpCompleted(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
-	ll("OnYourFunctionCompleted called", true, 0, TEXT("OnYourFunctionCompleted: "));
+	ll("request_graph_httpCompleted called", true, 0, TEXT("request_graph_httpCompleted: "));
 	if (bWasSuccessful)
 	{
-		ll("Request was successful", true, 0, TEXT("OnYourFunctionCompleted: "));
+		ll("Request was successful", true, 0, TEXT("request_graph_httpCompleted: "));
 		if (
 			// Content-Type: application/json; charset=utf-8
 			Response->GetContentType() == "application/json" ||
@@ -89,7 +89,7 @@ void AKnowledgeGraph::OnYourFunctionCompleted(FHttpRequestPtr Request, FHttpResp
 				JsonObject.IsValid())
 			{
 				// Process the JSON object here
-				ll("Successfully parsed JSON.", true, 0, TEXT("OnYourFunctionCompleted: "));
+				ll("Successfully parsed JSON.", true, 0, TEXT("request_graph_httpCompleted: "));
 				//SomeOtherVariable = Js->GetStringField("nodes");
 
 				// TArray<TSharedPtr<FJsonValue>> jnodes = Js->GetArrayField("nodes");
