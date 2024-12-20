@@ -72,7 +72,7 @@ bool AKnowledgeGraph::early_exit(bool log)
 
 void AKnowledgeGraph::set_text_size_of_all_nodes1112(float size)
 {
-	for (int i = 0; i < nodePositions.Num(); i++)
+	for (int i = 0; i < jnodessss; i++)
 	{
 		if (node_use_text_render_components)
 		{
@@ -82,7 +82,7 @@ void AKnowledgeGraph::set_text_size_of_all_nodes1112(float size)
 }
 void AKnowledgeGraph::increase_or_decrease_text_size_of_all_nodes1112(bool increase, float size)
 {
-	for (int i = 0; i < nodePositions.Num(); i++)
+	for (int i = 0; i < jnodessss; i++)
 	{
 		if (node_use_text_render_components)
 		{
