@@ -11,7 +11,7 @@
 #define print(text) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 10, FColor::White,text)
 
 
-bool AKnowledgeGraph::Generateactorandattach(AKnowledgeNode*& kn)
+bool AKnowledgeGraph::generate_actor_and_register(AKnowledgeNode*& kn)
 {
 	kn = GetWorld()->SpawnActor<AKnowledgeNode>();
 
@@ -188,9 +188,9 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			if (node_use_actor)
 			{
 				AKnowledgeNode* kn;
-				if (Generateactorandattach(kn))
+				if (generate_actor_and_register(kn))
 				{
-					ll("Generateactorandattach failed", log, 2);
+					ll("generate_actor_and_register failed", log, 2);
 					qq();
 					return;
 				}
@@ -222,9 +222,9 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 			if (node_use_actor)
 			{
 				AKnowledgeNode* kn;
-				if (Generateactorandattach(kn))
+				if (generate_actor_and_register(kn))
 				{
-					ll("Generateactorandattach failed", log, 2);
+					ll("generate_actor_and_register failed", log, 2);
 					qq();
 					return;
 				}

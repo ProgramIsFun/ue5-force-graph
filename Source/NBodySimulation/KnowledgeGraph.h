@@ -252,12 +252,9 @@ public:
 	bool graph_initialized = false;
 	bool graph_requested = false;
 	bool prechecksucceeded = true;
-
-	// Boolean for signaling whether this round of computation from GPU is valid. 
 	bool GPUvalid = false;
-	// Integer ID to original string ID. 
+	
 	TMap<int32, FString> id_to_string;
-	// Original string ID to integer ID.
 	TMap<FString, int32> string_to_id;
 	TArray<Node> all_nodes2;
 
@@ -298,7 +295,7 @@ public:
 	void print_out_location_of_the_node();
 	
 	void generateGraph();
-	bool Generateactorandattach(AKnowledgeNode*& kn);
+	bool generate_actor_and_register(AKnowledgeNode*& kn);
 	void Generateaxcomponent(FString name);
 	void get_number_of_note();
 	void create_1_to_one_mapping();
