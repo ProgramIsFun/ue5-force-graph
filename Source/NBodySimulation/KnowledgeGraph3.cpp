@@ -109,9 +109,7 @@ void AKnowledgeGraph::decrease_text_size_of_all_nodes1112(float size)
 	increase_or_decrease_text_size_of_all_nodes1112(false, size);
 }
 
-void AKnowledgeGraph::update_position_of_all_nodes_to_database1113()
-{
-}
+
 
 void AKnowledgeGraph::cpu_calculate()
 {

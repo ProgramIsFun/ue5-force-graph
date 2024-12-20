@@ -103,7 +103,7 @@ void AKnowledgeGraph::create_one_to_one_mapping()
 		}
 		if (cgm == CGM::DATABASE)
 		{
-			jid = jobj->GetStringField("element_id");
+			jid = jobj->GetStringField("user_generate_id_7577777777");
 		}
 
 
