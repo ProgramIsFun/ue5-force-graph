@@ -7,32 +7,35 @@
 #include "Interfaces/IHttpResponse.h"
 
 
-
+void AKnowledgeGraph::request_graph_http()
+{
+	TSharedPtr<FJsonObject> Js = MakeShareable(new FJsonObject());
+	Js->SetStringField("some_field", "some_value");
+	FString OutputString;
+	TSharedRef<TJsonWriter<TCHAR>> JsonWriter = TJsonWriterFactory<>::Create(&OutputString);
+	FJsonSerializer::Serialize(Js.ToSharedRef(), JsonWriter);
+	TSharedRef<IHttpRequest> HttpRequest = FHttpModule::Get().CreateRequest();
+	// HttpRequest->SetVerb("POST");
+	HttpRequest->SetVerb("GET");
+	HttpRequest->SetHeader("Content-Type", "application/json");
+	// FString URL = "https://www.space-track.org";
+	// https://jsonplaceholder.typicode.com/todos/1
+	// HttpRequest->SetURL("https://jsonplaceholder.typicode.com/todos/1");
+	HttpRequest->SetURL("localhost:3062/api/v0/return_all_nodes111");
+	// HttpRequest->SetContentAsString(OutputString)
+	HttpRequest->OnProcessRequestComplete().BindUObject(
+		this,
+		&AKnowledgeGraph::OnYourFunctionCompleted
+	);
+	HttpRequest->ProcessRequest();
+	ll("YourFunction called", true, 0, TEXT("YourFunction: "));
+}
 
 void AKnowledgeGraph::request_a_graph()
 {
 	if (cgm == CGM::DATABASE)
 	{
-		TSharedPtr<FJsonObject> Js = MakeShareable(new FJsonObject());
-		Js->SetStringField("some_field", "some_value");
-		FString OutputString;
-		TSharedRef<TJsonWriter<TCHAR>> JsonWriter = TJsonWriterFactory<>::Create(&OutputString);
-		FJsonSerializer::Serialize(Js.ToSharedRef(), JsonWriter);
-		TSharedRef<IHttpRequest> HttpRequest = FHttpModule::Get().CreateRequest();
-		// HttpRequest->SetVerb("POST");
-		HttpRequest->SetVerb("GET");
-		HttpRequest->SetHeader("Content-Type", "application/json");
-		// FString URL = "https://www.space-track.org";
-		// https://jsonplaceholder.typicode.com/todos/1
-		// HttpRequest->SetURL("https://jsonplaceholder.typicode.com/todos/1");
-		HttpRequest->SetURL("localhost:3062/api/v0/return_all_nodes111");
-		// HttpRequest->SetContentAsString(OutputString)
-		HttpRequest->OnProcessRequestComplete().BindUObject(
-			this,
-			&AKnowledgeGraph::OnYourFunctionCompleted
-		);
-		HttpRequest->ProcessRequest();
-		ll("YourFunction called", true, 0, TEXT("YourFunction: "));
+		request_graph_http();
 	}
 	else
 	{
