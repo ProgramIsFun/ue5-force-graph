@@ -311,7 +311,7 @@ public:
 	void initializeNodePosition_Individual(int index
 	);
 
-	void CalculateBiasstrengthOflinks();
+	void calculate_bias_and_strength_of_links();
 
 	void apply_force();
 	void calculate_link_force_and_update_velocity();

@@ -883,7 +883,7 @@ void AKnowledgeGraph::update_node_world_position_according_to_position_array()
 	}
 }
 
-void AKnowledgeGraph::CalculateBiasstrengthOflinks()
+void AKnowledgeGraph::calculate_bias_and_strength_of_links()
 {
 	bool log = true;
 	float n = all_nodes2.Num();

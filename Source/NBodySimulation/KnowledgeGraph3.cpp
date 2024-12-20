@@ -5,7 +5,7 @@ void AKnowledgeGraph::post_generate_graph()
 {
 	initializeNodePosition();
 	
-	CalculateBiasstrengthOflinks();
+	calculate_bias_and_strength_of_links();
 	
 	if (use_shaders)
 	{
