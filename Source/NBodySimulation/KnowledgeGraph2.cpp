@@ -86,7 +86,7 @@ void AKnowledgeGraph::get_number_of_nodes()
 	}
 }
 
-void AKnowledgeGraph::create_1_to_one_mapping()
+void AKnowledgeGraph::create_one_to_one_mapping()
 {
 	bool log = true;
 
@@ -152,7 +152,7 @@ void AKnowledgeGraph::defaultGenerateGraphMethod()
 
 	if (cgm == CGM::JSON || cgm == CGM::DATABASE)
 	{
-		create_1_to_one_mapping();
+		create_one_to_one_mapping();
 	}
 
 
