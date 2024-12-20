@@ -149,7 +149,7 @@ void AKnowledgeGraph::print_out_location_of_the_node()
 	ll("third element. " + nodePositions[2].ToString(), log);
 }
 
-bool AKnowledgeGraph::Maint(float DeltaTime)
+bool AKnowledgeGraph::main_function(float DeltaTime)
 {
 	bool log = use_logging;
 	

@@ -283,7 +283,7 @@ public:
 
 	void debug_test();
 	void gpu_get_positions();
-	bool Maint(float DeltaTime);
+	bool main_function(float DeltaTime);
 
 	void post_generate_graph();
 	void prepare();

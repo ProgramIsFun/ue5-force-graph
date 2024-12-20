@@ -94,6 +94,6 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 		return;
 	}
 	
-	Maint(DeltaTime);
+	main_function(DeltaTime);
 
 }
