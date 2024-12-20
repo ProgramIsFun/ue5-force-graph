@@ -126,7 +126,7 @@ void AKnowledgeGraph::miscellaneous()
 
 			// Connected to random node 
 			int jtarget = FMath::RandRange(0, i - 1);
-			AddEdge(jid, jsource, jtarget);
+			add_edge(jid, jsource, jtarget);
 		}
 	}
 	else
@@ -139,7 +139,7 @@ void AKnowledgeGraph::miscellaneous()
 
 			// Connected to random node 
 			int jtarget = i - 1;
-			AddEdge(jid, jsource, jtarget);
+			add_edge(jid, jsource, jtarget);
 		}
 	}
 }
@@ -274,7 +274,7 @@ void AKnowledgeGraph::default_generate_graph_method()
 			jsource = string_to_id[jsourceS];
 			jtarget = string_to_id[jtargetS];
 			ll("jsource: " + FString::FromInt(jsource) + ", jtarget: " + FString::FromInt(jtarget), log);
-			AddEdge(index, jsource, jtarget);
+			add_edge(index, jsource, jtarget);
 			index++;
 		}
 	}
@@ -1066,7 +1066,7 @@ void AKnowledgeGraph::calculate_bias_and_strength_of_links()
 }
 
 
-void AKnowledgeGraph::AddEdge(int32 id, int32 source, int32 target)
+void AKnowledgeGraph::add_edge(int32 id, int32 source, int32 target)
 {
 	AKnowledgeEdge* e;
 	Link link = Link(source, target);

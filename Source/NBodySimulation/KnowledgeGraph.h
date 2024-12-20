@@ -302,7 +302,7 @@ public:
 	void default_generate_graph_method();
 
 
-	void AddEdge(int32 id, int32 source, int32 target);
+	void add_edge(int32 id, int32 source, int32 target);
 
 
 	void initialize_node_position();
