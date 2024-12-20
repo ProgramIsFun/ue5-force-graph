@@ -288,7 +288,6 @@ public:
 	void debug_test();
 	void gpu_get_positions();
 	bool main_function(float DeltaTime);
-
 	void post_generate_graph();
 	void prepare();
 	void update_parameter_in_shader(float DeltaTime);
@@ -297,37 +296,24 @@ public:
 	void update_position_array(bool log);
 	void update_alpha();
 	void print_out_location_of_the_node();
-	
 	bool generate_actor_and_register(AKnowledgeNode*& kn);
 	void generate_text_render_component_and_attach(FString name);
 	void get_number_of_nodes();
 	void create_one_to_one_mapping();
 	void miscellaneous();
 	void default_generate_graph_method();
-
-
 	void add_edge(int32 id, int32 source, int32 target);
-
-
 	void initialize_node_position();
-
 	void initialize_node_position_individual(int index
 	);
-
 	void calculate_bias_and_strength_of_links();
-
 	void apply_force();
 	void calculate_link_force_and_update_velocity();
 	void calculate_charge_force_and_update_velocity();
 	void calculate_centre_force_and_update_position();
-
 	void update_node_world_position_according_to_position_array();
 	void update_position_array_according_to_velocity_array();
 	void update_link_position();
-
-
-
-
 	void request_graph_httpCompleted(TSharedPtr<IHttpRequest> HttpRequest, TSharedPtr<IHttpResponse> HttpResponse, bool bArg);
 	void request_graph_http();
 	void request_a_graph();
