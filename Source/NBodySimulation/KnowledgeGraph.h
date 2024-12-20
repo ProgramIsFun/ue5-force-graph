@@ -294,7 +294,6 @@ public:
 	void update_alpha();
 	void print_out_location_of_the_node();
 	
-	void generateGraph();
 	bool generate_actor_and_register(AKnowledgeNode*& kn);
 	void generate_text_render_component_and_attach(FString name);
 	void get_number_of_nodes();
