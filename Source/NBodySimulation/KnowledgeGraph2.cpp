@@ -180,14 +180,12 @@ void AKnowledgeGraph::default_generate_graph_method()
 	{
 		create_one_to_one_mapping();
 	}
-
-
+	
 	initialize_arrays();
 
 
 	if (cgm == CGM::GENERATE)
 	{
-		ll("Not using Jason. ", log);
 		for (int32 i = 0; i < jnodessss; i++)
 		{
 			if (node_use_actor)
@@ -217,8 +215,6 @@ void AKnowledgeGraph::default_generate_graph_method()
 	}
 	else
 	{
-		ll("using Jason. ", log);
-
 		TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
 		for (int32 i = 0; i < jnodessss; i++)
 		{
@@ -700,14 +696,6 @@ void AKnowledgeGraph::initialize_node_position()
 {
 	if (!cpu_use_parallel)
 	{
-		// for (
-		// 	auto& node : all_nodes11111111111
-		// 	)
-		// {
-		// 	int index = node.Key;
-		// 	initialize_node_position_individual(
-		// 		index);
-		// }
 		for (
 			int32 index = 0; index < jnodessss; index++
 		)
@@ -718,15 +706,6 @@ void AKnowledgeGraph::initialize_node_position()
 	}
 	else
 	{
-		// ParallelFor(
-		// 	all_nodes11111111111.Num()
-		// 	, [&](int32 index)
-		//             {
-		// 	            initialize_node_position_individual(
-		// 	            	index);
-		//             }
-		// );
-
 		ParallelFor(
 			jnodessss, [&](int32 index)
 			{
@@ -735,8 +714,7 @@ void AKnowledgeGraph::initialize_node_position()
 			}
 		);
 	}
-
-
+	
 	if (node_use_instance_static_mesh)
 	{
 		InstancedStaticMeshComponent->AddInstances(BodyTransforms, false);
