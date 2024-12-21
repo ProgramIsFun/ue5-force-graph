@@ -88,7 +88,7 @@ void AKnowledgeGraph::get_number_of_nodes()
 
 void AKnowledgeGraph::create_one_to_one_mapping()
 {
-	bool log = true;
+	bool log = false;
 
 
 	TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
