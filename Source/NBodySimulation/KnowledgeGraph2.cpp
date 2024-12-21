@@ -306,11 +306,20 @@ void AKnowledgeGraph::default_generate_graph_method()
 				
 				
 				jid = jobj->GetStringField("user_generate_id_7577777777");
-				jlocation = FVector(
-					jobj->GetNumberField("ue_location_X"),
-					jobj->GetNumberField("ue_location_Y"),
-					jobj->GetNumberField("ue_location_Z")
-				);
+				if (1)
+				{
+					jlocation = FVector(
+						jobj->GetNumberField("ue_location_X"),
+						jobj->GetNumberField("ue_location_Y"),
+						jobj->GetNumberField("ue_location_Z")
+					);
+				}
+				else
+				{
+					float k=jnodessss * 10.0f;
+					jlocation = FVector(k, k, k
+					);
+				}
 
 				ll("location111111111111111: " + jlocation.ToString(), log);
 			
@@ -781,7 +790,7 @@ void AKnowledgeGraph::initialize_node_position_individual(int index)
 	if (use_predefined_location)
 	{
 		init_pos = predefined_positions[index];
-	}
+	}else
 	{
 		// Calculate index-based radius
 		float radius;
