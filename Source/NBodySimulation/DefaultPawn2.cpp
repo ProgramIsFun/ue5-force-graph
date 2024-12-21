@@ -152,8 +152,9 @@ void ADefaultPawn2::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		PlayerInputComponent->BindAxis("DefaultPawn_MoveRight", this, &ADefaultPawn2::MoveRight);
 		
 		PlayerInputComponent->BindAxis("DefaultPawn_MoveUp", this, &ADefaultPawn2::MoveUp_World);
+
+
 		PlayerInputComponent->BindAxis("DefaultPawn_Turn", this, &ADefaultPawn2::AddControllerYawInput);
-		
 		PlayerInputComponent->BindAxis("DefaultPawn_TurnRate", this, &ADefaultPawn2::TurnAtRate);
 
 		PlayerInputComponent->BindAxis("DefaultPawn_LookUp", this, &ADefaultPawn2::AddControllerPitchInput);
@@ -165,6 +166,33 @@ void ADefaultPawn2::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 }
 
 
+void ADefaultPawn2::AddControllerPitchInput(float Val)
+{
+	// If not, should look around.
+	if(should_look_around)
+	{
+		
+	}else
+	{
+		return;
+	}
+
+	
+	if (Val != 0.f && Controller && Controller->IsLocalPlayerController())
+	{
+		APlayerController* const PC = CastChecked<APlayerController>(Controller);
+		PC->AddPitchInput(Val);
+	}
+}
+
+void ADefaultPawn2::AddControllerYawInput(float Val)
+{
+	if (Val != 0.f && Controller && Controller->IsLocalPlayerController())
+	{
+		APlayerController* const PC = CastChecked<APlayerController>(Controller);
+		PC->AddYawInput(Val);
+	}
+}
 
 
 void ADefaultPawn2::UpdateNavigationRelevance()
@@ -222,38 +250,26 @@ void ADefaultPawn2::MoveUp_World(float Val)
 void ADefaultPawn2::TurnAtRate(float Rate)
 {
 
-	return;
-	if (should_look_around)
+	if (1)
 	{
 		// calculate delta for this frame from the rate information
 		AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds() * CustomTimeDilation);
-		ll("TurnAtRate11"+FString::SanitizeFloat(Rate)
-			,true,2);
+		// ll("TurnAtRate11"+FString::SanitizeFloat(Rate)
+			// ,true,2);
 
-	}
-	else
-	{
-		ll("TurnAtRate223"+FString::SanitizeFloat(Rate)
-			,true,2);
-		return;
 	}
 }
 
 void ADefaultPawn2::LookUpAtRate2(float Rate)
 {
-	return;
-	if (should_look_around)
+	if (1)
 	{
 		// calculate delta for this frame from the rate information
 		AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds() * CustomTimeDilation);
-		ll("LookUpAtRate2"+FString::SanitizeFloat(Rate)
-			,true,2);
+		// ll("LookUpAtRate2"+FString::SanitizeFloat(Rate)
+		// 	,true,2);
 	}
-	else
-	{
-		ll("LookUpAtRate27"+FString::SanitizeFloat(Rate)
-			,true,2);
-	}
+	
 }
 
 void ADefaultPawn2::stop_looking_around881()

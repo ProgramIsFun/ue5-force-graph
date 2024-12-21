@@ -41,7 +41,6 @@ class NBODYSIMULATION_API ADefaultPawn2 : public APawn
 	
 	// This function will be called for you from the engine. 
 	virtual void SetupPlayerInputComponent(UInputComponent* InInputComponent) override;
-	
 	virtual void UpdateNavigationRelevance() override;
 	// End Pawn overrides
 
@@ -138,7 +137,7 @@ public:
 
 	
 
-	bool should_look_around = false;
+	bool should_look_around = true;
 
 
 
@@ -163,6 +162,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Pawn11111111111111111111")
 	void stop_looking_around881();
-	
+
+
+	virtual void AddControllerPitchInput (float Val) override;
+	virtual void AddControllerYawInput(float Val) override;
+
 };
 
