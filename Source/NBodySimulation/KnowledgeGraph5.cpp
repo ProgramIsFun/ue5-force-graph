@@ -144,6 +144,16 @@ void AKnowledgeGraph::debug_error_request(FHttpRequestPtr Request, FHttpResponse
 }
 void AKnowledgeGraph::add_node_to_database1115()
 {
+
+	// Get the first character locations. 
+
+
+
+	// Create a JSON writer and JSON Array
+
+
+	// Make http requests if successful create a note in the handler. 
+	
 }
 
 void AKnowledgeGraph::delete_node_from_database1116()
