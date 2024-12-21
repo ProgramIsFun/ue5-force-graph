@@ -287,6 +287,46 @@ void AKnowledgeGraph::default_generate_graph_method()
 
 	if (generate_objects_for_node_and_link()) return;
 
+
+	if(use_predefined_location)
+	{
+		predefined_positions.SetNumUninitialized(jnodessss);
+		
+		if(cgm == CGM::DATABASE)
+		{
+			// Retrieve the position of the nodes from the database
+			// and set the position of the nodes to the retrieved position.
+			// This is done by setting the nodePositions array to the retrieved position
+			TArray<TSharedPtr<FJsonValue>> jnodes = JsonObject->GetArrayField("nodes");
+			for (int32 i = 0; i < jnodessss; i++)
+			{
+				auto jobj = jnodes[i]->AsObject();
+				FString jid;
+				FVector jlocation;
+				
+				
+				jid = jobj->GetStringField("user_generate_id_7577777777");
+				jlocation = FVector(
+					jobj->GetNumberField("ue_location_X"),
+					jobj->GetNumberField("ue_location_Y"),
+					jobj->GetNumberField("ue_location_Z")
+				);
+			
+				int id111 = string_to_id[jid];
+				predefined_positions[id111] = jlocation;
+			}
+		
+			
+		}else 
+		{
+			ll("Pretty fine location feature is only available for using database.  ", log);
+			qq();
+		}
+		
+	}
+
+
+	
 	post_generate_graph();
 }
 
@@ -701,6 +741,8 @@ void AKnowledgeGraph::apply_force()
 
 void AKnowledgeGraph::initialize_node_position()
 {
+
+	
 	if (!cpu_use_parallel)
 	{
 		for (
@@ -730,63 +772,68 @@ void AKnowledgeGraph::initialize_node_position()
 
 void AKnowledgeGraph::initialize_node_position_individual(int index)
 {
-	// Calculate index-based radius
-	float radius;
-	int nDim = 3;
-	if (nDim > 2)
-	{
-		radius = initialRadius * cbrt(0.5f + index);
-	}
-	else if (nDim > 1)
-	{
-		radius = initialRadius * sqrt(0.5f + index);
-	}
-	else
-	{
-		radius = initialRadius * index;
-	}
-
-	float initialAngleRoll = PI * (3 - sqrt(5)); // Roll angle
-
-	// Following will be Math.PI * 20 / (9 + Math.sqrt(221));
-	float initialAngleYaw = PI * 20 / (9 + sqrt(221)); // Yaw angle if needed (3D)
-
-
-	float rollAngle = index * initialAngleRoll; // Roll angle
-	float yawAngle = index * initialAngleYaw; // Yaw angle if needed (3D)
-
 	FVector init_pos;
 
-	if (nDim == 1)
+	if ( use_predefined_location)
 	{
-		// 1D: Positions along X axis
-		init_pos = FVector(
-			radius * universal_graph_scale,
-			0,
-			0);
+		init_pos = predefined_positions[index];
 	}
-	else if (nDim == 2)
 	{
-		// 2D: Circular distribution
-		init_pos = FVector(
-			radius * cos(rollAngle) * universal_graph_scale,
-			radius * sin(rollAngle) * universal_graph_scale,
-			0
-		);
-	}
-	else
-	{
-		// 3D: Spherical distribution
-		init_pos = FVector(
-			radius * sin(rollAngle) * cos(yawAngle) * universal_graph_scale,
-			radius * cos(rollAngle) * universal_graph_scale,
-			radius * sin(rollAngle) * sin(yawAngle) * universal_graph_scale
-		);
+		// Calculate index-based radius
+		float radius;
+		int nDim = 3;
+		if (nDim > 2)
+		{
+			radius = initialRadius * cbrt(0.5f + index);
+		}
+		else if (nDim > 1)
+		{
+			radius = initialRadius * sqrt(0.5f + index);
+		}
+		else
+		{
+			radius = initialRadius * index;
+		}
+
+		float initialAngleRoll = PI * (3 - sqrt(5)); // Roll angle
+
+		// Following will be Math.PI * 20 / (9 + Math.sqrt(221));
+		float initialAngleYaw = PI * 20 / (9 + sqrt(221)); // Yaw angle if needed (3D)
+
+
+		float rollAngle = index * initialAngleRoll; // Roll angle
+		float yawAngle = index * initialAngleYaw; // Yaw angle if needed (3D)
+
+
+		if (nDim == 1)
+		{
+			// 1D: Positions along X axis
+			init_pos = FVector(
+				radius * universal_graph_scale,
+				0,
+				0);
+		}
+		else if (nDim == 2)
+		{
+			// 2D: Circular distribution
+			init_pos = FVector(
+				radius * cos(rollAngle) * universal_graph_scale,
+				radius * sin(rollAngle) * universal_graph_scale,
+				0
+			);
+		}
+		else
+		{
+			// 3D: Spherical distribution
+			init_pos = FVector(
+				radius * sin(rollAngle) * cos(yawAngle) * universal_graph_scale,
+				radius * cos(rollAngle) * universal_graph_scale,
+				radius * sin(rollAngle) * sin(yawAngle) * universal_graph_scale
+			);
+		}
 	}
 
 
-	// Check if pointer is valid
-	// node->SetActorLocation(init_pos, false);
 
 
 	nodePositions[index] = init_pos;

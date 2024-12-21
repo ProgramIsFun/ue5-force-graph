@@ -275,6 +275,7 @@ public:
 	TMap<FString, int32> string_to_id;
 	TArray<Node> all_nodes2;
 
+	TArray<FVector> predefined_positions;
 	TArray<FVector> nodePositions;
 	TArray<FVector> nodeVelocities;
 

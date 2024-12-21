@@ -36,6 +36,12 @@ void AKnowledgeGraph::prepare()
 		PrimaryActorTick.TickInterval = tick_interval;
 	}
 	request_a_graph();
+
+
+	if(use_predefined_location)
+	{
+		alpha = alphaMin;
+	}
 }
 
 
