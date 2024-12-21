@@ -84,6 +84,7 @@ void AKnowledgeGraph::Tick(float DeltaTime)
 		}
 		return;
 	}
+	
 
 	
 	if(iterationsf<10)
