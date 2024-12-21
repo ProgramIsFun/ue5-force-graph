@@ -95,7 +95,7 @@ ADefaultPawn2::ADefaultPawn2(const FObjectInitializer& ObjectInitializer)
 
 
 
-void InitializeDefaultPawnInputBindings()
+void InitializeDefaultPawnInputBindings3()
 {
 	static bool bBindingsAdded = false;
 	if (!bBindingsAdded)
@@ -146,7 +146,7 @@ void ADefaultPawn2::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 	if (bAddDefaultMovementBindings)
 	{
-		InitializeDefaultPawnInputBindings();
+		InitializeDefaultPawnInputBindings3();
 
 		PlayerInputComponent->BindAxis("DefaultPawn_MoveForward", this, &ADefaultPawn2::MoveForward);
 		PlayerInputComponent->BindAxis("DefaultPawn_MoveRight", this, &ADefaultPawn2::MoveRight);

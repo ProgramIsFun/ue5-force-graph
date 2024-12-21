@@ -168,6 +168,6 @@ public:
 
 	virtual void AddControllerPitchInput (float Val) override;
 	virtual void AddControllerYawInput(float Val) override;
-
+	
 };
 
