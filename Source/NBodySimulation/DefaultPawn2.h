@@ -136,14 +136,9 @@ public:
 	/** Returns MeshComponent subobject **/
 	UStaticMeshComponent* GetMeshComponent() const { return MeshComponent; }
 
+	
 
-
-
-
-
-
-
-
+	bool should_look_around = false;
 
 
 
@@ -155,14 +150,19 @@ public:
 			ll2(StringToLog, LOG, SeverityLevel, Prefix);
 		}
 	}
-
-
 	
-	UFUNCTION(BlueprintNativeEvent, Category = "Pawn")
+	
+	UFUNCTION(BlueprintNativeEvent, Category = "Pawnttttttttttttttttt")
 	void button_s_pressed_779();
 	void button_s_pressed_779_Implementation()
 	{
 		ll("button_s_pressed_779_Implementation");
 	}
+
+
+
+	UFUNCTION(BlueprintCallable, Category = "Pawn11111111111111111111")
+	void stop_looking_around881();
+	
 };
 

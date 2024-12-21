@@ -101,15 +101,6 @@ void InitializeDefaultPawnInputBindings()
 	if (!bBindingsAdded)
 	{
 		bBindingsAdded = true;
-
-
-
-
-
-
-
-
-
 		
 		UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("DefaultPawn_MoveForward", EKeys::W, 1.f));
 		UPlayerInput::AddEngineDefinedAxisMapping(FInputAxisKeyMapping("DefaultPawn_MoveForward", EKeys::S, -1.f));
@@ -171,9 +162,6 @@ void ADefaultPawn2::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 	PlayerInputComponent->BindAction("N8888888", IE_Pressed, this, &ADefaultPawn2::increase_speed);
 	PlayerInputComponent->BindAction("K66666", IE_Pressed, this, &ADefaultPawn2::button_s_pressed_779);
-	
-
-	
 }
 
 
@@ -233,14 +221,44 @@ void ADefaultPawn2::MoveUp_World(float Val)
 
 void ADefaultPawn2::TurnAtRate(float Rate)
 {
-	// calculate delta for this frame from the rate information
-	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds() * CustomTimeDilation);
+
+	return;
+	if (should_look_around)
+	{
+		// calculate delta for this frame from the rate information
+		AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds() * CustomTimeDilation);
+		ll("TurnAtRate11"+FString::SanitizeFloat(Rate)
+			,true,2);
+
+	}
+	else
+	{
+		ll("TurnAtRate223"+FString::SanitizeFloat(Rate)
+			,true,2);
+		return;
+	}
 }
 
 void ADefaultPawn2::LookUpAtRate2(float Rate)
 {
-	// calculate delta for this frame from the rate information
-	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds() * CustomTimeDilation);
+	return;
+	if (should_look_around)
+	{
+		// calculate delta for this frame from the rate information
+		AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds() * CustomTimeDilation);
+		ll("LookUpAtRate2"+FString::SanitizeFloat(Rate)
+			,true,2);
+	}
+	else
+	{
+		ll("LookUpAtRate27"+FString::SanitizeFloat(Rate)
+			,true,2);
+	}
+}
+
+void ADefaultPawn2::stop_looking_around881()
+{
+	should_look_around = false;
 }
 
 UPawnMovementComponent* ADefaultPawn2::GetMovementComponent() const
