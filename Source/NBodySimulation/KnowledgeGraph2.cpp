@@ -170,20 +170,9 @@ void AKnowledgeGraph::initialize_arrays()
 	}
 }
 
-void AKnowledgeGraph::default_generate_graph_method()
+bool AKnowledgeGraph::generate_objects_for_node_and_link()
 {
-	bool log = true;
-
-	get_number_of_nodes();
-
-	if (cgm == CGM::JSON || cgm == CGM::DATABASE)
-	{
-		create_one_to_one_mapping();
-	}
-	
-	initialize_arrays();
-
-
+	bool log;
 	if (cgm == CGM::GENERATE)
 	{
 		for (int32 i = 0; i < jnodessss; i++)
@@ -195,7 +184,7 @@ void AKnowledgeGraph::default_generate_graph_method()
 				{
 					ll("generate_actor_and_register failed", log, 2);
 					qq();
-					return;
+					return true;
 				}
 				int id111 = i;
 				nodeVelocities[id111] = FVector(0, 0, 0);
@@ -227,7 +216,7 @@ void AKnowledgeGraph::default_generate_graph_method()
 				{
 					ll("generate_actor_and_register failed", log, 2);
 					qq();
-					return;
+					return true;
 				}
 				int id111 = i;
 				nodeVelocities[id111] = FVector(0, 0, 0);
@@ -279,6 +268,24 @@ void AKnowledgeGraph::default_generate_graph_method()
 			index++;
 		}
 	}
+	return false;
+}
+
+void AKnowledgeGraph::default_generate_graph_method()
+{
+	bool log = true;
+
+	get_number_of_nodes();
+
+	if (cgm == CGM::JSON || cgm == CGM::DATABASE)
+	{
+		create_one_to_one_mapping();
+	}
+	
+	initialize_arrays();
+
+
+	if (generate_objects_for_node_and_link()) return;
 
 	post_generate_graph();
 }

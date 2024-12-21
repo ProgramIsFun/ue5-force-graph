@@ -315,6 +315,7 @@ public:
 	void create_one_to_one_mapping();
 	void miscellaneous();
 	void initialize_arrays();
+	bool generate_objects_for_node_and_link();
 	void default_generate_graph_method();
 	void add_edge(int32 id, int32 source, int32 target);
 	void initialize_node_position();
