@@ -51,12 +51,15 @@ void AKnowledgeGraph::update_parameter_in_shader(float DeltaTime)
 
 bool AKnowledgeGraph::early_exit(bool log)
 {
-	if (iterations > max_iterations)
+	if (0)
 	{
-		ll("iterations is greater than max_iterations", log);
-		FNBodySimModule::Get().EndRendering();
-		update_link_position();
-		return true;
+		if (iterations > max_iterations)
+		{
+			ll("iterations is greater than max_iterations", log);
+			FNBodySimModule::Get().EndRendering();
+			update_link_position();
+			return true;
+		}
 	}
 
 	ll("alpha Before update: " + FString::SanitizeFloat(alpha), log);
@@ -159,7 +162,6 @@ bool AKnowledgeGraph::main_function(float DeltaTime)
 	
 	ll("TICK----------------------------------------------------------------------------"
 	   "----------------------------------------------------------------------------", log);
-
 	ll("iterations: " + FString::FromInt(iterations), log);
 
 

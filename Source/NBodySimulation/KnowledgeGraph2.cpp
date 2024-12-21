@@ -144,18 +144,8 @@ void AKnowledgeGraph::miscellaneous()
 	}
 }
 
-void AKnowledgeGraph::default_generate_graph_method()
+void AKnowledgeGraph::initialize_arrays()
 {
-	bool log = true;
-
-	get_number_of_nodes();
-
-	if (cgm == CGM::JSON || cgm == CGM::DATABASE)
-	{
-		create_one_to_one_mapping();
-	}
-
-
 	nodePositions.SetNumUninitialized(jnodessss);
 	nodeVelocities.SetNumUninitialized(jnodessss);
 	all_nodes2.SetNumUninitialized(jnodessss);
@@ -178,6 +168,21 @@ void AKnowledgeGraph::default_generate_graph_method()
 		BodyTransforms.SetNumUninitialized(
 			jnodessss);
 	}
+}
+
+void AKnowledgeGraph::default_generate_graph_method()
+{
+	bool log = true;
+
+	get_number_of_nodes();
+
+	if (cgm == CGM::JSON || cgm == CGM::DATABASE)
+	{
+		create_one_to_one_mapping();
+	}
+
+
+	initialize_arrays();
 
 
 	if (cgm == CGM::GENERATE)

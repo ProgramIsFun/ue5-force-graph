@@ -106,6 +106,10 @@ public:
 	CGM cgm= CGM::GENERATE;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
+	bool use_predefined_location = true;
+
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
 	int32 use_json_file_index = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Attributes)
@@ -310,6 +314,7 @@ public:
 	void get_number_of_nodes();
 	void create_one_to_one_mapping();
 	void miscellaneous();
+	void initialize_arrays();
 	void default_generate_graph_method();
 	void add_edge(int32 id, int32 source, int32 target);
 	void initialize_node_position();
