@@ -8,6 +8,12 @@ public class NBodySimulation : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
+		
+		
+		
+		bEnableExceptions = true;
+		
+		
 		PublicIncludePaths.AddRange(
 			new string[] {
 				"NBodySimulation"
