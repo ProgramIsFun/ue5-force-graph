@@ -1,6 +1,18 @@
 #include "KnowledgeGraph.h"
 
 
+void AKnowledgeGraph::pass_parameters_to_shader_management()
+{
+	SimParameters.ViewportWidth = 8000.0;
+	SimParameters.CameraAspectRatio = 1.777778;
+	SimParameters.GravityConstant = 1000.0;
+	SimParameters.NumBodies = jnodessss;
+	SimParameters.alphaS = 1;
+	SimParameters.shaderdebug = static_cast<unsigned int>(use_shaders_debug);
+	FNBodySimModule::Get().BeginRendering();
+	FNBodySimModule::Get().InitWithParameters(SimParameters);
+}
+
 void AKnowledgeGraph::post_generate_graph()
 {
 	initialize_node_position();
@@ -9,14 +21,7 @@ void AKnowledgeGraph::post_generate_graph()
 	
 	if (use_shaders)
 	{
-		SimParameters.ViewportWidth = 8000.0;
-		SimParameters.CameraAspectRatio = 1.777778;
-		SimParameters.GravityConstant = 1000.0;
-		SimParameters.NumBodies = jnodessss;
-		SimParameters.alphaS = 1;
-		SimParameters.shaderdebug = static_cast<unsigned int>(use_shaders_debug);
-		FNBodySimModule::Get().BeginRendering();
-		FNBodySimModule::Get().InitWithParameters(SimParameters);
+		pass_parameters_to_shader_management();
 	}
 
 	graph_initialized = true;

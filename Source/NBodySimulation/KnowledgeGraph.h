@@ -301,6 +301,7 @@ public:
 	void debug_test();
 	void gpu_get_positions();
 	bool main_function(float DeltaTime);
+	void pass_parameters_to_shader_management();
 	void post_generate_graph();
 	void prepare();
 	void update_parameter_in_shader(float DeltaTime);

@@ -172,7 +172,7 @@ void AKnowledgeGraph::initialize_arrays()
 
 bool AKnowledgeGraph::generate_objects_for_node_and_link()
 {
-	bool log;
+	bool log=false;
 	if (cgm == CGM::GENERATE)
 	{
 		for (int32 i = 0; i < jnodessss; i++)
