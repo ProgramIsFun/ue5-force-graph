@@ -162,7 +162,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Pawn11111111111111111111")
 	void stop_looking_around881();
-
+	UFUNCTION(BlueprintCallable, Category = "Pawn11111111111111111111")
+    void resume_looking_around881();
+	
 
 	virtual void AddControllerPitchInput (float Val) override;
 	virtual void AddControllerYawInput(float Val) override;

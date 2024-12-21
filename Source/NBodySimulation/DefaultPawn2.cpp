@@ -187,6 +187,15 @@ void ADefaultPawn2::AddControllerPitchInput(float Val)
 
 void ADefaultPawn2::AddControllerYawInput(float Val)
 {
+	// If not, should look around.
+	if(should_look_around)
+	{
+		
+	}else
+	{
+		return;
+	}
+
 	if (Val != 0.f && Controller && Controller->IsLocalPlayerController())
 	{
 		APlayerController* const PC = CastChecked<APlayerController>(Controller);
@@ -275,6 +284,11 @@ void ADefaultPawn2::LookUpAtRate2(float Rate)
 void ADefaultPawn2::stop_looking_around881()
 {
 	should_look_around = false;
+}
+
+void ADefaultPawn2::resume_looking_around881()
+{
+	should_look_around = true;
 }
 
 UPawnMovementComponent* ADefaultPawn2::GetMovementComponent() const
