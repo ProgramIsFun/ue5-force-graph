@@ -40,7 +40,7 @@ void AKnowledgeGraph::prepare()
 
 	if(use_predefined_location)
 	{
-		alpha = alphaMin;
+		alpha = 0;
 	}
 }
 

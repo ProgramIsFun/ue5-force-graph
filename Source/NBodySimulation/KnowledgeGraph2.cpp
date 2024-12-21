@@ -311,9 +311,13 @@ void AKnowledgeGraph::default_generate_graph_method()
 					jobj->GetNumberField("ue_location_Y"),
 					jobj->GetNumberField("ue_location_Z")
 				);
+
+				ll("location111111111111111: " + jlocation.ToString(), log);
 			
-				int id111 = string_to_id[jid];
-				predefined_positions[id111] = jlocation;
+				// int id111 = string_to_id[jid];
+				// predefined_positions[id111] = jlocation;
+				predefined_positions[i]=jlocation;
+
 			}
 		
 			
@@ -774,7 +778,7 @@ void AKnowledgeGraph::initialize_node_position_individual(int index)
 {
 	FVector init_pos;
 
-	if ( use_predefined_location)
+	if (use_predefined_location)
 	{
 		init_pos = predefined_positions[index];
 	}
@@ -832,16 +836,11 @@ void AKnowledgeGraph::initialize_node_position_individual(int index)
 			);
 		}
 	}
-
-
-
-
+	
 	nodePositions[index] = init_pos;
-
-
+	
 	ll("index: " + FString::FromInt(index) + " init_pos: " + init_pos.ToString());
-
-
+	
 	if (node_use_instance_static_mesh)
 	{
 		float s = node_use_instance_static_mesh_size;

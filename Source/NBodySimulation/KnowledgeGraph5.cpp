@@ -72,10 +72,11 @@ void AKnowledgeGraph::request_graph_http()
 
 void AKnowledgeGraph::request_graph_httpCompleted(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
-	ll("request_graph_httpCompleted called", true, 0, TEXT("request_graph_httpCompleted: "));
+	bool log = false;
+	ll("request_graph_httpCompleted called", log, 0, TEXT("request_graph_httpCompleted: "));
 	if (bWasSuccessful)
 	{
-		ll("Request was successful", true, 0, TEXT("request_graph_httpCompleted: "));
+		ll("Request was successful", log, 0, TEXT("request_graph_httpCompleted: "));
 		if (
 			// Content-Type: application/json; charset=utf-8
 			Response->GetContentType() == "application/json" ||
@@ -90,31 +91,7 @@ void AKnowledgeGraph::request_graph_httpCompleted(FHttpRequestPtr Request, FHttp
 			if (FJsonSerializer::Deserialize(JsonReader, JsonObject) &&
 				JsonObject.IsValid())
 			{
-				// Process the JSON object here
-				ll("Successfully parsed JSON.", true, 0, TEXT("request_graph_httpCompleted: "));
-				//SomeOtherVariable = Js->GetStringField("nodes");
-
-				// TArray<TSharedPtr<FJsonValue>> jnodes = Js->GetArrayField("nodes");
-				// // jnodes.Num();
-				// //
-				// TArray<TSharedPtr<FJsonValue>> jedges = Js->GetArrayField("links");
-				//
-				// bool log = true;
-				// ll("jedges.Num(): " + FString::FromInt(jedges.Num()), log);
-				// int index = 0;
-				// for (int32 i = 0; i < jedges.Num(); i++)
-				// {
-				// 	auto jobj = jedges[i]->AsObject();
-				//
-				// 	FString jid;
-				// 	
-				// 	FString jsourceS = jobj->GetStringField("source");
-				// 	FString jtargetS = jobj->GetStringField("target");
-				//
-				//
-				// 	ll("jsource: " + jsourceS + ", jtarget: " + jtargetS, log);
-				// 	index++;
-				// }
+				ll("Successfully parsed JSON.", log, 0, TEXT("request_graph_httpCompleted: "));
 
 
 				default_generate_graph_method();
